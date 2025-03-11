@@ -15,7 +15,7 @@ export const UserProfileCard = (props: Props) => {
       </div>
       <div className={s.flexRowContainer}>
         <div>
-          <Typography grey>UserID</Typography>
+          <Typography grey>User ID</Typography>
           <Typography variant={'regular_16'}>21331QErQe21</Typography>
         </div>
         <div>
