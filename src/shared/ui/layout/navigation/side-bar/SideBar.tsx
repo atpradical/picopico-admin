@@ -13,7 +13,6 @@ import {
   MessageCircleOutlineIcon,
   PersonIcon,
   PersonOutlineIcon,
-  PlusSquareIcon,
   SearchIcon,
   SearchOutlineIcon,
   TrendingUpIcon,
@@ -27,7 +26,6 @@ import s from './SideBar.module.scss'
 
 type SideBarProps = {
   isAuth: boolean
-  onOpenCreatePostDialog: (open: boolean) => void
   onOpenLogoutDialog: (open: boolean) => void
   userId: string
 } & ComponentPropsWithoutRef<'nav'>
@@ -35,7 +33,7 @@ type SideBarProps = {
 type SideBarRef = ElementRef<'nav'>
 
 export const SideBar = forwardRef<SideBarRef, SideBarProps>(
-  ({ className, isAuth, onOpenCreatePostDialog, onOpenLogoutDialog, userId, ...rest }, ref) => {
+  ({ className, isAuth, onOpenLogoutDialog, userId, ...rest }, ref) => {
     const router = useRouter()
     const { t } = useTranslation()
 
@@ -50,13 +48,6 @@ export const SideBar = forwardRef<SideBarRef, SideBarProps>(
             inactiveIcon={<HomeOutlineIcon className={s.icon} />}
             isSelected={router.pathname === Paths.Home}
             label={t.appSidebar.homeLink}
-            variant={'icon'}
-          />
-          <NavItem
-            fullWidth
-            inactiveIcon={<PlusSquareIcon className={s.icon} />}
-            label={t.appSidebar.createButton}
-            onClick={() => onOpenCreatePostDialog(true)}
             variant={'icon'}
           />
           <NavItem

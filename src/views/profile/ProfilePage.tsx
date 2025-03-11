@@ -73,12 +73,11 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
 )
 
 type Props = {
-  postNotFound: boolean
   prefetchedPostData?: PublicPostsItem
   profileData: ResponseGetUserProfile
 }
 
-function ProfilePage({ postNotFound, prefetchedPostData, profileData }: Props) {
+function ProfilePage({ prefetchedPostData, profileData }: Props) {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
 
@@ -117,7 +116,7 @@ function ProfilePage({ postNotFound, prefetchedPostData, profileData }: Props) {
     <Page>
       <div className={s.container}>
         <ProfileHeader className={s.header} />
-        <Publications postNotFound={postNotFound} posts={data?.items} updateCursor={updateCursor} />
+        <Publications posts={data?.items} updateCursor={updateCursor} />
         {isFetching && <Spinner containerClassName={s.spinner} label={t.loading} />}
       </div>
     </Page>

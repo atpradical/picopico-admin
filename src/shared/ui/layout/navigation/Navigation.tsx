@@ -1,10 +1,7 @@
 import { useContext } from 'react'
 
-import { createPostActions } from '@/features/posts/api'
-import { CreatePostDialog } from '@/features/posts/ui'
 import { AppMetaDataContext, AuthContext } from '@/shared/contexts'
-import { useAppDispatch, useLogout, useTranslation } from '@/shared/hooks'
-import { useConnectSocket } from '@/shared/hooks/useConnectSocket'
+import { useLogout, useTranslation } from '@/shared/hooks'
 import { ConfirmDialog } from '@/shared/ui/components'
 import { SideBar } from '@/shared/ui/layout'
 
@@ -17,14 +14,6 @@ export const Navigation = ({}: Props) => {
   const { isAuth, meData } = useContext(AuthContext)
   const { isMobile } = useContext(AppMetaDataContext)
 
-  const dispatch = useAppDispatch()
-
-  useConnectSocket({ dispatch, isAuth })
-
-  const toggleCreatePostDialogHandler = (open: boolean) => {
-    dispatch(createPostActions.togglePostCreationDialog({ isOpen: open }))
-  }
-
   const { isLoading, isLogoutDialog, logoutHandler, setLogoutDialog } = useLogout()
 
   if (!isAuth) {
@@ -34,15 +23,10 @@ export const Navigation = ({}: Props) => {
   return (
     <>
       {isMobile ? (
-        <BottomBar
-          isAuth={isAuth}
-          onOpenCreatePostDialog={toggleCreatePostDialogHandler}
-          userId={String(meData?.userId)}
-        />
+        <BottomBar isAuth={isAuth} userId={String(meData?.userId)} />
       ) : (
         <SideBar
           isAuth={isAuth}
-          onOpenCreatePostDialog={toggleCreatePostDialogHandler}
           onOpenLogoutDialog={setLogoutDialog}
           userId={String(meData?.userId)}
         />
@@ -59,7 +43,6 @@ export const Navigation = ({}: Props) => {
           }}
         />
       )}
-      <CreatePostDialog onOpenChange={toggleCreatePostDialogHandler} />
     </>
   )
 }

@@ -1,7 +1,6 @@
 import { useContext, useEffect } from 'react'
 
 import { SignInForm } from '@/features/auth/ui'
-import { OAuth } from '@/features/oAuth'
 import { AuthContext } from '@/shared/contexts'
 import { Paths } from '@/shared/enums'
 import { useTranslation } from '@/shared/hooks'
@@ -34,7 +33,6 @@ function SignInPage() {
           <Typography as={'h1'} variant={'h1'}>
             {pageTitle}
           </Typography>
-          <OAuth />
           <SignInForm />
           <Typography variant={'regular_16'}>{isAccount}</Typography>
           <Button as={Link} className={s.linkButton} href={Paths.signUp} variant={'nb-outlined'}>

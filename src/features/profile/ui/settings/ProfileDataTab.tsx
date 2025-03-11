@@ -1,21 +1,19 @@
-import { ComponentPropsWithoutRef, useEffect, useState } from 'react'
+import { ComponentPropsWithoutRef } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { MAX_ABOUT_ME_LENGTH, MAX_CITY_POPULATION } from '@/features/profile/config'
+import { MAX_ABOUT_ME_LENGTH } from '@/features/profile/config'
 import { profileDataSchemeCreator } from '@/features/profile/model'
 import { ProfileFormFields } from '@/features/profile/model/profile.types'
 import { ProfileAvatarManager } from '@/features/profile/ui'
-import { useGetCountriesQuery, useLazyGetCitiesQuery } from '@/services/countries'
 import { ResponseGetMyProfile, useUpdateMyProfileMutation } from '@/services/profile'
 import { useTranslation } from '@/shared/hooks'
 import {
   ControlledDatePicker,
-  ControlledSelect,
   ControlledTextArea,
   ControlledTextField,
 } from '@/shared/ui/form-components'
 import { getErrorMessageData, setFormErrors } from '@/shared/utils'
-import { Button, OptionsValue, TabsContent, toaster } from '@atpradical/picopico-ui-kit'
+import { Button, TabsContent, toaster } from '@atpradical/picopico-ui-kit'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Separator from '@radix-ui/react-separator'
 import clsx from 'clsx'
@@ -27,57 +25,15 @@ type ProfileDataTabProps = {
 } & ComponentPropsWithoutRef<typeof TabsContent>
 
 export const ProfileDataTab = ({ className, myProfileData, ...rest }: ProfileDataTabProps) => {
-  const { locale, t } = useTranslation()
-
-  const [selectedCountry, setSelectedCountry] = useState(myProfileData.country)
+  const { t } = useTranslation()
 
   const [updateProfile, { isLoading }] = useUpdateMyProfileMutation()
-
-  const countrySelectValueChangeHandler = (value: string) => {
-    setSelectedCountry(value)
-    setValue('city', '')
-  }
-
-  const { data: countriesData } = useGetCountriesQuery({
-    locale: locale ?? 'en',
-  })
-
-  const [getCities, { data: citiesData }] = useLazyGetCitiesQuery()
-
-  let countriesDataOptions: OptionsValue[] = []
-  let citiesDataOptions: OptionsValue[] = []
-
-  if (countriesData) {
-    countriesDataOptions = countriesData.geonames.map(country => ({
-      label: country.countryName,
-      value: country.countryCode,
-    }))
-  }
-
-  if (citiesData) {
-    citiesDataOptions = citiesData.geonames.map(city => ({
-      label: city.name,
-      value: city.geonameId.toString(), // City ID in geonames
-    }))
-  }
-
-  useEffect(() => {
-    if (selectedCountry) {
-      getCities({
-        countryName: selectedCountry,
-        locale: locale ?? 'en',
-        minPopulation: MAX_CITY_POPULATION,
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCountry, locale])
 
   const {
     control,
     formState: { isDirty, isValid },
     handleSubmit,
     setError,
-    setValue,
   } = useForm<ProfileFormFields>({
     defaultValues: {
       aboutMe: myProfileData.aboutMe ?? '',
@@ -151,27 +107,6 @@ export const ProfileDataTab = ({ className, myProfileData, ...rest }: ProfileDat
               name={'dateOfBirth'}
             />
           }
-          <div className={s.selectContainer}>
-            <ControlledSelect
-              control={control}
-              defaultValue={myProfileData.country ?? undefined}
-              label={t.profileSettings.profileDataTab.labels.country}
-              name={'country'}
-              onValueChange={countrySelectValueChangeHandler}
-              options={countriesDataOptions}
-              placeholder={t.profileSettings.profileDataTab.placeholders.country}
-              showScroll
-            />
-            <ControlledSelect
-              control={control}
-              defaultValue={myProfileData.city ?? undefined}
-              label={t.profileSettings.profileDataTab.labels.city}
-              name={'city'}
-              options={citiesDataOptions}
-              placeholder={t.profileSettings.profileDataTab.placeholders.city}
-              showScroll
-            />
-          </div>
           <ControlledTextArea
             className={s.textArea}
             control={control}

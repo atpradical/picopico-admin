@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { PostDialog } from '@/features/posts/ui'
-import { NotFoundContent } from '@/features/posts/ui/post-dialog/not-found-content'
 import { publicationsActions } from '@/features/publication/api'
 import { Publication } from '@/features/publication/ui'
 import { PublicPostsItem } from '@/services/posts'
@@ -13,18 +12,15 @@ import { useIntersectionObserver } from '@uidotdev/usehooks'
 import s from './Publications.module.scss'
 
 type PublicationsProps = {
-  postNotFound: boolean
   posts: PublicPostsItem[]
   updateCursor?: (postId: number) => void
 }
 
-export const Publications = ({ postNotFound, posts, updateCursor }: PublicationsProps) => {
+export const Publications = ({ posts, updateCursor }: PublicationsProps) => {
   const { t } = useTranslation()
   const { addRouterQueryParamShallow } = usePagesRouterQueryUpdate()
   const dispatch = useAppDispatch()
   const sectionRef = useRef(null)
-
-  const [isNotFound, setNotFound] = useState(postNotFound)
 
   const [lastPostRef, entry] = useIntersectionObserver({ root: null, threshold: 1 })
 
@@ -69,7 +65,6 @@ export const Publications = ({ postNotFound, posts, updateCursor }: Publications
         </>
       )}
       <PostDialog />
-      <NotFoundContent onOpenChange={() => setNotFound(false)} open={isNotFound} />
     </section>
   )
 }

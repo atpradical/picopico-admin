@@ -9,7 +9,6 @@ import {
   MessageCircleOutlineIcon,
   PersonIcon,
   PersonOutlineIcon,
-  PlusSquareIcon,
   SearchIcon,
   SearchOutlineIcon,
 } from '@atpradical/picopico-ui-kit'
@@ -21,14 +20,13 @@ import s from './BottomBar.module.scss'
 
 type BottomBarProps = {
   isAuth: boolean
-  onOpenCreatePostDialog: (open: boolean) => void
   userId: string
 } & ComponentPropsWithoutRef<'nav'>
 
 type BottomBarRef = ElementRef<'nav'>
 
 export const BottomBar = forwardRef<BottomBarRef, BottomBarProps>(
-  ({ className, isAuth, onOpenCreatePostDialog, userId, ...rest }, ref) => {
+  ({ className, isAuth, userId, ...rest }, ref) => {
     const router = useRouter()
 
     return (
@@ -39,11 +37,6 @@ export const BottomBar = forwardRef<BottomBarRef, BottomBarProps>(
           href={Paths.Home}
           inactiveIcon={<HomeOutlineIcon className={s.icon} />}
           isSelected={router.pathname === Paths.Home}
-          variant={'icon'}
-        />
-        <NavItem
-          inactiveIcon={<PlusSquareIcon className={s.icon} />}
-          onClick={() => onOpenCreatePostDialog(true)}
           variant={'icon'}
         />
         <NavItem

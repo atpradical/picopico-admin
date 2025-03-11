@@ -1,5 +1,1 @@
-export * from './forgot-passwod'
-export * from './password-recovery'
-export * from './registration-confirmation'
 export * from './sign-in'
-export * from './sign-up'

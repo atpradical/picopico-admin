@@ -1,7 +1,7 @@
 import { PostActionsDropdown, PostDescription } from '@/features/posts/ui'
 import { publicationsActions } from '@/features/publication/api'
 import { PublicPostsItem } from '@/services/posts'
-import { useAppDispatch, useIsAuthUserOnProfilePage, useTranslation } from '@/shared/hooks'
+import { useAppDispatch, useTranslation } from '@/shared/hooks'
 import { usePagesRouterQueryUpdate } from '@/shared/hooks/usePagesRouterQueryUpdate'
 import { HiddenDialogComponents } from '@/shared/ui/components'
 import {
@@ -34,8 +34,6 @@ export const DisplayPostContent = ({ postData, setEditMode }: DisplayPostContent
   const { removeRouterQueryParam } = usePagesRouterQueryUpdate()
   const dispatch = useAppDispatch()
   const postsImages = postData.images.map(el => el.url)
-
-  const isAuthUserOnProfilePage = useIsAuthUserOnProfilePage()
 
   const closePostDialogHandler = () => {
     dispatch(publicationsActions.togglePostDisplayDialog({ isOpen: false, postId: 0 }))
@@ -77,13 +75,11 @@ export const DisplayPostContent = ({ postData, setEditMode }: DisplayPostContent
             userName={postData.userName}
           />
           <div className={s.actionButtonsContainer}>
-            {isAuthUserOnProfilePage && (
-              <PostActionsDropdown
-                onDeleteConfirm={closePostDialogHandler}
-                onEdit={setEditMode}
-                postId={postData.id}
-              />
-            )}
+            <PostActionsDropdown
+              onDeleteConfirm={closePostDialogHandler}
+              onEdit={setEditMode}
+              postId={postData.id}
+            />
             <DialogClose asChild>
               <Button
                 className={s.closeButton}

@@ -8,25 +8,18 @@ import { useAppDispatch, useTranslation } from '@/shared/hooks'
 import { ConfirmDialog } from '@/shared/ui/components'
 import { DialogRoot } from '@atpradical/picopico-ui-kit'
 
-import { EditPostContent } from './edit-post-content'
-
 type PostsDialogProps = ComponentPropsWithoutRef<typeof DialogRoot>
 
 export const PostDialog = (props: PostsDialogProps) => {
   const { t } = useTranslation()
 
   const dispatch = useAppDispatch()
-  const { editMode, postData, showPost } = useSelector(selectPublicationsAllData)
+  const { postData, showPost } = useSelector(selectPublicationsAllData)
 
   const [isAlertDialog, setIsAlertDialog] = useState(false)
 
   const toggleEditModeHandler = () => {
     dispatch(publicationsActions.toggleEditMode({ isEdit: true }))
-  }
-
-  const interruptEditPostHandler = (event: Event) => {
-    event.preventDefault()
-    setIsAlertDialog(true)
   }
 
   const confirmExitEditModeHandler = () => {
@@ -41,15 +34,7 @@ export const PostDialog = (props: PostsDialogProps) => {
   return (
     <>
       <DialogRoot open={showPost} {...props}>
-        {editMode ? (
-          <EditPostContent
-            key={postData.id}
-            onInterrupt={interruptEditPostHandler}
-            postData={postData}
-          />
-        ) : (
-          <DisplayPostContent postData={postData} setEditMode={toggleEditModeHandler} />
-        )}
+        <DisplayPostContent postData={postData} setEditMode={toggleEditModeHandler} />
       </DialogRoot>
       <ConfirmDialog
         isOpen={isAlertDialog}

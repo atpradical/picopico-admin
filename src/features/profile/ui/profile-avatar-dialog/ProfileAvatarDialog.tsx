@@ -8,7 +8,7 @@ import { selectAvatarAllData } from '@/features/profile/model'
 import { useUploadAvatarMutation } from '@/services/profile'
 import { useAppDispatch, useTranslation } from '@/shared/hooks'
 import { Nullable } from '@/shared/types'
-import { HiddenDialogComponents, PlaceholderImage } from '@/shared/ui/components'
+import { HiddenDialogComponents } from '@/shared/ui/components'
 import { getErrorMessageData, showErrorToast } from '@/shared/utils'
 import getCroppedImg from '@/shared/utils/crop-image'
 import {
@@ -137,7 +137,6 @@ export const ProfileAvatarDialog = () => {
             </>
           ) : (
             <>
-              <PlaceholderImage />
               <Button as={'label'} className={s.uploadButton} variant={'primary'}>
                 <input
                   accept={ALLOWED_IMAGE_UPLOAD_TYPES.join(', ')}
