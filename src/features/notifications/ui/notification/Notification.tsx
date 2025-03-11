@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 import {
   useDeleteNotificationMutation,
   useMarkNotificationAsReadMutation,
-} from '@/services/notofications'
+} from '@/services/notifications'
 import { useTranslation } from '@/shared/hooks'
 import { getDateDistanceToNow } from '@/shared/utils'
 import {

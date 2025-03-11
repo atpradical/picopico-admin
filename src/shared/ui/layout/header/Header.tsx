@@ -5,7 +5,7 @@ import {
   NOTIFICATION_MAX_PAGE_SIZE,
 } from '@/features/notifications/config'
 import { NotificationPopover } from '@/features/notifications/ui'
-import { useGetNotificationsQuery } from '@/services/notofications'
+import { useGetNotificationsQuery } from '@/services/notifications'
 import { Paths, SortDirection } from '@/shared/enums'
 import { useTranslation } from '@/shared/hooks'
 import {

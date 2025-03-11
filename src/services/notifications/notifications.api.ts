@@ -4,7 +4,7 @@ import {
   GetNotificationsArgs,
   GetNotificationsResponse,
   MarkNotificationAsReadArgs,
-} from '@/services/notofications/notifications.types'
+} from '@/services/notifications/notifications.types'
 import { getErrorMessageData, showErrorToast } from '@/shared/utils'
 
 export const notificationsApi = picoApi.injectEndpoints({

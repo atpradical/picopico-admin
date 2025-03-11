@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { Notification } from '@/features/notifications/ui/notification'
-import { NotificationType } from '@/services/notofications'
+import { NotificationType } from '@/services/notifications'
 import { useTranslation } from '@/shared/hooks'
 import {
   Badge,
