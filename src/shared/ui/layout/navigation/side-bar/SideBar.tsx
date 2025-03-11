@@ -4,17 +4,11 @@ import { Paths } from '@/shared/enums'
 import { useTranslation } from '@/shared/hooks'
 import { NavItem } from '@/shared/ui/layout'
 import {
-  BookmarkIcon,
-  BookmarkOutlineIcon,
   HomeIcon,
   HomeOutlineIcon,
   LogOutOutlineIcon,
-  MessageCircleIcon,
-  MessageCircleOutlineIcon,
   PersonIcon,
   PersonOutlineIcon,
-  SearchIcon,
-  SearchOutlineIcon,
   TrendingUpIcon,
   TrendingUpOutlineIcon,
 } from '@atpradical/picopico-ui-kit'
@@ -60,26 +54,6 @@ export const SideBar = forwardRef<SideBarRef, SideBarProps>(
             label={t.appSidebar.profileLink}
             variant={'icon'}
           />
-          <NavItem
-            activeIcon={<MessageCircleIcon className={s.icon} />}
-            as={Link}
-            fullWidth
-            href={Paths.messages}
-            inactiveIcon={<MessageCircleOutlineIcon className={s.icon} />}
-            isSelected={router.pathname === Paths.messages}
-            label={t.appSidebar.messagesLink}
-            variant={'icon'}
-          />
-          <NavItem
-            activeIcon={<SearchIcon className={s.icon} />}
-            as={Link}
-            fullWidth
-            href={Paths.search}
-            inactiveIcon={<SearchOutlineIcon className={s.icon} />}
-            isSelected={router.pathname === Paths.search}
-            label={t.appSidebar.searchButton}
-            variant={'icon'}
-          />
         </div>
         <div className={s.group}>
           <NavItem
@@ -90,16 +64,6 @@ export const SideBar = forwardRef<SideBarRef, SideBarProps>(
             inactiveIcon={<TrendingUpOutlineIcon className={s.icon} />}
             isSelected={router.pathname === Paths.statistics}
             label={t.appSidebar.statisticsLink}
-            variant={'icon'}
-          />
-          <NavItem
-            activeIcon={<BookmarkIcon className={s.icon} />}
-            as={Link}
-            fullWidth
-            href={Paths.favourites}
-            inactiveIcon={<BookmarkOutlineIcon className={s.icon} />}
-            isSelected={router.pathname === Paths.favourites}
-            label={t.appSidebar.favouritesLink}
             variant={'icon'}
           />
         </div>

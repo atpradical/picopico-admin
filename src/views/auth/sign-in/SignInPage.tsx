@@ -1,30 +1,22 @@
-import { useContext, useEffect } from 'react'
-
 import { SignInForm } from '@/features/auth/ui'
-import { AuthContext } from '@/shared/contexts'
-import { Paths } from '@/shared/enums'
 import { useTranslation } from '@/shared/hooks'
 import { getLayout } from '@/shared/ui/layout'
 import { Page } from '@/shared/ui/layout/page'
-import { Button, Card, Typography } from '@atpradical/picopico-ui-kit'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { Card, Typography } from '@atpradical/picopico-ui-kit'
 
 import s from './SignInPage.module.scss'
 
 function SignInPage() {
-  const { isAuth, meData } = useContext(AuthContext)
-  const router = useRouter()
   const { t } = useTranslation()
-  const { isAccount, pageTitle, signUpLink } = t.signInPage
+  const { pageTitle } = t.signInPage
 
-  const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null
+  // const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null
 
-  useEffect(() => {
-    if (isAuth && meData?.userId && !!token) {
-      router.push(Paths.profile + '/' + meData.userId)
-    }
-  }, [isAuth, meData, router, token])
+  // useEffect(() => {
+  //   if (isAuth && meData?.userId && !!token) {
+  //     router.push(Paths.profile + '/' + meData.userId)
+  //   }
+  // }, [isAuth, meData, router, token])
 
   return (
     <Page>
@@ -34,10 +26,6 @@ function SignInPage() {
             {pageTitle}
           </Typography>
           <SignInForm />
-          <Typography variant={'regular_16'}>{isAccount}</Typography>
-          <Button as={Link} className={s.linkButton} href={Paths.signUp} variant={'nb-outlined'}>
-            {signUpLink}
-          </Button>
         </Card>
       </div>
     </Page>

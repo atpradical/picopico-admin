@@ -1,4 +1,4 @@
-export { default, getStaticProps } from '@/views/home/ui/HomePage'
+export { default } from '@/views/home/ui/HomePage'
 
 // import { useGoogleLoginQuery } from '@/services/auth'
 // import { getLayout } from '@/shared/ui/layout'

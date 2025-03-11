@@ -1,9 +1,8 @@
-import { ComponentPropsWithoutRef, useContext } from 'react'
+import { ComponentPropsWithoutRef } from 'react'
 
 import { ProfileStats } from '@/features/profile/ui'
 import { ActionButtons } from '@/features/profile/ui/profile-header/action-button'
 import { useGetPublicUserProfileQuery } from '@/services/profile'
-import { AppMetaDataContext } from '@/shared/contexts'
 import { Avatar, Typography } from '@atpradical/picopico-ui-kit'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
@@ -16,7 +15,6 @@ type ProfileHeaderProps = ComponentPropsWithoutRef<'section'>
 export const ProfileHeader = ({ className, ...props }: ProfileHeaderProps) => {
   const router = useRouter()
   const isClient = useIsClient()
-  const { isMobile } = useContext(AppMetaDataContext)
 
   const { data: profileData } = useGetPublicUserProfileQuery({
     profileId: router.query.id as string,
@@ -31,7 +29,8 @@ export const ProfileHeader = ({ className, ...props }: ProfileHeaderProps) => {
       <div className={clsx(s.gridItem1)}>
         <Avatar
           showFallback
-          size={isClient && isMobile ? 'm' : 'l'}
+          // size={isClient && isMobile ? 'm' : 'l'}
+          size={isClient ? 'm' : 'l'}
           src={profileData.avatars[0]?.url ?? ''}
           userName={profileData.userName}
         />

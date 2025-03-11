@@ -1,6 +1,4 @@
 export * from '../../publication/ui/publications'
-export * from './profile-avatar-dialog'
-export * from './profile-avatar-manager'
 export * from './profile-header'
 export * from './settings'
 export * from './stats'

@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import {
   NOTIFICATION_INITIAL_CURSOR,
@@ -6,10 +6,8 @@ import {
 } from '@/features/notifications/config'
 import { NotificationPopover } from '@/features/notifications/ui'
 import { useGetNotificationsQuery } from '@/services/notofications'
-import { AppMetaDataContext, AuthContext } from '@/shared/contexts'
 import { Paths, SortDirection } from '@/shared/enums'
 import { useTranslation } from '@/shared/hooks'
-import { HeaderMobileMenubar } from '@/shared/ui/layout'
 import {
   Button,
   FlagRussiaIcon,
@@ -31,8 +29,6 @@ export const Header = ({}: HeaderProps) => {
   const isClient = useIsClient()
   const { t } = useTranslation()
   const { asPath, locale, pathname, push, query } = useRouter()
-  const { isAuth } = useContext(AuthContext)
-  const { isMobile } = useContext(AppMetaDataContext)
 
   const [cursor, setCursor] = useState(NOTIFICATION_INITIAL_CURSOR)
 
@@ -42,7 +38,7 @@ export const Header = ({}: HeaderProps) => {
       pageSize: NOTIFICATION_MAX_PAGE_SIZE,
       sortDirection: SortDirection.DESC,
     },
-    { skip: !isAuth }
+    { skip: true }
   )
 
   const languages: OptionsValue[] = useMemo(
@@ -82,32 +78,23 @@ export const Header = ({}: HeaderProps) => {
         </Typography>
       </Button>
       <div className={s.container}>
-        {isAuth && (
-          <NotificationPopover
-            notReadCount={data?.notReadCount}
-            notifications={data?.items}
-            onScroll={updateCursorHandler}
-            totalCount={data?.totalCount}
-          />
-        )}
+        <NotificationPopover
+          notReadCount={data?.notReadCount}
+          notifications={data?.items}
+          onScroll={updateCursorHandler}
+          totalCount={data?.totalCount}
+        />
         <Select
           className={s.select}
           defaultValue={locale ?? 'en'}
-          isSmall={isMobile}
+          // isSmall={isMobile}
           onValueChange={changeLangHandler}
           options={languages}
         />
-        {!isAuth && !isMobile && (
-          <div className={s.buttonContainer}>
-            <Button as={Link} className={s.button} href={Paths.logIn} variant={'nb-outlined'}>
-              {t.appHeader.signInButton}
-            </Button>
-            <Button as={Link} className={s.button} href={Paths.signUp} variant={'primary'}>
-              {t.appHeader.signUpButton}
-            </Button>
-          </div>
-        )}
-        {isMobile && <HeaderMobileMenubar isAuth={isAuth} />}
+        <Button as={Link} className={s.button} href={Paths.logIn} variant={'nb-outlined'}>
+          {t.appHeader.signInButton}
+        </Button>
+        {/*{isMobile && <HeaderMobileMenubar isAuth={isAuth} />}*/}
       </div>
     </div>
   )

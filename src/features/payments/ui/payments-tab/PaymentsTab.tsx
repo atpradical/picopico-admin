@@ -1,10 +1,8 @@
-import { ComponentPropsWithoutRef, useContext, useMemo, useState } from 'react'
+import { ComponentPropsWithoutRef, useMemo, useState } from 'react'
 
 import { paginationSelectOptions } from '@/features/payments/config'
 import { PaymentHistoryTable } from '@/features/payments/ui'
-import { PaymentHistoryTableMobile } from '@/features/payments/ui/payment-history-table-mobile'
 import { useGetUserPaymentsHistoryQuery } from '@/services/payments'
-import { AppMetaDataContext } from '@/shared/contexts'
 import { useTranslation } from '@/shared/hooks'
 import { Pagination, TabsContent, Typography } from '@atpradical/picopico-ui-kit'
 import { enUS, ru } from 'date-fns/locale'
@@ -19,7 +17,6 @@ type AccountManagementTabProps = {
 export const PaymentsTab = ({ tableProps, ...props }: AccountManagementTabProps) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
-  const { isMobile } = useContext(AppMetaDataContext)
   const { data: paymentHistory } = useGetUserPaymentsHistoryQuery()
   const dateLocale = locale === 'ru' ? ru : enUS
 
@@ -61,11 +58,8 @@ export const PaymentsTab = ({ tableProps, ...props }: AccountManagementTabProps)
       {paymentHistory && paymentHistory.length ? (
         <>
           <div className={s.tableContainer}>
-            {isMobile ? (
-              <PaymentHistoryTableMobile dateLocale={dateLocale} paginatedData={paginatedData} />
-            ) : (
-              <PaymentHistoryTable dateLocale={dateLocale} paginatedData={paginatedData} />
-            )}
+            {/*<PaymentHistoryTableMobile dateLocale={dateLocale} paginatedData={paginatedData} />*/}
+            <PaymentHistoryTable dateLocale={dateLocale} paginatedData={paginatedData} />
           </div>
           <Pagination
             currentPage={currentPage}

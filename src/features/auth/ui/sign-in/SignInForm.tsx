@@ -3,13 +3,11 @@ import { useForm } from 'react-hook-form'
 import { signInSchemeCreator } from '@/features/auth/model'
 import { SignInFields } from '@/features/auth/model/sign-in/types'
 import { useLoginMutation } from '@/services/auth'
-import { Paths } from '@/shared/enums'
 import { useTranslation } from '@/shared/hooks'
 import { ControlledTextField } from '@/shared/ui/form-components'
 import { getErrorMessageData, setFormErrors } from '@/shared/utils'
-import { Button, Typography, toaster } from '@atpradical/picopico-ui-kit'
+import { Button, toaster } from '@atpradical/picopico-ui-kit'
 import { zodResolver } from '@hookform/resolvers/zod'
-import Link from 'next/link'
 
 import s from './SignInForm.module.scss'
 
@@ -69,9 +67,6 @@ export const SignInForm = () => {
           placeholder={t.signInPage.signInForm.placeholders.addPassword}
           variant={'password'}
         />
-        <Typography as={Link} className={s.forgotPassword} href={Paths.forgotPassword}>
-          {t.signInPage.signInForm.forgotPassword}
-        </Typography>
         <Button
           className={s.submitButton}
           disabled={isSubmitDisabled}

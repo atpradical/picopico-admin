@@ -1,9 +1,8 @@
-import { ComponentPropsWithoutRef, useContext, useEffect, useState } from 'react'
+import { ComponentPropsWithoutRef, useEffect, useState } from 'react'
 
 import { AccountTypeRadioGroup, SubscriptionPlansRadioGroup } from '@/features/payments/ui'
 import { ActiveSubscription } from '@/features/payments/ui/active-subscription'
 import { useCreatePaymentSubscriptionMutation } from '@/services/payments'
-import { MyProfileContext } from '@/shared/contexts'
 import { BillingPeriod, Paths, PaymentAmount, PaymentSystem } from '@/shared/enums'
 import { useTranslation } from '@/shared/hooks'
 import { AlertDialog } from '@/shared/ui/components'
@@ -21,18 +20,11 @@ export const AccountManagementTab = ({ ...props }: AccountManagementTabProps) =>
   const router = useRouter()
   const success = router.query.success
 
-  const { isBusinessAccount } = useContext(MyProfileContext)
   const [createPayment, { isLoading }] = useCreatePaymentSubscriptionMutation()
 
   const [isPlansDescription, setPlansDescription] = useState(false)
   const [newSubscription, setNewSubscription] = useState<BillingPeriod>(BillingPeriod.Day)
   const [isAlertOpen, setAlertOpen] = useState(false)
-
-  useEffect(() => {
-    if (isBusinessAccount) {
-      setPlansDescription(true)
-    }
-  }, [isBusinessAccount])
 
   useEffect(() => {
     if (success) {

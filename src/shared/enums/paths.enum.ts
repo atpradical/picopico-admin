@@ -1,16 +1,12 @@
 export enum Paths {
   Home = '/',
+  Payments = '/payments',
+  Posts = '/posts',
   Settings = '/settings',
-  favourites = '/favourites',
-  forgotPassword = '/auth/forgot-password',
+  Users = '/users',
   logIn = '/auth/sign-in',
-  messages = '/messages',
-  privacyPolicy = '/docs/privacy-policy',
   profile = '/profile',
-  search = '/search',
-  signUp = '/auth/sign-up',
   statistics = '/statistics',
-  termsOfService = '/docs/terms-of-service',
 }
 
 export enum BackButtonPathFlags {

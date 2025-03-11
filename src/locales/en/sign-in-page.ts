@@ -1,8 +1,6 @@
 export const signInPage = {
-  isAccount: "Don't have an account?",
   pageTitle: 'Sign In',
   signInForm: {
-    forgotPassword: 'Forgot Password',
     labels: {
       email: 'Email',
       password: 'Password',
@@ -13,5 +11,4 @@ export const signInPage = {
     },
     submitButton: 'Sign In',
   },
-  signUpLink: 'Sign Up',
 }

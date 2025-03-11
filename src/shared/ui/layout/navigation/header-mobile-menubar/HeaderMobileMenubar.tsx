@@ -1,13 +1,8 @@
-import { useContext } from 'react'
-
-import { AuthContext } from '@/shared/contexts'
 import { Paths } from '@/shared/enums'
 import { useLogout, useTranslation } from '@/shared/hooks'
 import { ConfirmDialog } from '@/shared/ui/components'
 import { NavItem } from '@/shared/ui/layout'
 import {
-  BookmarkIcon,
-  BookmarkOutlineIcon,
   Button,
   LogOutOutlineIcon,
   Menubar,
@@ -30,7 +25,6 @@ type Props = { isAuth: boolean }
 export const HeaderMobileMenubar = ({ isAuth }: Props) => {
   const router = useRouter()
   const { t } = useTranslation()
-  const { meData } = useContext(AuthContext)
   const { isLoading, isLogoutDialog, logoutHandler, setLogoutDialog } = useLogout()
 
   return (
@@ -67,16 +61,6 @@ export const HeaderMobileMenubar = ({ isAuth }: Props) => {
                 </MenubarItem>
                 <MenubarItem className={s.menuItem}>
                   <NavItem
-                    activeIcon={<BookmarkIcon className={s.icon} />}
-                    inactiveIcon={<BookmarkOutlineIcon className={s.icon} />}
-                    isSelected={router.pathname === Paths.favourites}
-                    label={t.appSidebar.favouritesLink}
-                    onClick={() => router.push(Paths.favourites)}
-                    variant={'icon'}
-                  />
-                </MenubarItem>
-                <MenubarItem className={s.menuItem}>
-                  <NavItem
                     inactiveIcon={<LogOutOutlineIcon className={s.icon} />}
                     label={t.appSidebar.logOutButton}
                     onClick={() => setLogoutDialog(true)}
@@ -95,15 +79,6 @@ export const HeaderMobileMenubar = ({ isAuth }: Props) => {
                     variant={'icon'}
                   />
                 </MenubarItem>
-                <MenubarItem className={s.menuItem}>
-                  <NavItem
-                    fullWidth
-                    isSelected={router.pathname === Paths.signUp}
-                    label={t.appSidebar.registerButton}
-                    onClick={() => router.push(Paths.signUp)}
-                    variant={'icon'}
-                  />
-                </MenubarItem>
               </>
             )}
           </MenubarContent>
@@ -118,7 +93,7 @@ export const HeaderMobileMenubar = ({ isAuth }: Props) => {
           onOpenChange={setLogoutDialog}
           t={{
             ...t.logoutDialog,
-            visibleBody: `${t.logoutDialog.visibleBody}: ${meData?.email || ''}?`,
+            visibleBody: `${t.logoutDialog.visibleBody}?`,
           }}
         />
       )}

@@ -5,12 +5,8 @@ import { NavItem } from '@/shared/ui/layout'
 import {
   HomeIcon,
   HomeOutlineIcon,
-  MessageCircleIcon,
-  MessageCircleOutlineIcon,
   PersonIcon,
   PersonOutlineIcon,
-  SearchIcon,
-  SearchOutlineIcon,
 } from '@atpradical/picopico-ui-kit'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -37,22 +33,6 @@ export const BottomBar = forwardRef<BottomBarRef, BottomBarProps>(
           href={Paths.Home}
           inactiveIcon={<HomeOutlineIcon className={s.icon} />}
           isSelected={router.pathname === Paths.Home}
-          variant={'icon'}
-        />
-        <NavItem
-          activeIcon={<MessageCircleIcon className={s.icon} />}
-          as={Link}
-          href={Paths.messages}
-          inactiveIcon={<MessageCircleOutlineIcon className={s.icon} />}
-          isSelected={router.pathname === Paths.messages}
-          variant={'icon'}
-        />
-        <NavItem
-          activeIcon={<SearchIcon className={s.icon} />}
-          as={Link}
-          href={Paths.search}
-          inactiveIcon={<SearchOutlineIcon className={s.icon} />}
-          isSelected={router.pathname === Paths.search}
           variant={'icon'}
         />
         <NavItem
