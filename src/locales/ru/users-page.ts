@@ -9,6 +9,8 @@ export const usersPage = {
     visibleTitle: 'Заблокировать пользователя',
   },
 
+  blockUserReasonLabel: 'Причина блокировки',
+
   deleteUserDialog: {
     accessibilityDescription: 'Всплывающее окно для подтверждения удаления пользователя',
     accessibilityTitle: 'Всплывающее окно для подтверждения удаления пользователя',

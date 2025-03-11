@@ -48,7 +48,7 @@ export const UsersTable = ({ dateLocale, paginatedData, ...props }: Props) => {
         {/*    option => option.period === el.subscriptionType*/}
         {/*  )*/}
         {/*return (*/}
-        <TableRow key={`key`}>
+        <TableRow key={`key2`}>
           <TableCell textAlign={'left'} />
           <TableCell textAlign={'left'}>{'21331QErQe21'}</TableCell>
           <TableCell textAlign={'left'}>{'Ivan Yakymenko'}</TableCell>
@@ -62,11 +62,11 @@ export const UsersTable = ({ dateLocale, paginatedData, ...props }: Props) => {
               onDeleteConfirm={() => {
                 console.log('User deleted')
               }}
-              postId={1}
+              userId={'user-id-1'}
             />
           </TableCell>
         </TableRow>
-        <TableRow key={`key`}>
+        <TableRow key={`key1`}>
           <TableCell textAlign={'left'}>
             <BlockIcon />
           </TableCell>
@@ -82,7 +82,7 @@ export const UsersTable = ({ dateLocale, paginatedData, ...props }: Props) => {
               onDeleteConfirm={() => {
                 console.log('User deleted')
               }}
-              postId={1}
+              userId={'user-id-2'}
             />
           </TableCell>
         </TableRow>

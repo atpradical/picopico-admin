@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 import { HiddenDialogComponents } from '@/shared/ui/components'
 import {
   Button,
@@ -24,6 +26,7 @@ type ConfirmDialogTranslations = {
 }
 
 type ConfirmDialogProps = {
+  bodyElement?: ReactNode
   isLoading?: boolean
   isOpen: boolean
   onConfirm: () => void
@@ -34,6 +37,7 @@ type ConfirmDialogProps = {
 
 // todo: вынести в ui-kit
 export function ConfirmDialog({
+  bodyElement,
   isLoading = false,
   isOpen,
   onConfirm,
@@ -68,6 +72,7 @@ export function ConfirmDialog({
         </DialogHeader>
         <DialogBody>
           <Typography variant={'regular_14'}>{t.visibleBody}</Typography>
+          {bodyElement}
         </DialogBody>
         <DialogFooter className={s.footer}>
           <Button

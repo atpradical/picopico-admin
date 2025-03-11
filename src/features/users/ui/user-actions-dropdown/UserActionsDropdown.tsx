@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { BlockUserOptions } from '@/features/users/config'
+import { Paths } from '@/shared/enums'
 import { useTranslation } from '@/shared/hooks'
 import { ConfirmDialog } from '@/shared/ui/components'
 import {
@@ -13,18 +15,26 @@ import {
   DropdownMenuTrigger,
   MoreHorizontalIcon,
   PersonRemoveOutlineIcon,
+  Select,
   Typography,
 } from '@atpradical/picopico-ui-kit'
+import { useRouter } from 'next/router'
 
 import s from './UserActionsDropdown.module.scss'
 
 type EditPostDropdownProps = {
   onBanConfirm: () => void
   onDeleteConfirm: () => void
+  userId: string
 }
 
-export const UserActionsDropdown = ({ onBanConfirm, onDeleteConfirm }: EditPostDropdownProps) => {
+export const UserActionsDropdown = ({
+  onBanConfirm,
+  onDeleteConfirm,
+  userId,
+}: EditPostDropdownProps) => {
   const { t } = useTranslation()
+  const { push } = useRouter()
   const [isDeleteAlert, setDeleteAlert] = useState(false)
   const [isBlockAlert, setBlockAlert] = useState(false)
   // const [deletePost] = useDeletePostMutation()
@@ -56,8 +66,7 @@ export const UserActionsDropdown = ({ onBanConfirm, onDeleteConfirm }: EditPostD
   }
 
   const moreUserInformationHandler = () => {
-    //
-    console.log('swithc to user page for more information')
+    void push(`${Paths.Users}/${userId}`)
   }
 
   return (
@@ -97,6 +106,13 @@ export const UserActionsDropdown = ({ onBanConfirm, onDeleteConfirm }: EditPostD
         t={t.usersPage.deleteUserDialog}
       />
       <ConfirmDialog
+        bodyElement={
+          <Select
+            defaultValue={'3'}
+            label={t.usersPage.blockUserReasonLabel}
+            options={BlockUserOptions}
+          />
+        }
         isOpen={isBlockAlert}
         onConfirm={blockUserHandler}
         onOpenChange={setBlockAlert}

@@ -9,6 +9,8 @@ export const usersPage = {
     visibleTitle: 'Ban user',
   },
 
+  blockUserReasonLabel: 'Reason for ban',
+
   deleteUserDialog: {
     accessibilityDescription: 'Popup asking to confirm User deletion',
     accessibilityTitle: 'Popup asking to confirm User deletion',
