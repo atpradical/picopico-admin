@@ -4,7 +4,7 @@ type HeadMetaProps = {
   pageTitle?: string
 }
 
-export const HeadMeta = ({ pageTitle = 'PicoPico' }: HeadMetaProps) => {
+export const HeadMeta = ({ pageTitle = 'PicoPico SuperAdmin' }: HeadMetaProps) => {
   return (
     <Head>
       <title>{pageTitle}</title>
