@@ -3,12 +3,12 @@ import { deleteAvatarDialog } from '@/locales/en/delete-avatar-dialog'
 import { logoutDialog } from '@/locales/en/logout-dialog'
 import { notifications } from '@/locales/en/notifications'
 import { postDialog } from '@/locales/en/post-dialog'
-import { profileAvatarDialog } from '@/locales/en/profile-avatar-dialog'
 import { profilePage } from '@/locales/en/profile-page'
 import { profileSettings } from '@/locales/en/profile-settings'
-import { searchPage } from '@/locales/en/search-page'
 import { signInPage } from '@/locales/en/sign-in-page'
 import { validation } from '@/locales/en/validation'
+
+import { usersPage } from './en/users-page'
 
 export type LocaleType = typeof en
 export type LocaleValidation = typeof en.validation
@@ -22,18 +22,10 @@ export const en = {
     signInButton: 'Sign in',
   },
   appSidebar: {
-    createButton: 'Create', //
-    favouritesLink: 'Favourites', //
-    homeLink: 'Home', //
     logOutButton: 'Log Out',
     loginButton: 'Sign in',
-    messagesLink: 'Messenger', //
     paymentsList: 'Payments List',
     postsList: 'Posts List',
-    profileLink: 'My Profile', //
-    profileSettings: 'Profile Settings', //
-    registerButton: 'Sign up', //
-    searchButton: 'Search', //
     statisticsLink: 'Statistics',
     userList: 'Users List',
   },
@@ -53,10 +45,9 @@ export const en = {
     expandPostDescriptionButton: 'Show more',
   },
   postDialog: postDialog,
-  profileAvatarDialog: profileAvatarDialog,
-  profilePage: profilePage,
-  profileSettings: profileSettings,
-  searchPage: searchPage,
+  profilePage: profilePage, //delete
+  profileSettings: profileSettings, //delete
   signInPage: signInPage,
+  usersPage: usersPage,
   validation: validation,
 }

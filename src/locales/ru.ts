@@ -4,10 +4,9 @@ import { deleteAvatarDialog } from '@/locales/ru/delete-avatar-dialog'
 import { logoutDialog } from '@/locales/ru/logout-dialog'
 import { notifications } from '@/locales/ru/notifications'
 import { postDialog } from '@/locales/ru/post-dialog'
-import { profileAvatarDialog } from '@/locales/ru/profile-avatar-dialog'
 import { profileSettings } from '@/locales/ru/profile-settings'
-import { searchPage } from '@/locales/ru/search-page'
 import { signInPage } from '@/locales/ru/sign-in-page'
+import { usersPage } from '@/locales/ru/users-page'
 import { validation } from '@/locales/ru/validation'
 
 import { profilePage } from './ru/profile-page'
@@ -17,18 +16,10 @@ export const ru: LocaleType = {
     signInButton: 'Войти',
   },
   appSidebar: {
-    createButton: 'Создать', //
-    favouritesLink: 'Избранное', //
-    homeLink: 'Главная', //
     logOutButton: 'Выйти',
     loginButton: 'Войти',
-    messagesLink: 'Сообщения', //
     paymentsList: 'Платежи',
     postsList: 'Посты',
-    profileLink: 'Мой Профиль', //
-    profileSettings: 'Настройки', //
-    registerButton: 'Зарегистрироваться', //
-    searchButton: 'Поиск', //
     statisticsLink: 'Статистика',
     userList: 'Пользователи',
   },
@@ -49,10 +40,9 @@ export const ru: LocaleType = {
     expandPostDescriptionButton: 'Подробнее',
   },
   postDialog: postDialog,
-  profileAvatarDialog: profileAvatarDialog,
   profilePage: profilePage,
   profileSettings: profileSettings,
-  searchPage: searchPage,
   signInPage: signInPage,
+  usersPage: usersPage,
   validation: validation,
 }

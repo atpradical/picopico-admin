@@ -1,11 +1,48 @@
+import { paginationSelectOptions } from '@/features/payments/config'
+import { UsersTable } from '@/features/users/ui'
+import { useTranslation } from '@/shared/hooks'
 import { Page, getNavigationLayout } from '@/shared/ui/layout'
+import { Pagination, Select, TextField, Typography } from '@atpradical/picopico-ui-kit'
+import { enUS, ru } from 'date-fns/locale'
+import { useRouter } from 'next/router'
 
 import s from './UsersPage.module.scss'
 
 function UsersPage() {
+  const { t } = useTranslation()
+  const { locale } = useRouter()
+  const dateLocale = locale === 'ru' ? ru : enUS
+
   return (
-    <Page pt={'36px'}>
-      <div className={s.container}>Users List</div>
+    <Page pt={'60px'}>
+      <div className={s.container}>
+        <div className={s.searchContainer}>
+          <TextField label={'Search'} variant={'search'} />
+          <Select
+            className={s.filterSelect}
+            defaultValue={'active'}
+            label={'Filters'}
+            options={[
+              { label: 'Blocked', value: 'blocked' },
+              { label: 'Not Blocked', value: 'active' },
+            ]}
+          />
+        </div>
+        <UsersTable dateLocale={dateLocale} paginatedData={[]} />
+        <Pagination
+          currentPage={1}
+          onNextPage={() => {}}
+          onPageChange={() => {}}
+          onPrevPage={() => {}}
+          onSelectValueChange={() => {}}
+          pageSize={100}
+          selectOptions={paginationSelectOptions}
+          textPerPage={t.profileSettings.paymentsTab.pagination.textPerPage}
+          textShow={t.profileSettings.paymentsTab.pagination.textShow}
+          totalCount={10000}
+        />
+        <Typography variant={'error'}>Page in development....</Typography>
+      </div>
     </Page>
   )
 }

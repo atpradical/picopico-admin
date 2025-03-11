@@ -9,3 +9,17 @@
   max-width: var(--max-screen-width);
   margin: 0 auto;
 }
+
+.searchContainer {
+  display: flex;
+  gap: 94px;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.filterSelect {
+  width: 100%;
+  min-width: 234px;
+}
