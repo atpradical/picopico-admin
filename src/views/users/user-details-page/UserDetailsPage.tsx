@@ -40,9 +40,6 @@ function UserDetailsPage() {
   return (
     <Page pt={'36px'}>
       <div className={s.container}>
-        <Typography grey variant={'large'}>
-          User Details Page
-        </Typography>
         <UserProfileCard />
         <TabsRoot className={s.tabsRoot} onValueChange={onTabChangeHandler} value={activeTab}>
           <ScrollArea>
@@ -75,6 +72,7 @@ function UserDetailsPage() {
           textShow={t.profileSettings.paymentsTab.pagination.textShow}
           totalCount={10000}
         />
+        <Typography variant={'error'}>Page in development...</Typography>
       </div>
     </Page>
   )
