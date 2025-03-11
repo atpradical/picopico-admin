@@ -1,3 +1,4 @@
+import { UserProfileCard } from '@/features/users/ui/user-profile-card'
 import { Page, getNavigationLayout } from '@/shared/ui/layout'
 import { Typography } from '@atpradical/picopico-ui-kit'
 
@@ -10,6 +11,7 @@ function UserDetailsPage() {
         <Typography grey variant={'large'}>
           User Details Page
         </Typography>
+        <UserProfileCard />
       </div>
     </Page>
   )
