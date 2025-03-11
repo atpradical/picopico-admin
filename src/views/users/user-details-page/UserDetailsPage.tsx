@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 
+import { PaymentsTab } from '@/features/payments/ui'
 import { TAB_FOLLOWERS, TAB_FOLLOWING, TAB_PAYMENTS, TAB_PHOTOS } from '@/features/users/config'
-import { FollowersTab, FollowingTab, PaymentsTab, UploadedPhotosTab } from '@/features/users/ui'
+import { FollowersTab, FollowingTab, UploadedPhotosTab } from '@/features/users/ui'
 import { UserProfileCard } from '@/features/users/ui/user-profile-card'
 import { useTranslation } from '@/shared/hooks'
 import { Page, getNavigationLayout } from '@/shared/ui/layout'

@@ -2,7 +2,6 @@ import { ComponentPropsWithoutRef, useMemo, useState } from 'react'
 
 import { paginationSelectOptions } from '@/features/payments/config'
 import { PaymentHistoryTable } from '@/features/payments/ui'
-import { useGetUserPaymentsHistoryQuery } from '@/services/payments'
 import { useTranslation } from '@/shared/hooks'
 import { Pagination, TabsContent, Typography } from '@atpradical/picopico-ui-kit'
 import { enUS, ru } from 'date-fns/locale'
@@ -17,7 +16,9 @@ type AccountManagementTabProps = {
 export const PaymentsTab = ({ tableProps, ...props }: AccountManagementTabProps) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
-  const { data: paymentHistory } = useGetUserPaymentsHistoryQuery()
+  // TODO: PAYMENTS заменить на GraphQL
+  const paymentHistory: any[] = []
+  // const { data: paymentHistory } = useGetUserPaymentsHistoryQuery()
   const dateLocale = locale === 'ru' ? ru : enUS
 
   const [currentPage, setCurrentPage] = useState(1)
