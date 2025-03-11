@@ -15,20 +15,22 @@ import { profilePage } from './ru/profile-page'
 export const ru: LocaleType = {
   appHeader: {
     signInButton: 'Войти',
-    signUpButton: 'Зарегистрироваться',
   },
   appSidebar: {
-    createButton: 'Создать',
-    favouritesLink: 'Избранное',
-    homeLink: 'Главная',
+    createButton: 'Создать', //
+    favouritesLink: 'Избранное', //
+    homeLink: 'Главная', //
     logOutButton: 'Выйти',
     loginButton: 'Войти',
-    messagesLink: 'Сообщения',
-    profileLink: 'Мой Профиль',
-    profileSettings: 'Настройки',
-    registerButton: 'Зарегистрироваться',
-    searchButton: 'Поиск',
+    messagesLink: 'Сообщения', //
+    paymentsList: 'Платежи',
+    postsList: 'Посты',
+    profileLink: 'Мой Профиль', //
+    profileSettings: 'Настройки', //
+    registerButton: 'Зарегистрироваться', //
+    searchButton: 'Поиск', //
     statisticsLink: 'Статистика',
+    userList: 'Пользователи',
   },
   createPostDialog: createPostDialog,
   deleteAvatarDialog: deleteAvatarDialog,

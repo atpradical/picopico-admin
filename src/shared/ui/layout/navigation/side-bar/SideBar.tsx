@@ -4,8 +4,10 @@ import { Paths } from '@/shared/enums'
 import { useTranslation } from '@/shared/hooks'
 import { NavItem } from '@/shared/ui/layout'
 import {
-  HomeIcon,
-  HomeOutlineIcon,
+  CreditCardIconIcon,
+  CreditCardOutlineIcon,
+  ImageIcon,
+  ImageOutlineIcon,
   LogOutOutlineIcon,
   PersonIcon,
   PersonOutlineIcon,
@@ -35,27 +37,15 @@ export const SideBar = forwardRef<SideBarRef, SideBarProps>(
       <nav className={clsx(s.sidebar, className)} ref={ref} {...rest}>
         <div className={s.group}>
           <NavItem
-            activeIcon={<HomeIcon className={s.icon} />}
-            as={Link}
-            fullWidth
-            href={Paths.Home}
-            inactiveIcon={<HomeOutlineIcon className={s.icon} />}
-            isSelected={router.pathname === Paths.Home}
-            label={t.appSidebar.homeLink}
-            variant={'icon'}
-          />
-          <NavItem
             activeIcon={<PersonIcon className={s.icon} />}
             as={Link}
             fullWidth
-            href={`${Paths.profile}/${userId}`}
+            href={Paths.Users}
             inactiveIcon={<PersonOutlineIcon className={s.icon} />}
-            isSelected={router.asPath === `${Paths.profile}/${userId}`}
-            label={t.appSidebar.profileLink}
+            isSelected={router.asPath === Paths.Users}
+            label={t.appSidebar.userList}
             variant={'icon'}
           />
-        </div>
-        <div className={s.group}>
           <NavItem
             activeIcon={<TrendingUpIcon className={s.icon} />}
             as={Link}
@@ -64,6 +54,26 @@ export const SideBar = forwardRef<SideBarRef, SideBarProps>(
             inactiveIcon={<TrendingUpOutlineIcon className={s.icon} />}
             isSelected={router.pathname === Paths.statistics}
             label={t.appSidebar.statisticsLink}
+            variant={'icon'}
+          />
+          <NavItem
+            activeIcon={<CreditCardIconIcon className={s.icon} />}
+            as={Link}
+            fullWidth
+            href={Paths.Payments}
+            inactiveIcon={<CreditCardOutlineIcon className={s.icon} />}
+            isSelected={router.pathname === Paths.Payments}
+            label={t.appSidebar.paymentsList}
+            variant={'icon'}
+          />
+          <NavItem
+            activeIcon={<ImageIcon className={s.icon} />}
+            as={Link}
+            fullWidth
+            href={Paths.Posts}
+            inactiveIcon={<ImageOutlineIcon className={s.icon} />}
+            isSelected={router.pathname === Paths.Posts}
+            label={t.appSidebar.postsList}
             variant={'icon'}
           />
         </div>

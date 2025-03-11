@@ -20,20 +20,22 @@ export type LocaleValidationPassword = typeof en.validation.password
 export const en = {
   appHeader: {
     signInButton: 'Sign in',
-    signUpButton: 'Sign up',
   },
   appSidebar: {
-    createButton: 'Create',
-    favouritesLink: 'Favourites',
-    homeLink: 'Home',
+    createButton: 'Create', //
+    favouritesLink: 'Favourites', //
+    homeLink: 'Home', //
     logOutButton: 'Log Out',
     loginButton: 'Sign in',
-    messagesLink: 'Messenger',
-    profileLink: 'My Profile',
-    profileSettings: 'Profile Settings',
-    registerButton: 'Sign up',
-    searchButton: 'Search',
+    messagesLink: 'Messenger', //
+    paymentsList: 'Payments List',
+    postsList: 'Posts List',
+    profileLink: 'My Profile', //
+    profileSettings: 'Profile Settings', //
+    registerButton: 'Sign up', //
+    searchButton: 'Search', //
     statisticsLink: 'Statistics',
+    userList: 'Users List',
   },
   createPostDialog: createPostDialog,
   deleteAvatarDialog: deleteAvatarDialog,

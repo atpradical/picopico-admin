@@ -3,10 +3,14 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 import { Paths } from '@/shared/enums'
 import { NavItem } from '@/shared/ui/layout'
 import {
-  HomeIcon,
-  HomeOutlineIcon,
+  CreditCardIconIcon,
+  CreditCardOutlineIcon,
+  ImageIcon,
+  ImageOutlineIcon,
   PersonIcon,
   PersonOutlineIcon,
+  TrendingUpIcon,
+  TrendingUpOutlineIcon,
 } from '@atpradical/picopico-ui-kit'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -28,19 +32,35 @@ export const BottomBar = forwardRef<BottomBarRef, BottomBarProps>(
     return (
       <nav className={clsx(s.bottomBar, className)} ref={ref} {...rest}>
         <NavItem
-          activeIcon={<HomeIcon className={s.icon} />}
+          activeIcon={<PersonIcon className={s.icon} />}
           as={Link}
-          href={Paths.Home}
-          inactiveIcon={<HomeOutlineIcon className={s.icon} />}
-          isSelected={router.pathname === Paths.Home}
+          href={Paths.Users}
+          inactiveIcon={<PersonOutlineIcon className={s.icon} />}
+          isSelected={router.asPath === Paths.Users}
           variant={'icon'}
         />
         <NavItem
-          activeIcon={<PersonIcon className={s.icon} />}
+          activeIcon={<TrendingUpIcon className={s.icon} />}
           as={Link}
-          href={`${Paths.profile}/${userId}`}
-          inactiveIcon={<PersonOutlineIcon className={s.icon} />}
-          isSelected={router.asPath === `${Paths.profile}/${userId}`}
+          href={Paths.statistics}
+          inactiveIcon={<TrendingUpOutlineIcon className={s.icon} />}
+          isSelected={router.pathname === Paths.statistics}
+          variant={'icon'}
+        />
+        <NavItem
+          activeIcon={<CreditCardIconIcon className={s.icon} />}
+          as={Link}
+          href={Paths.Payments}
+          inactiveIcon={<CreditCardOutlineIcon className={s.icon} />}
+          isSelected={router.pathname === Paths.Payments}
+          variant={'icon'}
+        />
+        <NavItem
+          activeIcon={<ImageIcon className={s.icon} />}
+          as={Link}
+          href={Paths.Posts}
+          inactiveIcon={<ImageOutlineIcon className={s.icon} />}
+          isSelected={router.pathname === Paths.Posts}
           variant={'icon'}
         />
       </nav>
