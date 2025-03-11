@@ -1,7 +1,6 @@
 import { ComponentPropsWithoutRef } from 'react'
 
 import { UserActionsDropdown } from '@/features/users/ui'
-import { PaymentHistoryItem } from '@/services/payments'
 import { useTranslation } from '@/shared/hooks'
 import {
   BlockIcon,
@@ -18,7 +17,8 @@ import s from './UsersTable.module.scss'
 
 type Props = {
   dateLocale: Locale
-  paginatedData: PaymentHistoryItem[]
+  //   TODO: PAYMENTS fix any
+  paginatedData: any[]
 } & ComponentPropsWithoutRef<typeof Table>
 
 export const UsersTable = ({ dateLocale, paginatedData, ...props }: Props) => {

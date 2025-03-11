@@ -1,7 +1,6 @@
 import { ComponentPropsWithoutRef } from 'react'
 
 import { PaymentSystemDisplay, SubscriptionShortLabel } from '@/features/payments/config'
-import { PaymentHistoryItem } from '@/services/payments'
 import { useTranslation } from '@/shared/hooks'
 import { longLocalizedDate } from '@/shared/utils/dates'
 import {
@@ -19,7 +18,8 @@ import s from './PaymentHistoryTable.module.scss'
 
 type Props = {
   dateLocale: Locale
-  paginatedData: PaymentHistoryItem[]
+  // TODO: PAYMENTS fix any
+  paginatedData: any[]
 } & ComponentPropsWithoutRef<typeof Table>
 
 export const PaymentHistoryTable = ({ dateLocale, paginatedData, ...props }: Props) => {

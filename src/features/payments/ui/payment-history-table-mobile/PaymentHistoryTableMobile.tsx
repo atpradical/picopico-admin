@@ -1,5 +1,4 @@
 import { PaymentSystemDisplay, SubscriptionShortLabel } from '@/features/payments/config'
-import { PaymentHistoryItem } from '@/services/payments'
 import { useTranslation } from '@/shared/hooks'
 import { longLocalizedDate } from '@/shared/utils/dates'
 import { Card, Typography } from '@atpradical/picopico-ui-kit'
@@ -10,7 +9,8 @@ import s from './PaymentHistoryTableMobile.module.scss'
 
 type Props = {
   dateLocale: Locale
-  paginatedData: PaymentHistoryItem[]
+  //   TODO: PAYMENTS fix any
+  paginatedData: any[]
 }
 
 export const PaymentHistoryTableMobile = ({ dateLocale, paginatedData }: Props) => {
