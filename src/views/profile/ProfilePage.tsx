@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 
 import { POSTS_MAX_PAGE_SIZE } from '@/features/posts/config'
-import { INITIAL_CURSOR } from '@/features/profile/config'
-import { ProfileHeader, Publications } from '@/features/profile/ui'
 import { publicationsActions } from '@/features/publication/api'
+import { Publications } from '@/features/publication/ui/publications'
 import { wrapper } from '@/lib/store'
 import { picoApi } from '@/services'
 import {
@@ -21,6 +20,8 @@ import { Spinner } from '@atpradical/picopico-ui-kit'
 import { GetServerSideProps } from 'next'
 
 import s from './ProfilePage.module.scss'
+
+export const INITIAL_CURSOR = 0
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
   store => async context => {
@@ -115,7 +116,6 @@ function ProfilePage({ prefetchedPostData, profileData }: Props) {
   return (
     <Page>
       <div className={s.container}>
-        <ProfileHeader className={s.header} />
         <Publications posts={data?.items} updateCursor={updateCursor} />
         {isFetching && <Spinner containerClassName={s.spinner} label={t.loading} />}
       </div>

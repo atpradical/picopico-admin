@@ -1,7 +1,5 @@
 import { POSTS_DESCRIPTION_MAX_LENGTH } from '@/features/posts/config'
-import { ABOUT_ME_REGEX, MAX_ABOUT_ME_LENGTH } from '@/features/profile/config'
 import {
-  LocaleValidationAboutMe,
   LocaleValidationName,
   LocaleValidationPassword,
   LocaleValidationUserName,
@@ -58,16 +56,16 @@ export const recaptchaScheme = (message: string) => {
   return z.string().min(1, message)
 }
 
-export const aboutMeScheme = (args: LocaleValidationAboutMe) => {
-  return z
-    .string()
-    .trim()
-    .max(MAX_ABOUT_ME_LENGTH, { message: args.maxLength })
-    .regex(ABOUT_ME_REGEX, {
-      message: args.allowedSymbols,
-    })
-    .optional()
-}
+// export const aboutMeScheme = (args: LocaleValidationAboutMe) => {
+//   return z
+//     .string()
+//     .trim()
+//     .max(MAX_ABOUT_ME_LENGTH, { message: args.maxLength })
+//     .regex(ABOUT_ME_REGEX, {
+//       message: args.allowedSymbols,
+//     })
+//     .optional()
+// }
 
 export const postDescriptionScheme = (message: string) =>
   z.string().max(POSTS_DESCRIPTION_MAX_LENGTH, message).or(z.literal('')) // Допускаем пустую строку

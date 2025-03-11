@@ -1,9 +1,4 @@
 export const validation = {
-  aboutMe: {
-    allowedSymbols:
-      'About me may contain symbols: 0-9, A-Z, a-z, А-Я, а-я or ! " # $ % & \'( ) * + , - . : ; < = > ? @ [ \\ ] ^ _ ` { |}~ ',
-    maxLength: 'Maximum number of characters 200',
-  },
   agreeToTerms: 'Please agree to the terms and conditions',
   email: 'The email must match the format example@example.com',
   minAge: {

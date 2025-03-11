@@ -1,4 +1,3 @@
-import { avatarPostReducer } from '@/features/profile/api'
 import { publicationsReducer } from '@/features/publication/api'
 import { picoApi } from '@/services/picoApi'
 import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit'
@@ -9,7 +8,6 @@ const makeStore = () =>
     devTools: process.env.NODE_ENV !== 'production',
     middleware: getDefaultMiddleware => getDefaultMiddleware().concat(picoApi.middleware),
     reducer: {
-      avatar: avatarPostReducer,
       [picoApi.reducerPath]: picoApi.reducer,
       publications: publicationsReducer,
     },
