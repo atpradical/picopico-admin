@@ -4,7 +4,7 @@
   align-items: center;
 
   font-size: var(--font-size-s);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-bold);
   color: var(--color-light-100);
 
   &:focus-visible {
@@ -20,7 +20,7 @@
 
   &[data-active='true'] {
     pointer-events: none;
-    font-weight: var(--font-weight-700);
+    font-weight: var(--font-weight-bold);
     color: var(--color-accent-700);
   }
 
