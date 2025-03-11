@@ -9,23 +9,6 @@
   margin-bottom: 6px;
 }
 
-.forgotPassword {
-  align-self: flex-end;
-  color: var(--color-light-900);
-
-  &:hover {
-    color: var(--color-light-100);
-  }
-
-  &:active {
-    color: var(--color-accent-700);
-  }
-
-  &:focus-visible {
-    color: var(--color-light-500);
-  }
-}
-
 .submitButton {
   @media (max-width: $mobile-width) {
     display: inline-block;

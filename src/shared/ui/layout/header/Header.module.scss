@@ -35,10 +35,14 @@
   height: 36px;
 }
 
-.buttonContainer {
+.titleWrapper {
   display: flex;
-  gap: 24px;
-  justify-content: center;
+  gap: 4px;
+  align-items: flex-start;
+}
+
+.titleHighlight {
+  color: var(--color-accent-500);
 }
 
 .container {
@@ -52,19 +56,11 @@
   }
 }
 
-.select {
+.selectLang {
   min-width: 160px;
 
   @media (max-width: $mobile-width) {
     min-width: fit-content;
-  }
-}
-
-.buttonBell {
-  margin-right: 12px;
-
-  @media (max-width: $mobile-width) {
-    margin-right: 0;
   }
 }
 

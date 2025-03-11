@@ -73,9 +73,14 @@ export const Header = ({}: HeaderProps) => {
     <div className={s.wrapper}>
       <Button as={Link} className={s.logoWrapper} href={Paths.Home} tabIndex={-1} variant={'link'}>
         <LogoLight className={s.logo} />
-        <Typography as={'h1'} variant={'large'}>
-          PicoPico
-        </Typography>
+        <div className={s.titleWrapper}>
+          <Typography as={'h1'} variant={'large'}>
+            PicoPico
+          </Typography>
+          <Typography as={'span'} variant={'small'}>
+            Super<strong className={s.titleHighlight}>Admin</strong>
+          </Typography>
+        </div>
       </Button>
       <div className={s.container}>
         <NotificationPopover
@@ -85,7 +90,7 @@ export const Header = ({}: HeaderProps) => {
           totalCount={data?.totalCount}
         />
         <Select
-          className={s.select}
+          className={s.selectLang}
           defaultValue={locale ?? 'en'}
           // isSmall={isMobile}
           onValueChange={changeLangHandler}
