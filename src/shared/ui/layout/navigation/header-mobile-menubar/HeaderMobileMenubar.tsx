@@ -11,8 +11,6 @@ import {
   MenubarMenu,
   MenubarTrigger,
   MoreHorizontalIcon,
-  SettingsIcon,
-  SettingsOutlineIcon,
   TrendingUpIcon,
   TrendingUpOutlineIcon,
 } from '@atpradical/picopico-ui-kit'
@@ -39,16 +37,6 @@ export const HeaderMobileMenubar = ({ isAuth }: Props) => {
           <MenubarContent align={'end'} className={s.menubarContent} side={'bottom'} sideOffset={5}>
             {isAuth ? (
               <>
-                <MenubarItem className={s.menuItem}>
-                  <NavItem
-                    activeIcon={<SettingsIcon className={s.icon} />}
-                    inactiveIcon={<SettingsOutlineIcon className={s.icon} />}
-                    isSelected={router.pathname === Paths.Settings}
-                    label={t.appSidebar.profileSettings}
-                    onClick={() => router.push(Paths.Settings)}
-                    variant={'icon'}
-                  />
-                </MenubarItem>
                 <MenubarItem className={s.menuItem}>
                   <NavItem
                     activeIcon={<TrendingUpIcon className={s.icon} />}

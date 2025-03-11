@@ -1,4 +1,4 @@
-import { PostActionsDropdown, PostDescription } from '@/features/posts/ui'
+import { PostDescription } from '@/features/posts/ui'
 import { publicationsActions } from '@/features/publication/api'
 import { PublicPostsItem } from '@/services/posts'
 import { useAppDispatch, useTranslation } from '@/shared/hooks'
@@ -75,11 +75,6 @@ export const DisplayPostContent = ({ postData, setEditMode }: DisplayPostContent
             userName={postData.userName}
           />
           <div className={s.actionButtonsContainer}>
-            <PostActionsDropdown
-              onDeleteConfirm={closePostDialogHandler}
-              onEdit={setEditMode}
-              postId={postData.id}
-            />
             <DialogClose asChild>
               <Button
                 className={s.closeButton}
