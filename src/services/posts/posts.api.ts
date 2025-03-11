@@ -4,7 +4,6 @@ import {
   CreatePostImageArgs,
   CreatePostImageResponse,
   CreatePostResponse,
-  DeletePostArgs,
   GetPostsAllPublicArgs,
   GetPostsAllPublicResponse,
   GetPostsArgs,
@@ -69,43 +68,43 @@ export const postsApi = picoApi.injectEndpoints({
           }
         },
       }),
-      deletePost: builder.mutation<void, DeletePostArgs>({
-        async onQueryStarted(args, { dispatch, getState, queryFulfilled }) {
-          // Optimistic Update for Post Delete
-          // читаем кеш постов
-          const cachedPublicPostsForQuery = postsApi.util.selectCachedArgsForQuery(
-            getState(),
-            'getPostsAllPublicByUserId'
-          )
-
-          // массив пустышка куда положим посты после удаления.
-          const patchedPublicPosts: any[] = []
-
-          cachedPublicPostsForQuery.forEach(cachedArgs => {
-            patchedPublicPosts.push(
-              dispatch(
-                postsApi.util.updateQueryData('getPostsAllPublicByUserId', cachedArgs, draft => {
-                  // Удаляем пост из draft
-                  draft.items = draft.items.filter(post => post.id !== args.postId)
-                })
-              )
-            )
-          })
-          try {
-            await queryFulfilled
-          } catch (e) {
-            // Если запрос завершился ошибкой, откатываем изменения и показываем нотификашку
-            patchedPublicPosts.forEach(patchResult => patchResult.undo())
-            const error = getErrorMessageData(e)
-
-            showErrorToast(error)
-          }
-        },
-        query: ({ postId }) => ({
-          method: 'DELETE',
-          url: `/v1/posts/${postId}`,
-        }),
-      }),
+      // deletePost: builder.mutation<void, DeletePostArgs>({
+      //   async onQueryStarted(args, { dispatch, getState, queryFulfilled }) {
+      //     // Optimistic Update for Post Delete
+      //     // читаем кеш постов
+      //     const cachedPublicPostsForQuery = postsApi.util.selectCachedArgsForQuery(
+      //       getState(),
+      //       'getPostsAllPublicByUserId'
+      //     )
+      //
+      //     // массив пустышка куда положим посты после удаления.
+      //     const patchedPublicPosts: any[] = []
+      //
+      //     cachedPublicPostsForQuery.forEach(cachedArgs => {
+      //       patchedPublicPosts.push(
+      //         dispatch(
+      //           postsApi.util.updateQueryData('getPostsAllPublicByUserId', cachedArgs, draft => {
+      //             // Удаляем пост из draft
+      //             draft.items = draft.items.filter(post => post.id !== args.postId)
+      //           })
+      //         )
+      //       )
+      //     })
+      //     try {
+      //       await queryFulfilled
+      //     } catch (e) {
+      //       // Если запрос завершился ошибкой, откатываем изменения и показываем нотификашку
+      //       patchedPublicPosts.forEach(patchResult => patchResult.undo())
+      //       const error = getErrorMessageData(e)
+      //
+      //       showErrorToast(error)
+      //     }
+      //   },
+      //   query: ({ postId }) => ({
+      //     method: 'DELETE',
+      //     url: `/v1/posts/${postId}`,
+      //   }),
+      // }),
       getPosts: builder.query<GetPostsResponse, GetPostsArgs>({
         providesTags: ['Posts'],
         query: ({ userName, ...args }) => ({
@@ -189,7 +188,7 @@ export const postsApi = picoApi.injectEndpoints({
 export const {
   useCreatePostImageMutation,
   useCreatePostMutation,
-  useDeletePostMutation,
+  // useDeletePostMutation,
   useGetPostsAllPublicByUserIdQuery,
   useGetPostsQuery,
   useUpdatePostMutation,

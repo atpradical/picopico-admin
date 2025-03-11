@@ -23,14 +23,15 @@ export const ru: LocaleType = {
     statisticsLink: 'Статистика',
     userList: 'Пользователи',
   },
+
   createPostDialog: createPostDialog,
+
   deleteAvatarDialog: deleteAvatarDialog,
 
   language: {
     en: 'Английский',
     ru: ' Русский',
   },
-
   loading: 'Загрузка...',
   logoutDialog: logoutDialog,
   noPostsCreatedYet: 'Еще не создано ни одного поста',
@@ -43,6 +44,8 @@ export const ru: LocaleType = {
   profilePage: profilePage,
   profileSettings: profileSettings,
   signInPage: signInPage,
+
   usersPage: usersPage,
+
   validation: validation,
 }

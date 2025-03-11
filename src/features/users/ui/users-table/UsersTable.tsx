@@ -1,11 +1,10 @@
 import { ComponentPropsWithoutRef } from 'react'
 
+import { UserActionsDropdown } from '@/features/users/ui'
 import { PaymentHistoryItem } from '@/services/payments'
 import { useTranslation } from '@/shared/hooks'
 import {
   BlockIcon,
-  Button,
-  MoreHorizontalOutlineIcon,
   Table,
   TableBody,
   TableCell,
@@ -30,6 +29,7 @@ export const UsersTable = ({ dateLocale, paginatedData, ...props }: Props) => {
     <Table className={s.tableRoot} {...props}>
       <TableHeader>
         <TableRow>
+          <TableHead textAlign={'left'} />
           <TableHead textAlign={'left'}>{t.usersPage.usersTable.headers.userId}</TableHead>
           <TableHead textAlign={'left'}>{t.usersPage.usersTable.headers.userName}</TableHead>
           <TableHead textAlign={'left'}>{t.usersPage.usersTable.headers.profileLInk}</TableHead>
@@ -49,30 +49,41 @@ export const UsersTable = ({ dateLocale, paginatedData, ...props }: Props) => {
         {/*  )*/}
         {/*return (*/}
         <TableRow key={`key`}>
+          <TableCell textAlign={'left'} />
           <TableCell textAlign={'left'}>{'21331QErQe21'}</TableCell>
           <TableCell textAlign={'left'}>{'Ivan Yakymenko'}</TableCell>
           <TableCell textAlign={'left'}>{'Ivan.sr.yakimenko'}</TableCell>
           <TableCell textAlign={'left'}>{'12.12.2022'}</TableCell>
           <TableCell textAlign={'right'}>
-            <Button variant={'icon'}>
-              <MoreHorizontalOutlineIcon />
-            </Button>
+            <UserActionsDropdown
+              onBanConfirm={() => {
+                console.log('User banned')
+              }}
+              onDeleteConfirm={() => {
+                console.log('User deleted')
+              }}
+              postId={1}
+            />
           </TableCell>
         </TableRow>
         <TableRow key={`key`}>
           <TableCell textAlign={'left'}>
-            <TableCell className={s.noPadding} textAlign={'left'}>
-              <BlockIcon />
-              {'   21331QErQe21'}
-            </TableCell>
+            <BlockIcon />
           </TableCell>
+          <TableCell textAlign={'left'}>{'21331QErQe21'}</TableCell>
           <TableCell textAlign={'left'}>{'Ivan Yakymenko'}</TableCell>
           <TableCell textAlign={'left'}>{'Ivan.sr.yakimenko'}</TableCell>
           <TableCell textAlign={'left'}>{'12.12.2022'}</TableCell>
           <TableCell textAlign={'right'}>
-            <Button variant={'icon'}>
-              <MoreHorizontalOutlineIcon />
-            </Button>
+            <UserActionsDropdown
+              onBanConfirm={() => {
+                console.log('User banned')
+              }}
+              onDeleteConfirm={() => {
+                console.log('User deleted')
+              }}
+              postId={1}
+            />
           </TableCell>
         </TableRow>
         {/*)})}*!/*/}

@@ -29,7 +29,9 @@ export const en = {
     statisticsLink: 'Statistics',
     userList: 'Users List',
   },
+
   createPostDialog: createPostDialog,
+
   deleteAvatarDialog: deleteAvatarDialog,
 
   language: {
@@ -44,10 +46,11 @@ export const en = {
     collapsePostDescriptionButton: 'Hide',
     expandPostDescriptionButton: 'Show more',
   },
-  postDialog: postDialog,
+  postDialog: postDialog, //delete
   profilePage: profilePage, //delete
   profileSettings: profileSettings, //delete
   signInPage: signInPage,
+
   usersPage: usersPage,
   validation: validation,
 }
