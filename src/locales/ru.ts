@@ -6,6 +6,7 @@ import { notifications } from '@/locales/ru/notifications'
 import { postDialog } from '@/locales/ru/post-dialog'
 import { profileSettings } from '@/locales/ru/profile-settings'
 import { signInPage } from '@/locales/ru/sign-in-page'
+import { userDetailsPage } from '@/locales/ru/userDetailsPage'
 import { usersPage } from '@/locales/ru/users-page'
 import { validation } from '@/locales/ru/validation'
 
@@ -45,6 +46,7 @@ export const ru: LocaleType = {
   profileSettings: profileSettings,
   signInPage: signInPage,
 
+  userDetailsPage: userDetailsPage,
   usersPage: usersPage,
 
   validation: validation,

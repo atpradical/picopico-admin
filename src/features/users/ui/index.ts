@@ -1,2 +1,6 @@
+export * from './followers-tab'
+export * from './following-tab'
+export * from './payments-tab'
+export * from './uploaded-photo-tab'
 export * from './user-actions-dropdown'
 export * from './users-table'

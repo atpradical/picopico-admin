@@ -6,6 +6,7 @@ import { postDialog } from '@/locales/en/post-dialog'
 import { profilePage } from '@/locales/en/profile-page'
 import { profileSettings } from '@/locales/en/profile-settings'
 import { signInPage } from '@/locales/en/sign-in-page'
+import { userDetailsPage } from '@/locales/en/userDetailsPage'
 import { validation } from '@/locales/en/validation'
 
 import { usersPage } from './en/users-page'
@@ -51,6 +52,7 @@ export const en = {
   profileSettings: profileSettings, //delete
   signInPage: signInPage,
 
+  userDetailsPage: userDetailsPage,
   usersPage: usersPage,
   validation: validation,
 }
