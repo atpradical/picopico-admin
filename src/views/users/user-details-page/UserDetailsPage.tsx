@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react'
 
-import { paginationSelectOptions } from '@/features/payments/config'
 import { TAB_FOLLOWERS, TAB_FOLLOWING, TAB_PAYMENTS, TAB_PHOTOS } from '@/features/users/config'
 import { FollowersTab, FollowingTab, PaymentsTab, UploadedPhotosTab } from '@/features/users/ui'
 import { UserProfileCard } from '@/features/users/ui/user-profile-card'
 import { useTranslation } from '@/shared/hooks'
 import { Page, getNavigationLayout } from '@/shared/ui/layout'
 import {
-  Pagination,
   ScrollArea,
   ScrollBar,
   TabsList,
@@ -60,18 +58,6 @@ function UserDetailsPage() {
           <FollowersTab value={TAB_FOLLOWERS} />
           <FollowingTab value={TAB_FOLLOWING} />
         </TabsRoot>
-        <Pagination
-          currentPage={1}
-          onNextPage={() => {}}
-          onPageChange={() => {}}
-          onPrevPage={() => {}}
-          onSelectValueChange={() => {}}
-          pageSize={100}
-          selectOptions={paginationSelectOptions}
-          textPerPage={t.profileSettings.paymentsTab.pagination.textPerPage}
-          textShow={t.profileSettings.paymentsTab.pagination.textShow}
-          totalCount={10000}
-        />
         <Typography variant={'error'}>Page in development...</Typography>
       </div>
     </Page>
