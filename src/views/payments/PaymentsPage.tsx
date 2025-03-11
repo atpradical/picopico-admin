@@ -5,7 +5,7 @@ import s from './PaymentsPage.module.scss'
 function PaymentsPage() {
   return (
     <Page pt={'36px'}>
-      <div className={s.test}>Payments List</div>
+      <div className={s.container}>Payments List</div>
     </Page>
   )
 }

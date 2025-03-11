@@ -5,7 +5,7 @@ import s from './UsersPage.module.scss'
 function UsersPage() {
   return (
     <Page pt={'36px'}>
-      <div className={s.test}>Users List</div>
+      <div className={s.container}>Users List</div>
     </Page>
   )
 }

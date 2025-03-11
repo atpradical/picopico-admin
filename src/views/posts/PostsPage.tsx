@@ -5,7 +5,7 @@ import s from './PostsPage.module.scss'
 function PostsPage() {
   return (
     <Page pt={'36px'}>
-      <div className={s.test}>Posts Data</div>
+      <div className={s.container}>Posts Data</div>
     </Page>
   )
 }
