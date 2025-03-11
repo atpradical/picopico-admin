@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: var(--max-screen-width);
+  min-height: 100%;
+  margin: 0 auto;
+}
+
+.tableContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.noPaymentHistoryText {
+  text-align: center;
+}

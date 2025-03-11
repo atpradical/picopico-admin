@@ -1,0 +1,81 @@
+.buttonTrigger {
+  padding: 6px;
+  background-color: rgb(23 23 23 / 80%);
+}
+
+.iconImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--icon-size-m);
+  height: var(--icon-size-m);
+}
+
+.popoverContainer {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+
+  width: 100%;
+  max-width: 465px;
+
+  background-color: rgb(23 23 23 / 80%);
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.scrollContainer {
+  overflow: auto;
+  display: flex;
+  flex-direction: row;
+
+  max-width: 200px;
+  height: 130px;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  width: 100%;
+}
+
+.previewItem {
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.activeSlide {
+  border-bottom: 2px solid var(--color-accent-700);
+}
+
+.image {
+  object-fit: cover;
+}
+
+.closeButton {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+
+  width: var(--icon-size-xs);
+  height: var(--icon-size-xs);
+  border-radius: var(--border-radius-s);
+
+  background-color: rgb(23 23 23 / 80%);
+}
+
+.addButton {
+  flex-shrink: 0;
+  align-self: flex-start;
+  height: 32px;
+}
+
+.plusIcon {
+  flex-shrink: 0;
+  width: var(--icon-size-l);
+  height: var(--icon-size-l);
+}

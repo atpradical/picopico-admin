@@ -1,0 +1,78 @@
+@import '@/styles/constants';
+
+.wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+  height: var(--header-height);
+  padding: 12px 60px;
+  border-bottom: 1px solid var(--color-dark-300);
+
+  background-color: var(--color-dark-700);
+
+  @media (max-width: $mobile-width) {
+    padding: 12px;
+  }
+}
+
+.logoWrapper {
+  &:hover,
+  &:active,
+  &:focus {
+    color: var(--color-light-100);
+    outline: none;
+  }
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: $mobile-width) {
+    gap: 12px;
+  }
+}
+
+.select {
+  min-width: 160px;
+
+  @media (max-width: $mobile-width) {
+    min-width: fit-content;
+  }
+}
+
+.buttonBell {
+  margin-right: 12px;
+
+  @media (max-width: $mobile-width) {
+    margin-right: 0;
+  }
+}
+
+.button {
+  text-wrap: nowrap;
+}
+
+.icon {
+  width: var(--icon-size-m);
+  height: var(--icon-size-m);
+}

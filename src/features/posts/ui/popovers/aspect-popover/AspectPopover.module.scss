@@ -1,0 +1,53 @@
+.buttonTrigger {
+  padding: 6px;
+  background-color: rgb(23 23 23 / 80%);
+}
+
+.popoverContent,
+.toggleGroup {
+  opacity: 0.9;
+}
+
+.toggleGroup {
+  width: 156px;
+  padding: 0;
+  background-color: rgb(23 23 23 / 80%);
+}
+
+.toggleItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-dark-300);
+
+  &[data-state='on'] {
+    opacity: 1;
+    background-color: var(--color-accent-900);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover:not([data-state='on']) {
+    background-color: var(--color-dark-700);
+  }
+}
+
+.iconImage,
+.iconRatio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconRatio {
+  width: var(--icon-size-s);
+  height: var(--icon-size-s);
+  margin-right: 2px;
+}
+
+.iconImage {
+  width: var(--icon-size-m);
+  height: var(--icon-size-m);
+}

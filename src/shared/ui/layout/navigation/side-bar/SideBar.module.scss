@@ -1,0 +1,33 @@
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.sidebar {
+  top: var(--header-height);
+
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  justify-content: flex-start;
+
+  width: var(--sidebar-width);
+  min-height: calc(100vh - var(--header-height));
+  padding: 72px 30px 60px 36px;
+  border-right: 1px solid var(--color-dark-100);
+
+  .group:last-child {
+    margin-top: 180px;
+  }
+
+  .group:not(:first-child, :last-child) {
+    margin-top: 60px;
+  }
+}
+
+.icon {
+  width: var(--icon-size-m);
+  height: var(--icon-size-m);
+}

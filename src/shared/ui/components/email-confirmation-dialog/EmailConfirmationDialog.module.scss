@@ -1,0 +1,32 @@
+@import '@/styles/constants';
+
+.content {
+  width: 380px;
+}
+
+.overlay {
+  &[data-state='open'] {
+    opacity: 0.8;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.button {
+  padding: 6px 36px;
+
+  @media (max-width: $mobile-width) {
+    width: 100%;
+    padding: 12px;
+  }
+}

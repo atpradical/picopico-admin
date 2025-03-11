@@ -1,0 +1,34 @@
+@import '@/styles/constants';
+
+.stats {
+  display: flex;
+  gap: 100px;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 100%;
+
+  @media (max-width: $tablet-width) {
+    gap: 33px;
+  }
+
+  @media (max-width: $mobile-width) {
+    gap: 10px;
+  }
+
+  @media (max-width: $tiny-mobile-width) {
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.statsItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  @media (max-width: $tablet-width) {
+    align-items: center;
+  }
+}

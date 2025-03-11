@@ -1,0 +1,17 @@
+@import '@/styles/constants';
+
+.tabsRoot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  // Учитываем ширину сайдбара и паддинги для скролла
+  width: calc(100vw - var(--sidebar-width) - 40px);
+  max-width: var(--max-screen-width);
+  margin: 0 auto;
+
+  @media (max-width: $mobile-width) {
+    width: calc(100vw - 40px);
+  }
+}

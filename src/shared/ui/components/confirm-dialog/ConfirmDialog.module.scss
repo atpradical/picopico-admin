@@ -1,0 +1,33 @@
+@import '@/styles/constants';
+
+.content {
+  width: 100%;
+  max-width: 380px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-end;
+
+  padding: 15px;
+
+  @media (max-width: $mobile-width) {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .button {
+    width: 100%;
+    padding: 12px 24px;
+  }
+}
