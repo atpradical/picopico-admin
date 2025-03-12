@@ -32,12 +32,14 @@ function PaymentsPage() {
         <Typography grey variant={'large'}>
           Payments List
         </Typography>
-        <Checkbox label={t.paymentsPage.autoupdate} />
-        <TextField
-          label={t.paymentsPage.searchLabel}
-          placeholder={t.paymentsPage.searchPlaceholder}
-          variant={'search'}
-        />
+        <div className={s.filtersContainer}>
+          <Checkbox className={s.autoUpdateCheckbox} label={t.paymentsPage.autoupdate} />
+          <TextField
+            label={t.paymentsPage.searchLabel}
+            placeholder={t.paymentsPage.searchPlaceholder}
+            variant={'search'}
+          />
+        </div>
         <PaymentsListTable dateLocale={dateLocale} paginatedData={paginatedData} />
         <Pagination
           currentPage={currentPage}

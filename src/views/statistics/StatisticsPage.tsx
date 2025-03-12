@@ -44,9 +44,13 @@ function StatisticsPage() {
         </Typography>
         <TabsRoot className={s.tabsRoot} onValueChange={onTabChangeHandler} value={activeTab}>
           <ScrollArea>
-            <TabsList>
-              <TabsTrigger value={TAB_USERS}>{t.statisticsPage.tabNames.users}</TabsTrigger>
-              <TabsTrigger value={TAB_POSTS}>{t.statisticsPage.tabNames.posts}</TabsTrigger>
+            <TabsList className={s.tabsList}>
+              <TabsTrigger className={s.tabTrigger} value={TAB_USERS}>
+                {t.statisticsPage.tabNames.users}
+              </TabsTrigger>
+              <TabsTrigger className={s.tabTrigger} value={TAB_POSTS}>
+                {t.statisticsPage.tabNames.posts}
+              </TabsTrigger>
             </TabsList>
             <ScrollBar orientation={'horizontal'} />
           </ScrollArea>
