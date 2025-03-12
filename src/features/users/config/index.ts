@@ -10,3 +10,5 @@ export const TAB_PHOTOS = 'photos'
 export const TAB_PAYMENTS = 'payments'
 export const TAB_FOLLOWERS = 'followers'
 export const TAB_FOLLOWING = 'following'
+
+export const INITIAL_CURSOR = 0

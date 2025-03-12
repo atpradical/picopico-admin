@@ -1,7 +1,6 @@
 import { logoutDialog } from '@/locales/en/logout-dialog'
 import { notifications } from '@/locales/en/notifications'
 import { postDialog } from '@/locales/en/post-dialog'
-import { profilePage } from '@/locales/en/profile-page'
 import { profileSettings } from '@/locales/en/profile-settings'
 import { signInPage } from '@/locales/en/sign-in-page'
 import { userDetailsPage } from '@/locales/en/userDetailsPage'
@@ -56,7 +55,6 @@ export const en = {
     expandPostDescriptionButton: 'Show more',
   },
   postDialog: postDialog, //delete
-  profilePage: profilePage, //delete
   profileSettings: profileSettings, //delete
   signInPage: signInPage,
 

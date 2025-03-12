@@ -27,9 +27,8 @@ import s from './DisplayPostContent.module.scss'
 
 type DisplayPostContentProps = {
   postData: PublicPostsItem
-  setEditMode: () => void
 }
-export const DisplayPostContent = ({ postData, setEditMode }: DisplayPostContentProps) => {
+export const DisplayPostContent = ({ postData }: DisplayPostContentProps) => {
   const { t } = useTranslation()
   const { removeRouterQueryParam } = usePagesRouterQueryUpdate()
   const dispatch = useAppDispatch()

@@ -14,7 +14,7 @@ function SignInPage() {
 
   // useEffect(() => {
   //   if (isAuth && meData?.userId && !!token) {
-  //     router.push(Paths.profile + '/' + meData.userId)
+  //     router.push(Paths.Users + '/' + meData.userId)
   //   }
   // }, [isAuth, meData, router, token])
 

@@ -1,7 +1,6 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef, useState } from 'react'
 
 import { MAX_EXPANDED_POST_DESCRIPTION_CHAR_AMOUNT } from '@/features/publication/config'
-import { PublicPostsItem } from '@/services/posts'
 import { useTranslation } from '@/shared/hooks'
 import { getDateDistanceToNow } from '@/shared/utils'
 import { Avatar, Button, Card, LayersOutlineIcon, Typography } from '@atpradical/picopico-ui-kit'
@@ -16,7 +15,8 @@ type PublicationProps = {
   isLastPost?: boolean
   isLink?: Boolean
   onClick?: () => void
-  post: PublicPostsItem
+  //TODO: POST fix any
+  post: any
   showDescription?: boolean
 } & ComponentPropsWithoutRef<'div'>
 

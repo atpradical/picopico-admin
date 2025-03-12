@@ -4,7 +4,35 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  align-items: center;
+  justify-content: center;
 
   width: 100%;
   margin-top: 24px;
 }
+
+.postsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 234px); /* Адаптивные колонки */
+  gap: 12px;
+  justify-content: center;
+
+  width: 100%;
+
+  @media (max-width: $mobile-width) {
+    grid-template-columns: repeat(auto-fill, 128px); /* Адаптивные колонки */
+    gap: 0;
+  }
+
+  @media (width <= 405px) {
+    grid-template-columns: repeat(auto-fill, 118px); /* Адаптивные колонки */
+    gap: 0;
+  }
+
+  @media (width <= 375px) {
+    grid-template-columns: repeat(auto-fill, 108px); /* Адаптивные колонки */
+    gap: 0;
+  }
+}
+
+

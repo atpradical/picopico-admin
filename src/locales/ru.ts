@@ -8,8 +8,6 @@ import { userDetailsPage } from '@/locales/ru/userDetailsPage'
 import { usersPage } from '@/locales/ru/users-page'
 import { validation } from '@/locales/ru/validation'
 
-import { profilePage } from './ru/profile-page'
-
 export const ru: LocaleType = {
   appHeader: {
     signInButton: 'Войти',
@@ -51,7 +49,6 @@ export const ru: LocaleType = {
     expandPostDescriptionButton: 'Подробнее',
   },
   postDialog: postDialog,
-  profilePage: profilePage,
   profileSettings: profileSettings,
   signInPage: signInPage,
 
