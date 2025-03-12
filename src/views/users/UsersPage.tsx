@@ -1,6 +1,6 @@
 import { paginationSelectOptions } from '@/features/payments/config'
 import { UsersTable } from '@/features/users/ui'
-import { useTranslation } from '@/shared/hooks'
+import { usePagination, useTranslation } from '@/shared/hooks'
 import { Page, getNavigationLayout } from '@/shared/ui/layout'
 import { Pagination, Select, TextField, Typography } from '@atpradical/picopico-ui-kit'
 import { enUS, ru } from 'date-fns/locale'
@@ -12,7 +12,17 @@ function UsersPage() {
   const { t } = useTranslation()
   const { locale } = useRouter()
   const dateLocale = locale === 'ru' ? ru : enUS
-  //TODO: PAGINATION переиспользовать хук для пагинации
+
+  const {
+    changePage,
+    changePageSize,
+    currentPage,
+    nextPage,
+    pageSize,
+    paginatedData,
+    prevPage,
+    totalCount,
+  } = usePagination({ data: [{}, {}, {}] })
 
   return (
     <Page pt={'60px'}>
@@ -29,18 +39,18 @@ function UsersPage() {
             ]}
           />
         </div>
-        <UsersTable dateLocale={dateLocale} paginatedData={[]} />
+        <UsersTable dateLocale={dateLocale} paginatedData={paginatedData} />
         <Pagination
-          currentPage={1}
-          onNextPage={() => {}}
-          onPageChange={() => {}}
-          onPrevPage={() => {}}
-          onSelectValueChange={() => {}}
-          pageSize={100}
+          currentPage={currentPage}
+          onNextPage={nextPage}
+          onPageChange={changePage}
+          onPrevPage={prevPage}
+          onSelectValueChange={changePageSize}
+          pageSize={pageSize}
           selectOptions={paginationSelectOptions}
           textPerPage={t.pagination.textPerPage}
           textShow={t.pagination.textShow}
-          totalCount={10000}
+          totalCount={totalCount}
         />
         <Typography variant={'error'}>Page in development....</Typography>
       </div>

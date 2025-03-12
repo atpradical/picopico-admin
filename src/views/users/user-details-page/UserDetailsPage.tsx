@@ -55,7 +55,6 @@ function UserDetailsPage() {
             <ScrollBar orientation={'horizontal'} />
           </ScrollArea>
           <UploadedPhotosTab value={TAB_PHOTOS} />
-          {/*todo: переиспользовать готовый компонент с оплатами ?*/}
           <PaymentsTab value={TAB_PAYMENTS} />
           <FollowersTab value={TAB_FOLLOWERS} />
           <FollowingTab value={TAB_FOLLOWING} />

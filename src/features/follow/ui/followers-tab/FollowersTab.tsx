@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef } from 'react'
 
 import { FollowTable } from '@/features/follow/ui/follow-table'
 import { paginationSelectOptions } from '@/features/payments/config'
-import { useTranslation } from '@/shared/hooks'
+import { usePagination, useTranslation } from '@/shared/hooks'
 import { Pagination, TabsContent, Typography } from '@atpradical/picopico-ui-kit'
 import clsx from 'clsx'
 import { enUS, ru } from 'date-fns/locale'
@@ -16,25 +16,35 @@ export const FollowersTab = ({ className, ...rest }: FollowersTabProps) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
   const dateLocale = locale === 'ru' ? ru : enUS
-  //TODO: PAGINATION переиспользовать хук для пагинации
+
+  const {
+    changePage,
+    changePageSize,
+    currentPage,
+    nextPage,
+    pageSize,
+    paginatedData,
+    prevPage,
+    totalCount,
+  } = usePagination({ data: [{}, {}, {}] })
 
   return (
     <TabsContent className={clsx(s.content, className)} {...rest}>
       <Typography grey variant={'large'}>
         Followers Data
       </Typography>
-      <FollowTable dateLocale={dateLocale} paginatedData={[]} />
+      <FollowTable dateLocale={dateLocale} paginatedData={[paginatedData]} />
       <Pagination
-        currentPage={1}
-        onNextPage={() => {}}
-        onPageChange={() => {}}
-        onPrevPage={() => {}}
-        onSelectValueChange={() => {}}
-        pageSize={100}
+        currentPage={currentPage}
+        onNextPage={nextPage}
+        onPageChange={changePage}
+        onPrevPage={prevPage}
+        onSelectValueChange={changePageSize}
+        pageSize={pageSize}
         selectOptions={paginationSelectOptions}
         textPerPage={t.pagination.textPerPage}
         textShow={t.pagination.textShow}
-        totalCount={10000}
+        totalCount={totalCount}
       />
     </TabsContent>
   )
