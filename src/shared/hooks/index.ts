@@ -1,5 +1,4 @@
 export * from './useAppDispatch'
-export * from './useCheckPasswordsMatch'
 export * from './useLoader'
 export * from './useLogout'
 export * from './useTranslations'

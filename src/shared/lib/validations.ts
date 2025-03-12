@@ -50,11 +50,11 @@ export const passwordScheme = (args: LocaleValidationPassword) =>
       message: args.mustContain,
     })
 
-export const confirmPasswordScheme = z.string().trim()
+// export const confirmPasswordScheme = z.string().trim()
 
-export const recaptchaScheme = (message: string) => {
-  return z.string().min(1, message)
-}
+// export const recaptchaScheme = (message: string) => {
+//   return z.string().min(1, message)
+// }
 
 // export const aboutMeScheme = (args: LocaleValidationAboutMe) => {
 //   return z
