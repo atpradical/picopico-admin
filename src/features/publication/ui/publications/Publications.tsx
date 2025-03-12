@@ -4,9 +4,9 @@ import { PostDialog } from '@/features/posts/ui'
 import { publicationsActions } from '@/features/publication/api'
 import { Publication } from '@/features/publication/ui'
 import { PublicPostsItem } from '@/services/posts'
-import { useAppDispatch, useTranslation } from '@/shared/hooks'
+import { useAppDispatch } from '@/shared/hooks'
 import { usePagesRouterQueryUpdate } from '@/shared/hooks/usePagesRouterQueryUpdate'
-import { PolaroidIllustration, Typography } from '@atpradical/picopico-ui-kit'
+import { PolaroidIllustration } from '@atpradical/picopico-ui-kit'
 import { useIntersectionObserver } from '@uidotdev/usehooks'
 
 import s from './Publications.module.scss'
@@ -17,7 +17,6 @@ type PublicationsProps = {
 }
 
 export const Publications = ({ posts, updateCursor }: PublicationsProps) => {
-  const { t } = useTranslation()
   const { addRouterQueryParamShallow } = usePagesRouterQueryUpdate()
   const dispatch = useAppDispatch()
   const sectionRef = useRef(null)
@@ -58,9 +57,6 @@ export const Publications = ({ posts, updateCursor }: PublicationsProps) => {
         </div>
       ) : (
         <>
-          <Typography as={'h2'} grey variant={'h2'}>
-            {t.noPostsCreatedYet}
-          </Typography>
           <PolaroidIllustration className={s.noPost} />
         </>
       )}

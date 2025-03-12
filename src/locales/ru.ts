@@ -1,6 +1,4 @@
 import { LocaleType } from '@/locales/en'
-import { createPostDialog } from '@/locales/ru/create-post-dialog'
-import { deleteAvatarDialog } from '@/locales/ru/delete-avatar-dialog'
 import { logoutDialog } from '@/locales/ru/logout-dialog'
 import { notifications } from '@/locales/ru/notifications'
 import { postDialog } from '@/locales/ru/post-dialog'
@@ -25,10 +23,6 @@ export const ru: LocaleType = {
     userList: 'Пользователи',
   },
 
-  createPostDialog: createPostDialog,
-
-  deleteAvatarDialog: deleteAvatarDialog,
-
   follow: {
     tabNames: {
       link: 'Ссылка на профиль',
@@ -45,7 +39,6 @@ export const ru: LocaleType = {
 
   loading: 'Загрузка...',
   logoutDialog: logoutDialog,
-  noPostsCreatedYet: 'Еще не создано ни одного поста',
   notifications: notifications,
 
   pagination: {

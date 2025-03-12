@@ -1,5 +1,3 @@
-import { createPostDialog } from '@/locales/en/create-post-dialog'
-import { deleteAvatarDialog } from '@/locales/en/delete-avatar-dialog'
 import { logoutDialog } from '@/locales/en/logout-dialog'
 import { notifications } from '@/locales/en/notifications'
 import { postDialog } from '@/locales/en/post-dialog'
@@ -30,10 +28,6 @@ export const en = {
     userList: 'Users List',
   },
 
-  createPostDialog: createPostDialog,
-
-  deleteAvatarDialog: deleteAvatarDialog,
-
   follow: {
     tabNames: {
       link: 'Profile Link',
@@ -49,7 +43,6 @@ export const en = {
   },
   loading: 'Loading...',
   logoutDialog: logoutDialog,
-  noPostsCreatedYet: 'No posts have been created yet',
 
   notifications: notifications,
 
