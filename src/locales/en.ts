@@ -34,6 +34,15 @@ export const en = {
 
   deleteAvatarDialog: deleteAvatarDialog,
 
+  follow: {
+    tabNames: {
+      link: 'Profile Link',
+      subscribeDate: 'Subscription Date',
+      userId: 'User ID',
+      username: 'Username',
+    },
+  },
+
   language: {
     en: 'English',
     ru: ' Russian',
@@ -41,7 +50,14 @@ export const en = {
   loading: 'Loading...',
   logoutDialog: logoutDialog,
   noPostsCreatedYet: 'No posts have been created yet',
+
   notifications: notifications,
+
+  pagination: {
+    textPerPage: 'per page',
+    textShow: 'Show',
+  },
+
   postDescription: {
     collapsePostDescriptionButton: 'Hide',
     expandPostDescriptionButton: 'Show more',

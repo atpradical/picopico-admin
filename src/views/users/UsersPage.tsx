@@ -12,6 +12,7 @@ function UsersPage() {
   const { t } = useTranslation()
   const { locale } = useRouter()
   const dateLocale = locale === 'ru' ? ru : enUS
+  //TODO: PAGINATION переиспользовать хук для пагинации
 
   return (
     <Page pt={'60px'}>
@@ -37,8 +38,8 @@ function UsersPage() {
           onSelectValueChange={() => {}}
           pageSize={100}
           selectOptions={paginationSelectOptions}
-          textPerPage={t.profileSettings.paymentsTab.pagination.textPerPage}
-          textShow={t.profileSettings.paymentsTab.pagination.textShow}
+          textPerPage={t.pagination.textPerPage}
+          textShow={t.pagination.textShow}
           totalCount={10000}
         />
         <Typography variant={'error'}>Page in development....</Typography>

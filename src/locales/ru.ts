@@ -29,14 +29,30 @@ export const ru: LocaleType = {
 
   deleteAvatarDialog: deleteAvatarDialog,
 
+  follow: {
+    tabNames: {
+      link: 'Ссылка на профиль',
+      subscribeDate: 'Дата подписки',
+      userId: 'ID пользователя',
+      username: 'Имя пользователя',
+    },
+  },
+
   language: {
     en: 'Английский',
     ru: ' Русский',
   },
+
   loading: 'Загрузка...',
   logoutDialog: logoutDialog,
   noPostsCreatedYet: 'Еще не создано ни одного поста',
   notifications: notifications,
+
+  pagination: {
+    textPerPage: 'на странице',
+    textShow: 'показать',
+  },
+
   postDescription: {
     collapsePostDescriptionButton: 'Скрыть',
     expandPostDescriptionButton: 'Подробнее',

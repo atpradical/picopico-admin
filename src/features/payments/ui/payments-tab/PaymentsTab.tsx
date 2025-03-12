@@ -35,6 +35,7 @@ export const PaymentsTab = ({ tableProps, ...props }: AccountManagementTabProps)
     return paymentHistory.slice(startIndex, endIndex)
   }, [paymentHistory, currentPage, pageSize])
 
+  //TODO: PAGINATION вынести в отдельный хук и переиспользовать на всех страницах с пагинацией
   const totalCount = paymentHistory?.length ?? 0
 
   const nextPage = () => {
@@ -70,8 +71,8 @@ export const PaymentsTab = ({ tableProps, ...props }: AccountManagementTabProps)
             onSelectValueChange={changePageSize}
             pageSize={pageSize}
             selectOptions={paginationSelectOptions}
-            textPerPage={t.profileSettings.paymentsTab.pagination.textPerPage}
-            textShow={t.profileSettings.paymentsTab.pagination.textShow}
+            textPerPage={t.pagination.textPerPage}
+            textShow={t.pagination.textShow}
             totalCount={totalCount}
           />
         </>
