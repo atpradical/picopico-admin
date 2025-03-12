@@ -53,23 +53,6 @@ export const profileSettings = {
     },
   },
 
-  paymentsTab: {
-    noPayments: 'Вы еще не совершили никаких платежей',
-    pagination: {
-      textPerPage: 'на странице',
-      textShow: 'Показать',
-    },
-    paymentsTable: {
-      header: {
-        dateEndOfSubscription: 'Дата окончания подписки',
-        dateOfPayment: 'Дата платежа',
-        paymentSystem: 'Платежная система',
-        price: 'Цена',
-        subscriptionDescription: 'Тип подписки',
-      },
-    },
-  },
-
   profileDataTab: {
     addProfilePhotoButton: 'Добавить аватар',
     deleteProfileButton: 'Удалить аккаунт',

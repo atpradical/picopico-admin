@@ -50,15 +50,53 @@ export const en = {
     textShow: 'Show',
   },
 
+  paymentsPage: {
+    autoupdate: 'Autoupdate',
+    noData: 'No payments yet',
+    searchLabel: 'Search',
+    searchPlaceholder: 'Search',
+    table: {
+      header: {
+        dateOfPayment: 'Added Date',
+        paymentSystem: 'Payment Method',
+        price: 'Amount,$',
+        subscriptionDescription: 'Subscription',
+        username: 'Username',
+      },
+    },
+  },
+
+  paymentsTab: {
+    noData: 'No payments yet',
+    table: {
+      header: {
+        dateOfPayment: 'Added Date',
+        paymentSystem: 'Payment Method',
+        price: 'Amount,$',
+        subscriptionDescription: 'Subscription',
+        subscriptionEndDate: 'End date of subscription',
+      },
+    },
+  },
+
   postDescription: {
     collapsePostDescriptionButton: 'Hide',
     expandPostDescriptionButton: 'Show more',
   },
   postDialog: postDialog, //delete
   profileSettings: profileSettings, //delete
+
   signInPage: signInPage,
 
+  statisticsPage: {
+    tabNames: {
+      posts: 'Photos',
+      users: 'Users',
+    },
+  },
+
   userDetailsPage: userDetailsPage,
+
   usersPage: usersPage,
   validation: validation,
 }

@@ -11,7 +11,7 @@ import {
 } from '@atpradical/picopico-ui-kit'
 import { Locale } from 'date-fns'
 
-import s from './PaymentsTable.module.scss'
+import s from './PaymentsUserTable.module.scss'
 
 type Props = {
   dateLocale: Locale
@@ -19,7 +19,7 @@ type Props = {
   paginatedData: any[]
 } & ComponentPropsWithoutRef<typeof Table>
 
-export const PaymentsTable = ({ dateLocale, paginatedData, ...props }: Props) => {
+export const PaymentsUserTable = ({ dateLocale, paginatedData, ...props }: Props) => {
   const { t } = useTranslation()
   // const { locale } = useRouter()
 
@@ -27,21 +27,13 @@ export const PaymentsTable = ({ dateLocale, paginatedData, ...props }: Props) =>
     <Table className={s.tableRoot} {...props}>
       <TableHeader>
         <TableRow>
+          <TableHead textAlign={'left'}>{t.paymentsTab.table.header.dateOfPayment}</TableHead>
+          <TableHead textAlign={'left'}>{t.paymentsTab.table.header.subscriptionEndDate}</TableHead>
+          <TableHead textAlign={'right'}>{t.paymentsTab.table.header.price}</TableHead>
           <TableHead textAlign={'left'}>
-            {t.profileSettings.paymentsTab.paymentsTable.header.dateOfPayment}
+            {t.paymentsTab.table.header.subscriptionDescription}
           </TableHead>
-          <TableHead textAlign={'left'}>
-            {t.profileSettings.paymentsTab.paymentsTable.header.dateEndOfSubscription}
-          </TableHead>
-          <TableHead textAlign={'right'}>
-            {t.profileSettings.paymentsTab.paymentsTable.header.price}
-          </TableHead>
-          <TableHead textAlign={'left'}>
-            {t.profileSettings.paymentsTab.paymentsTable.header.subscriptionDescription}
-          </TableHead>
-          <TableHead textAlign={'left'}>
-            {t.profileSettings.paymentsTab.paymentsTable.header.paymentSystem}
-          </TableHead>
+          <TableHead textAlign={'left'}>{t.paymentsTab.table.header.paymentSystem}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

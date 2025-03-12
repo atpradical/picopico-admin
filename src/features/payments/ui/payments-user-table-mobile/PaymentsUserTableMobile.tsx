@@ -5,7 +5,7 @@ import { Card, Typography } from '@atpradical/picopico-ui-kit'
 import { Locale } from 'date-fns'
 import { useRouter } from 'next/router'
 
-import s from './PaymentsTableMobile.module.scss'
+import s from './PaymentsUserTableMobile.module.scss'
 
 type Props = {
   dateLocale: Locale
@@ -13,7 +13,7 @@ type Props = {
   paginatedData: any[]
 }
 
-export const PaymentsTableMobile = ({ dateLocale, paginatedData }: Props) => {
+export const PaymentsUserTableMobile = ({ dateLocale, paginatedData }: Props) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
 
@@ -31,31 +31,23 @@ export const PaymentsTableMobile = ({ dateLocale, paginatedData }: Props) => {
     return (
       <Card className={s.itemContainer} key={`${el.subscriptionId}_${index}`}>
         <div className={s.itemLine}>
-          <Typography grey>
-            {t.profileSettings.paymentsTab.paymentsTable.header.dateOfPayment}
-          </Typography>
+          <Typography grey>{t.paymentsTab.table.header.dateOfPayment}</Typography>
           <Typography variant={'bold_14'}>{formattedDateOfPayment}</Typography>
         </div>
         <div className={s.itemLine}>
-          <Typography grey>
-            {t.profileSettings.paymentsTab.paymentsTable.header.dateEndOfSubscription}
-          </Typography>
+          <Typography grey>{t.paymentsTab.table.header.subscriptionEndDate}</Typography>
           <Typography variant={'bold_14'}>{formattedEndDateOfSubscription}</Typography>
         </div>
         <div className={s.itemLine}>
-          <Typography grey>{t.profileSettings.paymentsTab.paymentsTable.header.price}</Typography>
+          <Typography grey>{t.paymentsTab.table.header.price}</Typography>
           <Typography variant={'bold_14'}>{`$${el.price}`}</Typography>
         </div>
         <div className={s.itemLine}>
-          <Typography grey>
-            {t.profileSettings.paymentsTab.paymentsTable.header.subscriptionDescription}
-          </Typography>
+          <Typography grey>{t.paymentsTab.table.header.subscriptionDescription}</Typography>
           <Typography variant={'bold_14'}>{subscriptionTextsWithTranslation?.label}</Typography>
         </div>
         <div className={s.itemLine}>
-          <Typography grey>
-            {t.profileSettings.paymentsTab.paymentsTable.header.paymentSystem}
-          </Typography>
+          <Typography grey>{t.paymentsTab.table.header.paymentSystem}</Typography>
           <Typography variant={'bold_14'}>{PaymentSystemDisplay[el.paymentType]}</Typography>
         </div>
       </Card>

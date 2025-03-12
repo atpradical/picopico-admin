@@ -53,23 +53,6 @@ export const profileSettings = {
     },
   },
 
-  paymentsTab: {
-    noPayments: 'You have not yet made any payments',
-    pagination: {
-      textPerPage: 'per page',
-      textShow: 'Show',
-    },
-    paymentsTable: {
-      header: {
-        dateEndOfSubscription: 'Date end of subscription',
-        dateOfPayment: 'Date of payment',
-        paymentSystem: 'Payment type',
-        price: 'Price',
-        subscriptionDescription: 'Subscription type',
-      },
-    },
-  },
-
   profileDataTab: {
     addProfilePhotoButton: 'Add a Profile Photo',
     deleteProfileButton: 'Delete account',

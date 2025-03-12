@@ -36,21 +36,59 @@ export const ru: LocaleType = {
   },
 
   loading: 'Загрузка...',
+
   logoutDialog: logoutDialog,
   notifications: notifications,
-
   pagination: {
     textPerPage: 'на странице',
     textShow: 'показать',
+  },
+
+  paymentsPage: {
+    autoupdate: 'Автообновление',
+    noData: 'Платежей пока нет',
+    searchLabel: 'Поиск',
+    searchPlaceholder: 'Поиск',
+    table: {
+      header: {
+        dateOfPayment: 'Дата добавления',
+        paymentSystem: 'Способ оплаты',
+        price: 'Сумма, $',
+        subscriptionDescription: 'Подписка',
+        username: 'Имя пользователя',
+      },
+    },
+  },
+
+  paymentsTab: {
+    noData: 'Платежей пока нет',
+    table: {
+      header: {
+        dateOfPayment: 'Дата добавления',
+        paymentSystem: 'Способ оплаты',
+        price: 'Сумма, $',
+        subscriptionDescription: 'Подписка',
+        subscriptionEndDate: 'Дата окончания подписки',
+      },
+    },
   },
 
   postDescription: {
     collapsePostDescriptionButton: 'Скрыть',
     expandPostDescriptionButton: 'Подробнее',
   },
+
   postDialog: postDialog,
+
   profileSettings: profileSettings,
   signInPage: signInPage,
+
+  statisticsPage: {
+    tabNames: {
+      posts: 'Фото',
+      users: 'Пользователи',
+    },
+  },
 
   userDetailsPage: userDetailsPage,
   usersPage: usersPage,
