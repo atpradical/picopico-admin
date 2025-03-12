@@ -11,7 +11,7 @@ import {
 } from '@atpradical/picopico-ui-kit'
 import { Locale } from 'date-fns'
 
-import s from './PaymentHistoryTable.module.scss'
+import s from './PaymentsTable.module.scss'
 
 type Props = {
   dateLocale: Locale
@@ -19,7 +19,7 @@ type Props = {
   paginatedData: any[]
 } & ComponentPropsWithoutRef<typeof Table>
 
-export const PaymentHistoryTable = ({ dateLocale, paginatedData, ...props }: Props) => {
+export const PaymentsTable = ({ dateLocale, paginatedData, ...props }: Props) => {
   const { t } = useTranslation()
   // const { locale } = useRouter()
 

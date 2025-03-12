@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react'
 
 import { paginationSelectOptions } from '@/features/payments/config'
-import { PaymentHistoryTable } from '@/features/payments/ui'
+import { PaymentsTable } from '@/features/payments/ui'
 import { usePagination, useTranslation } from '@/shared/hooks'
 import { Pagination, TabsContent, Typography } from '@atpradical/picopico-ui-kit'
 import { enUS, ru } from 'date-fns/locale'
@@ -38,8 +38,8 @@ export const PaymentsTab = ({ tableProps, ...props }: AccountManagementTabProps)
       {paymentHistory && paymentHistory.length ? (
         <>
           <div className={s.tableContainer}>
-            {/*<PaymentHistoryTableMobile dateLocale={dateLocale} paginatedData={paginatedData} />*/}
-            <PaymentHistoryTable dateLocale={dateLocale} paginatedData={paginatedData} />
+            {/*<PaymentsTableMobile dateLocale={dateLocale} paginatedData={paginatedData} />*/}
+            <PaymentsTable dateLocale={dateLocale} paginatedData={paginatedData} />
           </div>
           <Pagination
             currentPage={currentPage}

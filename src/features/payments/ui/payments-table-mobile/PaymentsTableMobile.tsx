@@ -5,7 +5,7 @@ import { Card, Typography } from '@atpradical/picopico-ui-kit'
 import { Locale } from 'date-fns'
 import { useRouter } from 'next/router'
 
-import s from './PaymentHistoryTableMobile.module.scss'
+import s from './PaymentsTableMobile.module.scss'
 
 type Props = {
   dateLocale: Locale
@@ -13,7 +13,7 @@ type Props = {
   paginatedData: any[]
 }
 
-export const PaymentHistoryTableMobile = ({ dateLocale, paginatedData }: Props) => {
+export const PaymentsTableMobile = ({ dateLocale, paginatedData }: Props) => {
   const { t } = useTranslation()
   const { locale } = useRouter()
 
