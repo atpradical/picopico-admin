@@ -16,6 +16,7 @@ export const UserStatTab = ({ className, ...rest }: Props) => {
       <ComparisonChart
         chartTitle={'New Users'}
         data={mockdata}
+        datePickerPlaceholder={'Select date'}
         onDateSelect={setDate}
         primaryLegendText={'Current month'}
         primaryLineColor={Colors.Accent100}
@@ -26,6 +27,7 @@ export const UserStatTab = ({ className, ...rest }: Props) => {
       <ComparisonChart
         chartTitle={'Paid Account'}
         data={mockdata}
+        datePickerPlaceholder={'Select date'}
         onDateSelect={setDate}
         primaryLegendText={'Current month'}
         primaryLineColor={Colors.Warning100}
