@@ -29,9 +29,6 @@ function PaymentsPage() {
   return (
     <Page pt={'36px'}>
       <div className={s.container}>
-        <Typography grey variant={'large'}>
-          Payments List
-        </Typography>
         <div className={s.filtersContainer}>
           <Checkbox className={s.autoUpdateCheckbox} label={t.paymentsPage.autoupdate} />
           <TextField

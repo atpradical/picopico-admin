@@ -4,9 +4,12 @@ import { PaymentsTab } from '@/features/payments/ui'
 import { TAB_FOLLOWERS, TAB_FOLLOWING, TAB_PAYMENTS, TAB_PHOTOS } from '@/features/users/config'
 import { FollowersTab, FollowingTab, UploadedPhotosTab } from '@/features/users/ui'
 import { UserProfileCard } from '@/features/users/ui/user-profile-card'
+import { Paths } from '@/shared/enums'
 import { useTranslation } from '@/shared/hooks'
 import { Page, getNavigationLayout } from '@/shared/ui/layout'
 import {
+  ArrowBackOutlineIcon,
+  Button,
   ScrollArea,
   ScrollBar,
   TabsList,
@@ -14,6 +17,7 @@ import {
   TabsTrigger,
   Typography,
 } from '@atpradical/picopico-ui-kit'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import s from './UserDetailsPage.module.scss'
@@ -39,6 +43,10 @@ function UserDetailsPage() {
   return (
     <Page pt={'36px'}>
       <div className={s.container}>
+        <Button as={Link} className={s.backButton} href={Paths.Users} variant={'link'}>
+          <ArrowBackOutlineIcon />
+          {t.userDetailsPage.goBackButton}
+        </Button>
         <UserProfileCard />
         <TabsRoot className={s.tabsRoot} onValueChange={onTabChangeHandler} value={activeTab}>
           <ScrollArea>

@@ -27,9 +27,6 @@ function UsersPage() {
   return (
     <Page pt={'60px'}>
       <div className={s.container}>
-        <Typography grey variant={'large'}>
-          Users List
-        </Typography>
         <div className={s.searchContainer}>
           <TextField label={'Search'} variant={'search'} />
           <Select
