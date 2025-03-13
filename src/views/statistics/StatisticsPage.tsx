@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { TAB_POSTS, TAB_USERS } from '@/features/statistics/config'
 import { UserStatTab } from '@/features/statistics/ui'
 import { PostsStatTab } from '@/features/statistics/ui/posts-stat-tab'
-import { TAB_PHOTOS } from '@/features/users/config'
 import { useTranslation } from '@/shared/hooks'
 import { Page, getNavigationLayout } from '@/shared/ui/layout'
 import {
@@ -25,7 +24,7 @@ function StatisticsPage() {
 
   useEffect(() => {
     if (isReady) {
-      const tab = sessionStorage.getItem('activeStatTab') || TAB_PHOTOS
+      const tab = sessionStorage.getItem('activeStatTab') || TAB_USERS
 
       setActiveTab(tab)
     }
