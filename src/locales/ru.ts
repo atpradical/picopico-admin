@@ -21,6 +21,8 @@ export const ru: LocaleType = {
     userList: 'Пользователи',
   },
 
+  datePickerPlaceholder: 'Выберите дату',
+
   follow: {
     tabNames: {
       link: 'Ссылка на профиль',
@@ -36,9 +38,9 @@ export const ru: LocaleType = {
   },
 
   loading: 'Загрузка...',
-
   logoutDialog: logoutDialog,
   notifications: notifications,
+
   pagination: {
     textPerPage: 'на странице',
     textShow: 'показать',
@@ -79,11 +81,22 @@ export const ru: LocaleType = {
   },
 
   postDialog: postDialog,
-
   profileSettings: profileSettings,
+
   signInPage: signInPage,
 
   statisticsPage: {
+    charts: {
+      legends: {
+        primary: 'Текущий месяц',
+        secondary: 'Прошлый месяц',
+      },
+      titles: {
+        payments: 'Платные аккаунты',
+        posts: 'Загруженные фото',
+        users: 'Новые пользователи',
+      },
+    },
     tabNames: {
       posts: 'Фото',
       users: 'Пользователи',

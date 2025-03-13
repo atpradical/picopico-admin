@@ -27,6 +27,8 @@ export const en = {
     userList: 'Users List',
   },
 
+  datePickerPlaceholder: 'Pick a date',
+
   follow: {
     tabNames: {
       link: 'Profile Link',
@@ -35,12 +37,12 @@ export const en = {
       username: 'Username',
     },
   },
-
   language: {
     en: 'English',
     ru: ' Russian',
   },
   loading: 'Loading...',
+
   logoutDialog: logoutDialog,
 
   notifications: notifications,
@@ -78,17 +80,28 @@ export const en = {
       },
     },
   },
-
   postDescription: {
     collapsePostDescriptionButton: 'Hide',
     expandPostDescriptionButton: 'Show more',
   },
   postDialog: postDialog, //delete
+
   profileSettings: profileSettings, //delete
 
   signInPage: signInPage,
 
   statisticsPage: {
+    charts: {
+      legends: {
+        primary: 'Current Month',
+        secondary: 'Last Month',
+      },
+      titles: {
+        payments: 'Paid Accounts',
+        posts: 'Uploaded Photos',
+        users: 'New Users',
+      },
+    },
     tabNames: {
       posts: 'Photos',
       users: 'Users',

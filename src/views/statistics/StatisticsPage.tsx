@@ -38,9 +38,6 @@ function StatisticsPage() {
   return (
     <Page pt={'36px'}>
       <div className={s.container}>
-        <Typography grey variant={'large'}>
-          Statistics Data
-        </Typography>
         <TabsRoot className={s.tabsRoot} onValueChange={onTabChangeHandler} value={activeTab}>
           <ScrollArea>
             <TabsList className={s.tabsList}>
