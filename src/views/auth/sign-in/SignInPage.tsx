@@ -10,14 +10,6 @@ function SignInPage() {
   const { t } = useTranslation()
   const { pageTitle } = t.signInPage
 
-  // const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null
-
-  // useEffect(() => {
-  //   if (isAuth && meData?.userId && !!token) {
-  //     router.push(Paths.Users + '/' + meData.userId)
-  //   }
-  // }, [isAuth, meData, router, token])
-
   return (
     <Page>
       <div className={s.container}>

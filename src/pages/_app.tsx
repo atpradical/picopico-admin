@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 
 import { wrapper } from '@/lib/store'
 import client from '@/services/apollo-client'
+import { AppMetaDataProvider } from '@/shared/context'
 import { useLoader } from '@/shared/hooks'
 import { ApolloProvider } from '@apollo/client/react'
 import { NextPage } from 'next'
@@ -27,7 +28,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <ApolloProvider client={client}>
-      <Provider store={store}>{getLayout(<Component {...props} />)}</Provider>
+      <Provider store={store}>
+        <AppMetaDataProvider>{getLayout(<Component {...props} />)}</AppMetaDataProvider>
+      </Provider>
     </ApolloProvider>
   )
 }

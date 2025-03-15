@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 
 import {
   NOTIFICATION_INITIAL_CURSOR,
@@ -6,6 +6,7 @@ import {
 } from '@/features/notifications/config'
 import { NotificationPopover } from '@/features/notifications/ui'
 import { useGetNotificationsQuery } from '@/services/notifications'
+import { AppMetaDataContext, AuthContext } from '@/shared/context'
 import { Paths, SortDirection } from '@/shared/enums'
 import { useTranslation } from '@/shared/hooks'
 import { HeaderMobileMenubar } from '@/shared/ui/layout'
@@ -28,6 +29,8 @@ export type HeaderProps = {}
 
 export const Header = ({}: HeaderProps) => {
   const isClient = useIsClient()
+  const { isAuth } = useContext(AuthContext)
+  const { isMobile } = useContext(AppMetaDataContext)
   const { t } = useTranslation()
   const { asPath, locale, pathname, push, query } = useRouter()
 
@@ -75,33 +78,33 @@ export const Header = ({}: HeaderProps) => {
       <Button as={Link} className={s.logoWrapper} href={Paths.Home} tabIndex={-1} variant={'link'}>
         <LogoLight className={s.logo} />
         <div className={s.titleWrapper}>
-          <Typography as={'h1'} variant={'large'}>
-            PicoPico
-          </Typography>
+          {!isMobile && (
+            <Typography as={'h1'} variant={'large'}>
+              PicoPico
+            </Typography>
+          )}
           <Typography as={'span'} variant={'small'}>
             Super<strong className={s.titleHighlight}>Admin</strong>
           </Typography>
         </div>
       </Button>
       <div className={s.container}>
-        <NotificationPopover
-          notReadCount={data?.notReadCount}
-          notifications={data?.items}
-          onScroll={updateCursorHandler}
-          totalCount={data?.totalCount}
-        />
+        {isAuth && (
+          <NotificationPopover
+            notReadCount={data?.notReadCount}
+            notifications={data?.items}
+            onScroll={updateCursorHandler}
+            totalCount={data?.totalCount}
+          />
+        )}
         <Select
           className={s.selectLang}
           defaultValue={locale ?? 'en'}
-          // isSmall={isMobile}
+          isSmall={isMobile}
           onValueChange={changeLangHandler}
           options={languages}
         />
-        <Button as={Link} className={s.button} href={Paths.logIn} variant={'nb-outlined'}>
-          {t.appHeader.signInButton}
-        </Button>
-        {/*{isMobile && <HeaderMobileMenubar isAuth={isAuth} />}*/}
-        <HeaderMobileMenubar isAuth />
+        {isMobile && <HeaderMobileMenubar isAuth={isAuth} />}
       </div>
     </div>
   )
