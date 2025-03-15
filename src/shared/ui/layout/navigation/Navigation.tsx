@@ -6,7 +6,7 @@ type Props = {}
 export const Navigation = ({}: Props) => {
   const { t } = useTranslation()
 
-  const { isLoading, isLogoutDialog, logoutHandler, setLogoutDialog } = useLogout()
+  const { isLogoutDialog, logoutHandler, setLogoutDialog } = useLogout()
 
   return (
     <>
@@ -14,7 +14,6 @@ export const Navigation = ({}: Props) => {
       <BottomBar isAuth userId={'1234'} />
       {isLogoutDialog && (
         <ConfirmDialog
-          isLoading={isLoading}
           isOpen={isLogoutDialog}
           onConfirm={logoutHandler}
           onOpenChange={setLogoutDialog}

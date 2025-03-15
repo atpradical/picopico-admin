@@ -8,6 +8,7 @@ import { NotificationPopover } from '@/features/notifications/ui'
 import { useGetNotificationsQuery } from '@/services/notifications'
 import { Paths, SortDirection } from '@/shared/enums'
 import { useTranslation } from '@/shared/hooks'
+import { HeaderMobileMenubar } from '@/shared/ui/layout'
 import {
   Button,
   FlagRussiaIcon,
@@ -100,6 +101,7 @@ export const Header = ({}: HeaderProps) => {
           {t.appHeader.signInButton}
         </Button>
         {/*{isMobile && <HeaderMobileMenubar isAuth={isAuth} />}*/}
+        <HeaderMobileMenubar isAuth />
       </div>
     </div>
   )

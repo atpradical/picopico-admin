@@ -10,9 +10,6 @@ import { usersPage } from './en/users-page'
 
 export type LocaleType = typeof en
 export type LocaleValidation = typeof en.validation
-export type LocaleValidationUserName = typeof en.validation.userName
-export type LocaleValidationName = typeof en.validation.name
-export type LocaleValidationPassword = typeof en.validation.password
 
 export const en = {
   appHeader: {

@@ -23,7 +23,7 @@ type Props = { isAuth: boolean }
 export const HeaderMobileMenubar = ({ isAuth }: Props) => {
   const router = useRouter()
   const { t } = useTranslation()
-  const { isLoading, isLogoutDialog, logoutHandler, setLogoutDialog } = useLogout()
+  const { isLogoutDialog, logoutHandler, setLogoutDialog } = useLogout()
 
   return (
     <>
@@ -75,7 +75,6 @@ export const HeaderMobileMenubar = ({ isAuth }: Props) => {
       {/*todo: вынести в app ConfirmationDialog*/}
       {isLogoutDialog && (
         <ConfirmDialog
-          isLoading={isLoading}
           isOpen={isLogoutDialog}
           onConfirm={logoutHandler}
           onOpenChange={setLogoutDialog}

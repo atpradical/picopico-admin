@@ -1,10 +1,9 @@
 import { FieldValues, Path, UseFormSetError } from 'react-hook-form'
 
-import { Nullable } from '@/shared/types'
-import { FormErrorData } from '@/shared/utils/index'
+import { Message } from '@/shared/utils/extract-error-messages'
 
 type UseSetFormErrorsProps<T extends FieldValues> = {
-  errors: Nullable<FormErrorData[]> | string
+  errors: Message[] | string
   fields: (keyof T)[]
   setError: UseFormSetError<T>
 }
@@ -18,6 +17,7 @@ export const setFormErrors = <T extends FieldValues>({
     // if errors are type of FormErrorData[] -> fire certain field
     if (typeof errors !== 'string') {
       errors.forEach(el => {
+        console.log(el)
         setError(el.field as Path<T>, { message: el.message })
       })
     } else {

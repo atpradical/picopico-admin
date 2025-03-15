@@ -4,7 +4,9 @@ import { ReactElement, ReactNode } from 'react'
 import { Provider } from 'react-redux'
 
 import { wrapper } from '@/lib/store'
+import client from '@/services/apollo-client'
 import { useLoader } from '@/shared/hooks'
+import { ApolloProvider } from '@apollo/client/react'
 import { NextPage } from 'next'
 
 import '@/styles/index.scss'
@@ -23,5 +25,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? (page => page)
   const { props, store } = wrapper.useWrappedStore(pageProps)
 
-  return <Provider store={store}>{getLayout(<Component {...props} />)}</Provider>
+  return (
+    <ApolloProvider client={client}>
+      <Provider store={store}>{getLayout(<Component {...props} />)}</Provider>
+    </ApolloProvider>
+  )
 }

@@ -13,6 +13,7 @@ export type CustomerError = {
   status: number
 }
 
+// TODO: DELETE
 export function getErrorMessageData(error: unknown) {
   if (isFetchBaseQueryError(error)) {
     if ('data' in error) {
