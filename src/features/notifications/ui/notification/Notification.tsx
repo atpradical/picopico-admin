@@ -1,9 +1,5 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
-import {
-  useDeleteNotificationMutation,
-  useMarkNotificationAsReadMutation,
-} from '@/services/notifications'
 import { useTranslation } from '@/shared/hooks'
 import { getDateDistanceToNow } from '@/shared/utils'
 import {
@@ -31,17 +27,17 @@ export const Notification = forwardRef<NotificationRef, NotificationProps>(
     const { t } = useTranslation()
     const { locale } = useRouter()
 
-    const [markAsRead, { isLoading: isMarkAsReadLoading }] = useMarkNotificationAsReadMutation()
-    const [deleteNotification, { isLoading: isDeleteLoading }] = useDeleteNotificationMutation()
+    // const [markAsRead, { isLoading: isMarkAsReadLoading }] = useMarkNotificationAsReadMutation()
+    // const [deleteNotification, { isLoading: isDeleteLoading }] = useDeleteNotificationMutation()
 
     const formattedCreatedAt = getDateDistanceToNow(new Date(createdAt), locale ?? 'en')
 
     const markAsReadHandler = async (id: number) => {
-      void (await markAsRead({ ids: [id] }))
+      // void (await markAsRead({ ids: [id] }))
     }
 
     const deleteNotificationHandler = async (id: number) => {
-      void (await deleteNotification({ id }))
+      // void (await deleteNotification({ id }))
     }
 
     return (
@@ -61,7 +57,7 @@ export const Notification = forwardRef<NotificationRef, NotificationProps>(
             {!isRead && (
               <Button
                 className={s.readButton}
-                isLoading={isMarkAsReadLoading}
+                isLoading={false}
                 onClick={() => markAsReadHandler(id)}
                 title={t.notifications.markAsReadButtonTitle}
                 variant={'icon'}
@@ -71,7 +67,7 @@ export const Notification = forwardRef<NotificationRef, NotificationProps>(
             )}
             <Button
               className={s.deleteButton}
-              isLoading={isDeleteLoading}
+              isLoading={false}
               onClick={() => deleteNotificationHandler(id)}
               title={t.notifications.deleteButtonTitle}
               variant={'icon'}

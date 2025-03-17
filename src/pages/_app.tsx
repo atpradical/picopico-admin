@@ -1,9 +1,7 @@
 import type { AppProps } from 'next/app'
 
 import { ReactElement, ReactNode } from 'react'
-import { Provider } from 'react-redux'
 
-import { wrapper } from '@/lib/store'
 import client from '@/services/apollo-client'
 import { AppMetaDataProvider } from '@/shared/context'
 import { useLoader } from '@/shared/hooks'
@@ -24,13 +22,10 @@ type AppPropsWithLayout = {
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   useLoader()
   const getLayout = Component.getLayout ?? (page => page)
-  const { props, store } = wrapper.useWrappedStore(pageProps)
 
   return (
     <ApolloProvider client={client}>
-      <Provider store={store}>
-        <AppMetaDataProvider>{getLayout(<Component {...props} />)}</AppMetaDataProvider>
-      </Provider>
+      <AppMetaDataProvider>{getLayout(<Component {...pageProps} />)}</AppMetaDataProvider>
     </ApolloProvider>
   )
 }

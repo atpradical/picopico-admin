@@ -1,13 +1,8 @@
-import { useContext, useMemo, useState } from 'react'
+import { useContext, useMemo } from 'react'
 
-import {
-  NOTIFICATION_INITIAL_CURSOR,
-  NOTIFICATION_MAX_PAGE_SIZE,
-} from '@/features/notifications/config'
 import { NotificationPopover } from '@/features/notifications/ui'
-import { useGetNotificationsQuery } from '@/services/notifications'
 import { AppMetaDataContext, AuthContext } from '@/shared/context'
-import { Paths, SortDirection } from '@/shared/enums'
+import { Paths } from '@/shared/enums'
 import { useTranslation } from '@/shared/hooks'
 import { HeaderMobileMenubar } from '@/shared/ui/layout'
 import {
@@ -34,16 +29,16 @@ export const Header = ({}: HeaderProps) => {
   const { t } = useTranslation()
   const { asPath, locale, pathname, push, query } = useRouter()
 
-  const [cursor, setCursor] = useState(NOTIFICATION_INITIAL_CURSOR)
+  // const [cursor, setCursor] = useState(NOTIFICATION_INITIAL_CURSOR)
 
-  const { data } = useGetNotificationsQuery(
-    {
-      cursor,
-      pageSize: NOTIFICATION_MAX_PAGE_SIZE,
-      sortDirection: SortDirection.DESC,
-    },
-    { skip: true }
-  )
+  // const { data } = useGetNotificationsQuery(
+  //   {
+  //     cursor,
+  //     pageSize: NOTIFICATION_MAX_PAGE_SIZE,
+  //     sortDirection: SortDirection.DESC,
+  //   },
+  //   { skip: true }
+  // )
 
   const languages: OptionsValue[] = useMemo(
     () => [
@@ -66,7 +61,7 @@ export const Header = ({}: HeaderProps) => {
   }
 
   const updateCursorHandler = (cursor: number) => {
-    setCursor(cursor)
+    // setCursor(cursor)
   }
 
   if (!isClient) {
@@ -91,10 +86,10 @@ export const Header = ({}: HeaderProps) => {
       <div className={s.container}>
         {isAuth && (
           <NotificationPopover
-            notReadCount={data?.notReadCount}
-            notifications={data?.items}
+            notReadCount={10}
+            notifications={[]}
             onScroll={updateCursorHandler}
-            totalCount={data?.totalCount}
+            totalCount={10}
           />
         )}
         <Select

@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { Notification } from '@/features/notifications/ui/notification'
-import { NotificationType } from '@/services/notifications'
 import { useTranslation } from '@/shared/hooks'
 import {
   Badge,
@@ -23,7 +22,8 @@ import s from './NotificationPopover.module.scss'
 
 type Props = {
   notReadCount?: number
-  notifications?: NotificationType[]
+  //TODO: NOTIFICATIONS fix any
+  notifications?: any[]
   onScroll: (cursor: number) => void
   totalCount?: number
 }

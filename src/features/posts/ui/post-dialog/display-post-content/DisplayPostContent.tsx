@@ -1,7 +1,5 @@
 import { PostDescription } from '@/features/posts/ui'
-import { publicationsActions } from '@/features/publication/api'
-import { PublicPostsItem } from '@/services/posts'
-import { useAppDispatch, useTranslation } from '@/shared/hooks'
+import { useTranslation } from '@/shared/hooks'
 import { usePagesRouterQueryUpdate } from '@/shared/hooks/usePagesRouterQueryUpdate'
 import { HiddenDialogComponents } from '@/shared/ui/components'
 import {
@@ -26,16 +24,16 @@ import Image from 'next/image'
 import s from './DisplayPostContent.module.scss'
 
 type DisplayPostContentProps = {
-  postData: PublicPostsItem
+  //TODO: POSTS fix any
+  postData: any
 }
 export const DisplayPostContent = ({ postData }: DisplayPostContentProps) => {
   const { t } = useTranslation()
   const { removeRouterQueryParam } = usePagesRouterQueryUpdate()
-  const dispatch = useAppDispatch()
-  const postsImages = postData.images.map(el => el.url)
+  // const postsImages = postData.images.map(el => el.url)
 
   const closePostDialogHandler = () => {
-    dispatch(publicationsActions.togglePostDisplayDialog({ isOpen: false, postId: 0 }))
+    // dispatch(publicationsActions.togglePostDisplayDialog({ isOpen: false, postId: 0 }))
     removeRouterQueryParam('postId')
   }
 
@@ -52,15 +50,15 @@ export const DisplayPostContent = ({ postData }: DisplayPostContentProps) => {
       <div className={s.gridContainer}>
         <Carousel className={s.carousel}>
           <CarouselContent>
-            {postsImages.map((el, index) => {
-              return (
-                <CarouselItem className={s.carouselItem} key={el + index}>
-                  <div style={{ height: '530px', position: 'relative', width: '100%' }}>
-                    <Image alt={'post image'} layout={'fill'} objectFit={'cover'} src={el} />
-                  </div>
-                </CarouselItem>
-              )
-            })}
+            {/*// {postsImages.map((el, index) => {*/}
+            {/*//   return (*/}
+            <CarouselItem className={s.carouselItem} key={'el + index'}>
+              <div style={{ height: '530px', position: 'relative', width: '100%' }}>
+                <Image alt={'post image'} layout={'fill'} objectFit={'cover'} src={''} />
+              </div>
+            </CarouselItem>
+            {/*// )*/}
+            {/*// })}*/}
           </CarouselContent>
           <CarouselPrevious />
           <CarouselNext />
