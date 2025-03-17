@@ -2,7 +2,13 @@ import { ComponentPropsWithoutRef } from 'react'
 
 import { paginationSelectOptions } from '@/features/payments/config'
 import { PaymentsUserTable } from '@/features/payments/ui'
-import { usePagination, useTranslation } from '@/shared/hooks'
+import {
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
+  DEFAULT_TOTAL_COUNT,
+  usePagination,
+  useTranslation,
+} from '@/shared/hooks'
 import { Pagination, TabsContent, Typography } from '@atpradical/picopico-ui-kit'
 import { enUS, ru } from 'date-fns/locale'
 import { useRouter } from 'next/router'
@@ -22,16 +28,15 @@ export const PaymentsTab = ({ tableProps, ...props }: AccountManagementTabProps)
   // TODO: PAYMENTS Mock array data
   const paymentHistory: any[] = [{}, {}, {}]
 
-  const {
-    changePage,
-    changePageSize,
-    currentPage,
-    nextPage,
-    pageSize,
-    paginatedData,
-    prevPage,
-    totalCount,
-  } = usePagination({ data: paymentHistory })
+  const { changePage, changePageSize, nextPage, prevPage } = usePagination({
+    pagination: {
+      __typename: 'PaginationModel',
+      page: 1,
+      pageSize: 100,
+      pagesCount: 1,
+      totalCount: 1,
+    },
+  })
 
   return (
     <TabsContent className={s.container} {...props}>
@@ -39,19 +44,19 @@ export const PaymentsTab = ({ tableProps, ...props }: AccountManagementTabProps)
         <>
           <div className={s.tableContainer}>
             {/*<PaymentsUserTableMobile dateLocale={dateLocale} paginatedData={paginatedData} />*/}
-            <PaymentsUserTable dateLocale={dateLocale} paginatedData={paginatedData} />
+            <PaymentsUserTable dateLocale={dateLocale} paginatedData={[]} />
           </div>
           <Pagination
-            currentPage={currentPage}
+            currentPage={DEFAULT_PAGE}
             onNextPage={nextPage}
             onPageChange={changePage}
             onPrevPage={prevPage}
             onSelectValueChange={changePageSize}
-            pageSize={pageSize}
+            pageSize={DEFAULT_PAGE_SIZE}
             selectOptions={paginationSelectOptions}
             textPerPage={t.pagination.textPerPage}
             textShow={t.pagination.textShow}
-            totalCount={totalCount}
+            totalCount={DEFAULT_TOTAL_COUNT}
           />
         </>
       ) : (

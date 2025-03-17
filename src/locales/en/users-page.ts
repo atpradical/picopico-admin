@@ -21,10 +21,21 @@ export const usersPage = {
     visibleTitle: 'Delete user',
   },
 
+  filtersLabels: {
+    searchTerm: 'Search',
+    statusSelect: 'Block status',
+  },
+
   userActionsDropdown: {
     blockUser: 'Ban in the system',
     deleteUser: 'Delete User',
     more: 'More Information',
+  },
+
+  userBlockStatus: {
+    active: 'Not Blocked',
+    all: '',
+    blocked: 'Blocked',
   },
 
   usersTable: {

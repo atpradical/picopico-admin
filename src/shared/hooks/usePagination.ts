@@ -1,70 +1,54 @@
-import { useMemo, useState } from 'react'
+import { PaginationModel } from '@/services/schema.types'
+import { usePagesRouterQueryUpdate } from '@/shared/hooks/usePagesRouterQueryUpdate'
 
-const DEFAULT_PAGE_SIZE = 10
-const DEFAULT_PAGE = 1
-const PAGE_STEP = 1
+export const DEFAULT_PAGE_SIZE = 10
+export const DEFAULT_PAGE = 1
+export const PAGE_STEP = 1
+export const DEFAULT_TOTAL_COUNT = 0
 
-type PaginationProps<T> = {
-  data: T[]
-  initialPageSize?: number
+type PaginationProps = {
+  pagination: PaginationModel | undefined
 }
 
-type PaginationReturnType<T> = {
+type PaginationReturnType = {
   changePage: (page: number) => void
   changePageSize: (value: string) => void
-  currentPage: number
   nextPage: () => void
-  pageSize: number
-  paginatedData: T[]
   prevPage: () => void
-  totalCount: number
 }
 
-export const usePagination = <T>({
-  data,
-  initialPageSize = DEFAULT_PAGE_SIZE,
-}: PaginationProps<T>): PaginationReturnType<T> => {
-  const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE)
-  const [pageSize, setPageSize] = useState(initialPageSize)
+export const usePagination = ({ pagination }: PaginationProps): PaginationReturnType => {
+  const { addRouterQueryParamShallow } = usePagesRouterQueryUpdate()
 
-  const totalCount = data?.length ?? 0
-
-  const paginatedData = useMemo(() => {
-    if (!data) {
-      return []
+  if (!pagination) {
+    return {
+      changePage: () => {},
+      changePageSize: () => {},
+      nextPage: () => {},
+      prevPage: () => {},
     }
-
-    const startIndex = (currentPage - PAGE_STEP) * pageSize
-    const endIndex = startIndex + pageSize
-
-    return data.slice(startIndex, endIndex)
-  }, [data, currentPage, pageSize])
+  }
 
   const nextPage = () => {
-    setCurrentPage(value => value + PAGE_STEP)
+    addRouterQueryParamShallow({ pageNumber: (pagination.page + PAGE_STEP).toString() })
   }
 
   const prevPage = () => {
-    setCurrentPage(value => value - PAGE_STEP)
+    addRouterQueryParamShallow({ pageNumber: (pagination.page - PAGE_STEP).toString() })
   }
 
   const changePage = (page: number) => {
-    setCurrentPage(page)
+    addRouterQueryParamShallow({ pageNumber: page.toString() })
   }
 
   const changePageSize = (value: string) => {
-    setPageSize(+value)
-    setCurrentPage(1)
+    addRouterQueryParamShallow({ pageNumber: DEFAULT_PAGE.toString(), pageSize: value })
   }
 
   return {
     changePage,
     changePageSize,
-    currentPage,
     nextPage,
-    pageSize,
-    paginatedData,
     prevPage,
-    totalCount,
   }
 }

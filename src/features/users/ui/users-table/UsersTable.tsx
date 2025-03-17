@@ -1,35 +1,39 @@
 import { ComponentPropsWithoutRef } from 'react'
 
 import { UserActionsDropdown } from '@/features/users/ui'
+import { GetUsersQuery } from '@/services/users/query'
 import { useTranslation } from '@/shared/hooks'
+import { longLocalizedDate } from '@/shared/utils/dates'
 import {
   BlockIcon,
+  Spinner,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
+  Typography,
+  clsx,
 } from '@atpradical/picopico-ui-kit'
 import { Locale } from 'date-fns'
+import Link from 'next/link'
 
 import s from './UsersTable.module.scss'
 
 type Props = {
   dateLocale: Locale
-  //   TODO: PAYMENTS fix any
-  paginatedData: any[]
+  items: GetUsersQuery['getUsers']['users'][number][] | undefined
+  loading: boolean
 } & ComponentPropsWithoutRef<typeof Table>
 
-export const UsersTable = ({ dateLocale, paginatedData, ...props }: Props) => {
+export const UsersTable = ({ dateLocale, items, loading, ...props }: Props) => {
   const { t } = useTranslation()
-  // const { locale } = useRouter()
 
   return (
     <Table className={s.tableRoot} {...props}>
       <TableHeader>
         <TableRow>
-          <TableHead textAlign={'left'} />
           <TableHead textAlign={'left'}>{t.usersPage.usersTable.headers.userId}</TableHead>
           <TableHead textAlign={'left'}>{t.usersPage.usersTable.headers.userName}</TableHead>
           <TableHead textAlign={'left'}>{t.usersPage.usersTable.headers.profileLInk}</TableHead>
@@ -38,56 +42,49 @@ export const UsersTable = ({ dateLocale, paginatedData, ...props }: Props) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {/*{paginatedData.map((el, index) => {*/}
-        {/*  const formattedDateOfPayment = longLocalizedDate(new Date(el.dateOfPayment), dateLocale)*/}
-        {/*  const formattedEndDateOfSubscription = longLocalizedDate(*/}
-        {/*    new Date(el.endDateOfSubscription),*/}
-        {/*    dateLocale*/}
-        {/*  )*/}
-        {/*  const subscriptionTextsWithTranslation = SubscriptionShortLabel[locale ?? 'en'].find(*/}
-        {/*    option => option.period === el.subscriptionType*/}
-        {/*  )*/}
-        {/*return (*/}
-        <TableRow key={`key2`}>
-          <TableCell textAlign={'left'} />
-          <TableCell textAlign={'left'}>{'21331QErQe21'}</TableCell>
-          <TableCell textAlign={'left'}>{'Ivan Yakymenko'}</TableCell>
-          <TableCell textAlign={'left'}>{'Ivan.sr.yakimenko'}</TableCell>
-          <TableCell textAlign={'left'}>{'12.12.2022'}</TableCell>
-          <TableCell textAlign={'right'}>
-            <UserActionsDropdown
-              onBanConfirm={() => {
-                console.log('User banned')
-              }}
-              onDeleteConfirm={() => {
-                console.log('User deleted')
-              }}
-              userId={'user-id-1'}
-            />
-          </TableCell>
-        </TableRow>
-        <TableRow key={`key1`}>
-          <TableCell textAlign={'left'}>
-            <BlockIcon />
-          </TableCell>
-          <TableCell textAlign={'left'}>{'21331QErQe21'}</TableCell>
-          <TableCell textAlign={'left'}>{'Ivan Yakymenko'}</TableCell>
-          <TableCell textAlign={'left'}>{'Ivan.sr.yakimenko'}</TableCell>
-          <TableCell textAlign={'left'}>{'12.12.2022'}</TableCell>
-          <TableCell textAlign={'right'}>
-            <UserActionsDropdown
-              onBanConfirm={() => {
-                console.log('User banned')
-              }}
-              onDeleteConfirm={() => {
-                console.log('User deleted')
-              }}
-              userId={'user-id-2'}
-            />
-          </TableCell>
-        </TableRow>
-        {/*)})}*!/*/}
+        {items?.map(el => {
+          const formattedCreatedAt = longLocalizedDate(new Date(el.createdAt), dateLocale)
+
+          const userFullName = el.profile?.firstName
+            ? el.profile?.firstName + ' ' + el.profile?.lastName
+            : el.userName
+
+          const isBlock = !!el.userBan?.createdAt
+
+          return (
+            <TableRow key={el.id}>
+              <TableCell textAlign={'left'}>
+                <div className={clsx(isBlock && s.userIdCell)}>
+                  {isBlock ? <BlockIcon /> : null}
+                  <Typography as={'span'} className={clsx(!isBlock && s.marginLeft)}>
+                    {el.id}
+                  </Typography>
+                </div>
+              </TableCell>
+              <TableCell textAlign={'left'}>{userFullName}</TableCell>
+              <TableCell textAlign={'left'}>
+                <Link href={`/users/${el.id}`}>
+                  <Typography variant={'regular_link'}>{el.userName}</Typography>
+                </Link>
+              </TableCell>
+              <TableCell textAlign={'left'}>{formattedCreatedAt}</TableCell>
+              <TableCell textAlign={'right'}>
+                <UserActionsDropdown
+                  onBanConfirm={() => {
+                    console.log('User banned')
+                  }}
+                  onDeleteConfirm={() => {
+                    console.log('User deleted')
+                  }}
+                  userId={'user-id-1'}
+                />
+              </TableCell>
+            </TableRow>
+          )
+        })}
       </TableBody>
+      {/*TODO: UI-KIT добавить пропс на стили спиннер контейнера*/}
+      {loading && <Spinner label={t.loading} />}
     </Table>
   )
 }

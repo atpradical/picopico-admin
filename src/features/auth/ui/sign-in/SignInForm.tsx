@@ -60,7 +60,10 @@ export const SignInForm = () => {
     if (result.data?.loginAdmin.logged) {
       localStorage.setItem('token', btoa(`${data.email}:${data.password}`))
       void push(Paths.Users)
-    } else if (result.data?.loginAdmin.logged === false) {
+
+      return
+    }
+    if (result.data?.loginAdmin.logged === false) {
       setFormErrors({
         errors: t.validation.loginFailed,
         fields: [...(Object.keys(data) as (keyof SignInFields)[])],

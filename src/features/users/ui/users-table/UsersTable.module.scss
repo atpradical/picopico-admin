@@ -2,6 +2,19 @@
   width: 100%;
 }
 
+.userIdCell {
+  pointer-events: none;
+
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.marginLeft {
+  margin-left: 36px;
+}
+
 .noPadding {
   padding: 0;
 }

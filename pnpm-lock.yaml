@@ -12,8 +12,8 @@ importers:
         specifier: ^3.13.4
         version: 3.13.4(@types/react@18.3.18)(graphql-ws@6.0.4(graphql@16.10.0)(ws@8.18.1))(graphql@16.10.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@atpradical/picopico-ui-kit':
-        specifier: ^0.43.1
-        version: 0.43.1(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(storybook@8.6.4(prettier@3.5.3))(vite@6.2.1(@types/node@20.17.24)(jiti@2.4.2)(sass@1.85.1)(yaml@2.7.0))
+        specifier: ^0.43.3
+        version: 0.43.3(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(storybook@8.6.4(prettier@3.5.3))(vite@6.2.1(@types/node@20.17.24)(jiti@2.4.2)(sass@1.85.1)(yaml@2.7.0))
       '@hookform/resolvers':
         specifier: ^3.9.0
         version: 3.10.0(react-hook-form@7.54.2(react@18.3.1))
@@ -196,8 +196,8 @@ packages:
     peerDependencies:
       graphql: '*'
 
-  '@atpradical/picopico-ui-kit@0.43.1':
-    resolution: {integrity: sha512-G1ygsdQ8jUG97RD1Cdv55FzaN1cw6jE+ZiVsoDsvmzrK4hTzy4oVbS5yD3NfUbqvljh1trY8TB7MQ9/7uEnSGA==}
+  '@atpradical/picopico-ui-kit@0.43.3':
+    resolution: {integrity: sha512-3yl5R0OWAsMQKYFLHG6kjVT9ShAX7in/DBdnLBtOG5ybYc+HqJfKyvRlyyGOZK5hrw3FZv8s3ZansSsomEbVTA==}
 
   '@babel/code-frame@7.26.2':
     resolution: {integrity: sha512-RJlIHRueQgwWitWgF8OdFYGZX328Ax5BCemNGlqHfplnRT9ESi8JkFlvaVYbS+UubVY6dpv87Fs2u5M29iNFVQ==}
@@ -4927,7 +4927,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@atpradical/picopico-ui-kit@0.43.1(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(storybook@8.6.4(prettier@3.5.3))(vite@6.2.1(@types/node@20.17.24)(jiti@2.4.2)(sass@1.85.1)(yaml@2.7.0))':
+  '@atpradical/picopico-ui-kit@0.43.3(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(storybook@8.6.4(prettier@3.5.3))(vite@6.2.1(@types/node@20.17.24)(jiti@2.4.2)(sass@1.85.1)(yaml@2.7.0))':
     dependencies:
       '@fontsource/inter': 5.2.5
       '@fontsource/roboto': 5.2.5

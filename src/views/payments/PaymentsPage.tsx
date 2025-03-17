@@ -1,6 +1,12 @@
 import { paginationSelectOptions } from '@/features/payments/config'
 import { PaymentsListTable } from '@/features/payments/ui'
-import { usePagination, useTranslation } from '@/shared/hooks'
+import {
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
+  DEFAULT_TOTAL_COUNT,
+  usePagination,
+  useTranslation,
+} from '@/shared/hooks'
 import { Page, getNavigationLayout } from '@/shared/ui/layout'
 import { Checkbox, Pagination, TextField, Typography } from '@atpradical/picopico-ui-kit'
 import { enUS, ru } from 'date-fns/locale'
@@ -13,18 +19,17 @@ function PaymentsPage() {
   const { t } = useTranslation()
   const { locale } = useRouter()
   const dateLocale = locale === 'ru' ? ru : enUS
-  const paymentHistory: any[] = [{}, {}, {}]
+  // const paymentHistory: any[] = [{}, {}, {}]
 
-  const {
-    changePage,
-    changePageSize,
-    currentPage,
-    nextPage,
-    pageSize,
-    paginatedData,
-    prevPage,
-    totalCount,
-  } = usePagination({ data: paymentHistory })
+  const { changePage, changePageSize, nextPage, prevPage } = usePagination({
+    pagination: {
+      __typename: 'PaginationModel',
+      page: 1,
+      pageSize: 100,
+      pagesCount: 1,
+      totalCount: 1,
+    },
+  })
 
   return (
     <Page pt={'36px'}>
@@ -37,18 +42,18 @@ function PaymentsPage() {
             variant={'search'}
           />
         </div>
-        <PaymentsListTable dateLocale={dateLocale} paginatedData={paginatedData} />
+        <PaymentsListTable dateLocale={dateLocale} paginatedData={[]} />
         <Pagination
-          currentPage={currentPage}
+          currentPage={DEFAULT_PAGE}
           onNextPage={nextPage}
           onPageChange={changePage}
           onPrevPage={prevPage}
           onSelectValueChange={changePageSize}
-          pageSize={pageSize}
+          pageSize={DEFAULT_PAGE_SIZE}
           selectOptions={paginationSelectOptions}
           textPerPage={t.pagination.textPerPage}
           textShow={t.pagination.textShow}
-          totalCount={totalCount}
+          totalCount={DEFAULT_TOTAL_COUNT}
         />
         <Typography variant={'error'}>Page in development...</Typography>
       </div>

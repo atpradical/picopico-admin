@@ -17,7 +17,7 @@ const wsLink = new GraphQLWsLink(
   })
 )
 
-const authLink = setContext((_, { headers, token }) => {
+const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   const authtoken = localStorage.getItem('token')
 
@@ -25,7 +25,7 @@ const authLink = setContext((_, { headers, token }) => {
   return {
     headers: {
       ...headers,
-      authorization: authtoken ? `Bearer ${authtoken}` : '',
+      authorization: authtoken ? `Basic ${authtoken}` : '',
     },
   }
 })

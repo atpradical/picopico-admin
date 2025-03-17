@@ -1,58 +1,110 @@
+import { ChangeEvent, useContext, useMemo } from 'react'
+
 import { paginationSelectOptions } from '@/features/payments/config'
 import { UsersTable } from '@/features/users/ui'
-import { usePagination, useTranslation } from '@/shared/hooks'
+import { InputMaybe, QueryGetUsersArgs } from '@/services/schema.types'
+import { useGetUsersQuery } from '@/services/users/query'
+import { AuthContext } from '@/shared/context'
+import { UserBlockStatus } from '@/shared/enums/user-block-status'
+import {
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
+  DEFAULT_TOTAL_COUNT,
+  usePagination,
+  useTranslation,
+} from '@/shared/hooks'
+import { usePagesRouterQueryUpdate } from '@/shared/hooks/usePagesRouterQueryUpdate'
 import { Page, getNavigationLayout } from '@/shared/ui/layout'
-import { Pagination, Select, TextField, Typography } from '@atpradical/picopico-ui-kit'
+import { Pagination, Select, TextField } from '@atpradical/picopico-ui-kit'
 import { enUS, ru } from 'date-fns/locale'
 import { useRouter } from 'next/router'
+import { useDebounceCallback } from 'usehooks-ts'
 
 import s from './UsersPage.module.scss'
 
 function UsersPage() {
   const { t } = useTranslation()
-  const { locale } = useRouter()
-  const dateLocale = locale === 'ru' ? ru : enUS
+  const { locale, query } = useRouter()
+  const { isAuth } = useContext(AuthContext)
+  const { addRouterQueryParamShallow } = usePagesRouterQueryUpdate()
 
-  const {
-    changePage,
-    changePageSize,
-    currentPage,
-    nextPage,
-    pageSize,
-    paginatedData,
-    prevPage,
-    totalCount,
-  } = usePagination({ data: [{}, {}, {}] })
+  const dateLocale = locale === 'ru' ? ru : enUS
+  const searchTerm = query.searchTerm ? query.searchTerm : ''
+  const statusFilter = query.statusFilter ? query.statusFilter : UserBlockStatus.ALL
+  const pageSize = query.pageSize ? query.pageSize : DEFAULT_PAGE_SIZE
+  const pageNumber = query.pageNumber ? query.pageNumber : DEFAULT_PAGE
+
+  const usersStatusOptions = useMemo(() => {
+    return [
+      { label: t.usersPage.userBlockStatus.all, value: UserBlockStatus.ALL },
+      { label: t.usersPage.userBlockStatus.blocked, value: UserBlockStatus.BLOCKED },
+      { label: t.usersPage.userBlockStatus.active, value: UserBlockStatus.UNBLOCKED },
+    ]
+  }, [t])
+
+  const debouncedSearch = useDebounceCallback((value: string) => {
+    addRouterQueryParamShallow({ pageNumber: DEFAULT_PAGE.toString(), searchTerm: value })
+  }, 500)
+
+  const usersSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    debouncedSearch(e.currentTarget.value)
+  }
+
+  const clearSearchHandler = () => {
+    addRouterQueryParamShallow({ searchTerm: '' })
+  }
+
+  const userStatusFilterHandler = (value: string) => {
+    addRouterQueryParamShallow({ pageNumber: DEFAULT_PAGE.toString(), statusFilter: value })
+  }
+
+  const { data, loading } = useGetUsersQuery({
+    fetchPolicy: 'network-only',
+    skip: !isAuth,
+    variables: {
+      pageNumber: +pageNumber as InputMaybe<QueryGetUsersArgs['pageNumber']>,
+      pageSize: +pageSize as InputMaybe<QueryGetUsersArgs['pageSize']>,
+      searchTerm: searchTerm as InputMaybe<QueryGetUsersArgs['searchTerm']>,
+      statusFilter: statusFilter as InputMaybe<QueryGetUsersArgs['statusFilter']>,
+    },
+  })
+
+  const { changePage, changePageSize, nextPage, prevPage } = usePagination({
+    pagination: data?.getUsers.pagination,
+  })
 
   return (
     <Page pt={'60px'}>
       <div className={s.container}>
         <div className={s.searchContainer}>
-          <TextField label={'Search'} variant={'search'} />
+          <TextField
+            label={t.usersPage.filtersLabels.searchTerm}
+            onChange={usersSearchHandler}
+            onClear={clearSearchHandler}
+            value={searchTerm}
+            variant={'search'}
+          />
           <Select
             className={s.filterSelect}
-            defaultValue={'active'}
-            label={'Filters'}
-            options={[
-              { label: 'Blocked', value: 'blocked' },
-              { label: 'Not Blocked', value: 'active' },
-            ]}
+            defaultValue={UserBlockStatus.ALL}
+            label={t.usersPage.filtersLabels.statusSelect}
+            onValueChange={userStatusFilterHandler}
+            options={usersStatusOptions}
           />
         </div>
-        <UsersTable dateLocale={dateLocale} paginatedData={paginatedData} />
+        <UsersTable dateLocale={dateLocale} items={data?.getUsers.users} loading={loading} />
         <Pagination
-          currentPage={currentPage}
+          currentPage={data?.getUsers.pagination.page ?? DEFAULT_PAGE}
           onNextPage={nextPage}
           onPageChange={changePage}
           onPrevPage={prevPage}
           onSelectValueChange={changePageSize}
-          pageSize={pageSize}
+          pageSize={+pageSize}
           selectOptions={paginationSelectOptions}
           textPerPage={t.pagination.textPerPage}
           textShow={t.pagination.textShow}
-          totalCount={totalCount}
+          totalCount={data?.getUsers.pagination.totalCount ?? DEFAULT_TOTAL_COUNT}
         />
-        <Typography variant={'error'}>Page in development....</Typography>
       </div>
     </Page>
   )
