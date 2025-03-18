@@ -94,6 +94,7 @@ export const UploadedPhotosTab = ({ className, ...rest }: UploadedPhotosTabProps
         {/*TODO: POST fix post display dialog*/}
         <PostDialog onOpenChange={setShowPost} open={showPost} postData={mockPosts[0]} />
       </section>
+      <Typography variant={'error'}>Tab in development...</Typography>
     </TabsContent>
   )
 }

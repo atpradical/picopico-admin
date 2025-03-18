@@ -16,7 +16,6 @@ import {
   TabsList,
   TabsRoot,
   TabsTrigger,
-  Typography,
 } from '@atpradical/picopico-ui-kit'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -69,7 +68,6 @@ function UserDetailsPage() {
           <FollowersTab value={TAB_FOLLOWERS} />
           <FollowingTab value={TAB_FOLLOWING} />
         </TabsRoot>
-        <Typography variant={'error'}>Page in development...</Typography>
       </div>
     </Page>
   )

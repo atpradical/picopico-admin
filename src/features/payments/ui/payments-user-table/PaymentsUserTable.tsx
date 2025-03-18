@@ -33,7 +33,7 @@ export const PaymentsUserTable = ({ dateLocale, items, ...props }: Props) => {
         <TableRow>
           <TableHead textAlign={'left'}>{t.paymentsTab.table.header.dateOfPayment}</TableHead>
           <TableHead textAlign={'left'}>{t.paymentsTab.table.header.subscriptionEndDate}</TableHead>
-          <TableHead textAlign={'right'}>{t.paymentsTab.table.header.price}</TableHead>
+          <TableHead textAlign={'left'}>{t.paymentsTab.table.header.price}</TableHead>
           <TableHead textAlign={'left'}>
             {t.paymentsTab.table.header.subscriptionDescription}
           </TableHead>
@@ -53,7 +53,7 @@ export const PaymentsUserTable = ({ dateLocale, items, ...props }: Props) => {
             <TableRow key={el.id}>
               <TableCell textAlign={'left'}>{formattedDateOfPayment}</TableCell>
               <TableCell textAlign={'left'}>{formattedEndDate}</TableCell>
-              <TableCell textAlign={'right'}>{el.price}</TableCell>
+              <TableCell textAlign={'left'}>{el.price}</TableCell>
               <TableCell textAlign={'left'}>{subscriptionTextsWithTranslation?.label}</TableCell>
               <TableCell textAlign={'left'}>{PaymentSystemDisplay[el.paymentType ?? '']}</TableCell>
             </TableRow>
