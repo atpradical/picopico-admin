@@ -48,11 +48,11 @@ export const PaymentsTab = ({ tableProps, ...props }: AccountManagementTabProps)
     page: data?.getPaymentsByUser.page ?? DEFAULT_PAGE,
   })
 
-  const isDataToDisplay = data?.getPaymentsByUser.items.length ?? 0 > 0
+  const isDataToDisplay = !!data?.getPaymentsByUser.items.length
 
   return (
     <TabsContent className={s.container} {...props}>
-      {!!isDataToDisplay && (
+      {isDataToDisplay && (
         <>
           <div className={s.tableContainer}>
             {/*<PaymentsUserTableMobile dateLocale={dateLocale} paginatedData={paginatedData} />*/}
