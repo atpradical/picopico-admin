@@ -82,8 +82,16 @@ function UsersPage() {
   })
 
   const { changePage, changePageSize, nextPage, prevPage } = usePagination({
-    pagination: data?.getUsers.pagination,
+    page: data?.getUsers.pagination.page ?? DEFAULT_PAGE,
   })
+
+  if (!isAuth) {
+    return (
+      <div className={s.container}>
+        <Spinner label={t.loading} />
+      </div>
+    )
+  }
 
   return (
     <Page pt={'60px'}>

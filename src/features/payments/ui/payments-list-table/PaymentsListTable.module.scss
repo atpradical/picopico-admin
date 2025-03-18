@@ -1,3 +1,12 @@
 .tableRoot {
   width: 100%;
 }
+
+.userNameCell {
+  pointer-events: none;
+
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+}

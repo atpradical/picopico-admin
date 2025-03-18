@@ -8,3 +8,12 @@ export const PAGINATION_FRAGMENT = gql`
     totalCount
   }
 `
+
+export const PAYMENTS_PAGINATION_FRAGMENT = gql`
+  fragment PaymentsPaginationFieldsFragment on PaymentsPaginationModel {
+    pagesCount
+    page
+    pageSize
+    totalCount
+  }
+`
