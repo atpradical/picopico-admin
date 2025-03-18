@@ -1,8 +1,10 @@
 import { ComponentPropsWithoutRef } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
 
+import { BanUserFormFields, banUserSchemeCreator } from '@/features/users/model'
 import { UserActionsDropdown } from '@/features/users/ui'
 import { SortDirection } from '@/services/schema.types'
-import { useDeleteUserMutation } from '@/services/users'
+import { useBanUserMutation, useDeleteUserMutation } from '@/services/users'
 import { GetUsersQuery } from '@/services/users/query'
 import { useTranslation } from '@/shared/hooks'
 import { longLocalizedDate } from '@/shared/utils/dates'
@@ -17,6 +19,7 @@ import {
   Typography,
   clsx,
 } from '@atpradical/picopico-ui-kit'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Locale } from 'date-fns'
 import Link from 'next/link'
 
@@ -40,12 +43,22 @@ export const UsersTable = ({
 }: Props) => {
   const { t } = useTranslation()
 
+  const methods = useForm<BanUserFormFields>({
+    mode: 'all',
+    reValidateMode: 'onChange',
+    resolver: zodResolver(banUserSchemeCreator(t.validation)),
+  })
+
+  const { handleSubmit } = methods
+
   const [deleteUserMutation, { loading }] = useDeleteUserMutation({
     onError: error => {
       // TODO: обработка ошибок
       console.log(error)
     },
   })
+
+  const [banUserMutation, { loading: LoadingBan }] = useBanUserMutation({})
 
   const changeSortHandler = (sortByValue: string) => {
     onTableSort?.(sortByValue, sortDirection === 'asc' ? 'desc' : 'asc')
@@ -108,6 +121,30 @@ export const UsersTable = ({
             })
           }
 
+          const handleBanUser = handleSubmit(async data => {
+            const finalBanReason = data.customReason ? data.customReason : data.reason
+
+            await banUserMutation({
+              update: cache => {
+                // Обновляем кеш после успешной блокировки
+                cache.modify({
+                  fields: {
+                    userBan(existingUserBan = {}) {
+                      // Возвращаем обновленный объект userBan
+                      return {
+                        ...existingUserBan,
+                        createdAt: new Date().toISOString(), // Указываем текущее время
+                        reason: finalBanReason,
+                      }
+                    },
+                  },
+                  id: cache.identify({ __typename: 'User', id: el.id }),
+                })
+              },
+              variables: { banReason: finalBanReason, userId: el.id },
+            })
+          })
+
           return (
             <TableRow key={el.id}>
               <TableCell textAlign={'left'}>
@@ -126,15 +163,15 @@ export const UsersTable = ({
               </TableCell>
               <TableCell textAlign={'left'}>{formattedCreatedAt}</TableCell>
               <TableCell textAlign={'right'}>
-                <UserActionsDropdown
-                  isLoading={loading}
-                  onBanConfirm={() => {
-                    console.log('User banned')
-                  }}
-                  onDeleteConfirm={() => handleDeleteUser(el.id)}
-                  userFullName={userFullName}
-                  userId={el.id}
-                />
+                <FormProvider {...methods}>
+                  <UserActionsDropdown
+                    isLoading={loading || LoadingBan}
+                    onBanConfirm={handleBanUser}
+                    onDeleteConfirm={() => handleDeleteUser(el.id)}
+                    userFullName={userFullName}
+                    userId={el.id}
+                  />
+                </FormProvider>
               </TableCell>
             </TableRow>
           )

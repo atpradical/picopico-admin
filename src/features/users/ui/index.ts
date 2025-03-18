@@ -1,5 +1,4 @@
-export * from '../../follow/ui/followers-tab'
-export * from '../../follow/ui/following-tab'
+export * from './ban-user-form'
 export * from './uploaded-photo-tab'
 export * from './user-actions-dropdown'
 export * from './users-table'

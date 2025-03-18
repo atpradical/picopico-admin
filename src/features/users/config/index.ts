@@ -1,7 +1,6 @@
 import { ReactNode } from 'react'
 
 import { LocaleBlockUserDialog, LocaleDeleteUserDialog } from '@/locales/en'
-import { OptionsValue } from '@atpradical/picopico-ui-kit'
 
 export const TAB_PHOTOS = 'photos'
 export const TAB_PAYMENTS = 'payments'
@@ -10,11 +9,7 @@ export const TAB_FOLLOWING = 'following'
 
 export const INITIAL_CURSOR = 0
 
-export const BlockUserOptions: OptionsValue[] = [
-  { label: 'Bad behaviour', value: '1' },
-  { label: 'Advertising placement', value: '2' },
-  { label: 'Another reason', value: '3' },
-]
+export const MAX_BAN_REASON_LENGTH = 200
 
 export type AlertConfig = {
   bodyElement?: ReactNode

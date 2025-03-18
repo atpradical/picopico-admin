@@ -3,7 +3,6 @@ import * as Types from '../../schema.types'
 import { gql } from '@apollo/client'
 import { PaginationFieldsFragmentFragmentDoc } from '../../fragments.generated'
 import * as Apollo from '@apollo/client'
-
 const defaultOptions = {} as const
 export type GetUsersQueryVariables = Types.Exact<{
   pageSize?: Types.InputMaybe<Types.Scalars['Int']['input']>
@@ -109,14 +108,12 @@ export function useGetUsersQuery(
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options)
 }
-
 export function useGetUsersLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<GetUsersQuery, GetUsersQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useLazyQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options)
 }
-
 export function useGetUsersSuspenseQuery(
   baseOptions?:
     | Apollo.SkipToken
@@ -126,7 +123,6 @@ export function useGetUsersSuspenseQuery(
     baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
   return Apollo.useSuspenseQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options)
 }
-
 export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>
 export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>
 export type GetUsersSuspenseQueryHookResult = ReturnType<typeof useGetUsersSuspenseQuery>

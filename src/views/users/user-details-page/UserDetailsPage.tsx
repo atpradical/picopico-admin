@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 
+import { FollowersTab, FollowingTab } from '@/features/follow/ui'
 import { PaymentsTab } from '@/features/payments/ui'
 import { TAB_FOLLOWERS, TAB_FOLLOWING, TAB_PAYMENTS, TAB_PHOTOS } from '@/features/users/config'
-import { FollowersTab, FollowingTab, UploadedPhotosTab } from '@/features/users/ui'
+import { UploadedPhotosTab } from '@/features/users/ui'
 import { UserProfileCard } from '@/features/users/ui/user-profile-card'
 import { Paths } from '@/shared/enums'
 import { useTranslation } from '@/shared/hooks'

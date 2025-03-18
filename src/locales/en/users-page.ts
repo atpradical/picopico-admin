@@ -1,15 +1,25 @@
 export const usersPage = {
+  blockReasonLabels: {
+    advertising: 'Advertising placement',
+    behavior: 'Bad behaviour',
+    other: 'Another reason',
+  },
+
+  blockReasons: {
+    advertising: 'Advertising placement',
+    behavior: 'Bad behaviour',
+    other: 'Another reason',
+  },
+
   blockUserDialog: {
     accessibilityDescription: 'Popup asking to confirm User to be blocked',
     accessibilityTitle: 'Popup asking to confirm User to be blocked',
     closeButton: 'close',
     confirmButton: 'Yes',
     rejectButton: 'No',
-    visibleBody: 'Are you sure you to block this user?',
+    visibleBody: 'Are you sure you to block this user',
     visibleTitle: 'Ban user',
   },
-
-  blockUserReasonLabel: 'Reason for ban',
 
   deleteUserDialog: {
     accessibilityDescription: 'Popup asking to confirm User deletion',
@@ -30,6 +40,14 @@ export const usersPage = {
     blockUser: 'Ban in the system',
     deleteUser: 'Delete User',
     more: 'More Information',
+  },
+
+  userBanForm: {
+    labels: {
+      customReason: 'Custom reason',
+      selectReason: 'Select reason',
+    },
+    placeholder: 'Why do you want to ban this user?',
   },
 
   userBlockStatus: {

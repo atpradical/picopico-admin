@@ -1,6 +1,8 @@
 import { useCallback, useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 
-import { AlertConfig, BlockUserOptions, initialAlertConfig } from '@/features/users/config'
+import { AlertConfig, initialAlertConfig } from '@/features/users/config'
+import { BanUserForm } from '@/features/users/ui'
 import { Paths } from '@/shared/enums'
 import { useTranslation } from '@/shared/hooks'
 import { ConfirmDialog } from '@/shared/ui/components'
@@ -15,7 +17,6 @@ import {
   DropdownMenuTrigger,
   MoreHorizontalIcon,
   PersonRemoveOutlineIcon,
-  Select,
   Typography,
 } from '@atpradical/picopico-ui-kit'
 import { useRouter } from 'next/router'
@@ -39,11 +40,13 @@ export const UserActionsDropdown = ({
 }: Props) => {
   const { t } = useTranslation()
   const { push } = useRouter()
+  const { reset } = useFormContext()
 
   const [alert, setAlert] = useState<AlertConfig>(initialAlertConfig)
 
   const closeDialog = () => {
     setAlert(initialAlertConfig)
+    reset()
   }
 
   const onUserDeleteHandler = useCallback(() => {
@@ -59,25 +62,23 @@ export const UserActionsDropdown = ({
         visibleBody: t.usersPage.deleteUserDialog.visibleBody + ' ' + userFullName + '?',
       },
     })
-  }, [t, onDeleteConfirm, userFullName])
+  }, [t, onDeleteConfirm, userFullName, closeDialog])
 
-  const onUserBlockHandler = useCallback(() => {
+  const onUserBlockHandler = () => {
     setAlert({
-      bodyElement: (
-        <Select
-          defaultValue={'3'}
-          label={t.usersPage.blockUserReasonLabel}
-          options={BlockUserOptions}
-        />
-      ),
+      bodyElement: <BanUserForm />,
       isOpen: true,
       onConfirm: () => {
         onBanConfirm()
+        reset()
         closeDialog()
       },
-      translations: t.usersPage.blockUserDialog,
+      translations: {
+        ...t.usersPage.blockUserDialog,
+        visibleBody: t.usersPage.blockUserDialog.visibleBody + ' ' + userFullName + '?',
+      },
     })
-  }, [onBanConfirm, t])
+  }
 
   const moreUserInformationHandler = () => {
     void push(`${Paths.Users}/${userId}`)

@@ -1,15 +1,25 @@
 export const usersPage = {
+  blockReasonLabels: {
+    advertising: 'Размещение рекламы',
+    behavior: 'Плохое поведение',
+    other: 'Другая причина',
+  },
+
+  blockReasons: {
+    advertising: 'Размещение рекламы',
+    behavior: 'Плохое поведение',
+    other: 'Другая причина',
+  },
+
   blockUserDialog: {
     accessibilityDescription: 'Всплывающее окно для подтверждения блокировки пользователя',
     accessibilityTitle: 'Всплывающее окно для подтверждения блокировки пользователя',
     closeButton: 'закрыть',
     confirmButton: 'Да',
     rejectButton: 'Нет',
-    visibleBody: 'Вы уверены, что хотите заблокировать этого пользователя?',
+    visibleBody: 'Вы уверены, что хотите заблокировать этого пользователя',
     visibleTitle: 'Заблокировать пользователя',
   },
-
-  blockUserReasonLabel: 'Причина блокировки',
 
   deleteUserDialog: {
     accessibilityDescription: 'Всплывающее окно для подтверждения удаления пользователя',
@@ -30,6 +40,14 @@ export const usersPage = {
     blockUser: 'Заблокировать',
     deleteUser: 'Удалить',
     more: 'Подробнее',
+  },
+
+  userBanForm: {
+    labels: {
+      customReason: 'Своя причина',
+      selectReason: 'Выберите причину',
+    },
+    placeholder: 'Почему вы хотите заблокировать этого пользователя?',
   },
 
   userBlockStatus: {
