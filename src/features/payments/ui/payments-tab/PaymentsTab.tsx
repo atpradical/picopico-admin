@@ -1,7 +1,10 @@
-import { ComponentPropsWithoutRef } from 'react'
+import { ComponentPropsWithoutRef, useContext } from 'react'
 
 import { paginationSelectOptions } from '@/features/payments/config'
 import { PaymentsUserTable } from '@/features/payments/ui'
+import { useGetPaymentsByUserQuery } from '@/services/payments'
+import { InputMaybe, QueryGetUserArgs, QueryGetUsersArgs } from '@/services/schema.types'
+import { AuthContext } from '@/shared/context'
 import {
   DEFAULT_PAGE,
   DEFAULT_PAGE_SIZE,
@@ -9,7 +12,7 @@ import {
   usePagination,
   useTranslation,
 } from '@/shared/hooks'
-import { Pagination, TabsContent, Typography } from '@atpradical/picopico-ui-kit'
+import { Pagination, Spinner, TabsContent, Typography } from '@atpradical/picopico-ui-kit'
 import { enUS, ru } from 'date-fns/locale'
 import { useRouter } from 'next/router'
 
@@ -21,39 +24,54 @@ type AccountManagementTabProps = {
 
 export const PaymentsTab = ({ tableProps, ...props }: AccountManagementTabProps) => {
   const { t } = useTranslation()
-
-  const { locale } = useRouter()
+  const { isAuth } = useContext(AuthContext)
+  const { locale, query } = useRouter()
   const dateLocale = locale === 'ru' ? ru : enUS
 
-  // TODO: PAYMENTS Mock array data
-  const paymentHistory: any[] = [{}, {}, {}]
+  const userId = query.id ? query.id : ''
+  const pageSize = query.pageSize ? query.pageSize : DEFAULT_PAGE_SIZE
+  const pageNumber = query.pageNumber ? query.pageNumber : DEFAULT_PAGE
+
+  const { data, loading } = useGetPaymentsByUserQuery({
+    fetchPolicy: 'network-only',
+    skip: !isAuth,
+    variables: {
+      pageNumber: +pageNumber as InputMaybe<QueryGetUsersArgs['pageNumber']>,
+      pageSize: +pageSize as InputMaybe<QueryGetUsersArgs['pageSize']>,
+      userId: +userId as QueryGetUserArgs['userId'],
+    },
+  })
 
   const { changePage, changePageSize, nextPage, prevPage } = usePagination({
-    page: DEFAULT_PAGE,
+    page: data?.getPaymentsByUser.page ?? DEFAULT_PAGE,
   })
+
+  const isDataToDisplay = data?.getPaymentsByUser.items.length ?? 0 > 0
 
   return (
     <TabsContent className={s.container} {...props}>
-      {paymentHistory && paymentHistory.length ? (
+      {isDataToDisplay && (
         <>
           <div className={s.tableContainer}>
             {/*<PaymentsUserTableMobile dateLocale={dateLocale} paginatedData={paginatedData} />*/}
-            <PaymentsUserTable dateLocale={dateLocale} paginatedData={[]} />
+            <PaymentsUserTable dateLocale={dateLocale} items={data?.getPaymentsByUser.items} />
           </div>
+          {loading && <Spinner label={t.loading} />}
           <Pagination
-            currentPage={DEFAULT_PAGE}
+            currentPage={data?.getPaymentsByUser.page ?? DEFAULT_PAGE}
             onNextPage={nextPage}
             onPageChange={changePage}
             onPrevPage={prevPage}
             onSelectValueChange={changePageSize}
-            pageSize={DEFAULT_PAGE_SIZE}
+            pageSize={+pageSize}
             selectOptions={paginationSelectOptions}
             textPerPage={t.pagination.textPerPage}
             textShow={t.pagination.textShow}
-            totalCount={DEFAULT_TOTAL_COUNT}
+            totalCount={data?.getPaymentsByUser.totalCount ?? DEFAULT_TOTAL_COUNT}
           />
         </>
-      ) : (
+      )}
+      {!isDataToDisplay && (
         <Typography className={s.noPaymentHistoryText} grey variant={'h3'}>
           {t.paymentsTab.noData}
         </Typography>

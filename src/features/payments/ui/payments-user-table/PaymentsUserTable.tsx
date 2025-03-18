@@ -1,6 +1,10 @@
 import { ComponentPropsWithoutRef } from 'react'
 
+import { PaymentSystemDisplay, SubscriptionShortLabel } from '@/features/payments/config'
+import { GetPaymentsByUserQuery } from '@/services/payments'
+import { BillingPeriod } from '@/shared/enums'
 import { useTranslation } from '@/shared/hooks'
+import { longLocalizedDate } from '@/shared/utils/dates'
 import {
   Table,
   TableBody,
@@ -10,18 +14,18 @@ import {
   TableRow,
 } from '@atpradical/picopico-ui-kit'
 import { Locale } from 'date-fns'
+import { useRouter } from 'next/router'
 
 import s from './PaymentsUserTable.module.scss'
 
 type Props = {
   dateLocale: Locale
-  // TODO: PAYMENTS fix any
-  paginatedData: any[]
+  items: GetPaymentsByUserQuery['getPaymentsByUser']['items'][number][] | undefined
 } & ComponentPropsWithoutRef<typeof Table>
 
-export const PaymentsUserTable = ({ dateLocale, paginatedData, ...props }: Props) => {
+export const PaymentsUserTable = ({ dateLocale, items, ...props }: Props) => {
   const { t } = useTranslation()
-  // const { locale } = useRouter()
+  const { locale } = useRouter()
 
   return (
     <Table className={s.tableRoot} {...props}>
@@ -37,23 +41,21 @@ export const PaymentsUserTable = ({ dateLocale, paginatedData, ...props }: Props
         </TableRow>
       </TableHeader>
       <TableBody>
-        {paginatedData.map((el, index) => {
-          // const formattedDateOfPayment = longLocalizedDate(new Date(el.dateOfPayment), dateLocale)
-          // const formattedEndDateOfSubscription = longLocalizedDate(
-          //   new Date(el.endDateOfSubscription),
-          //   dateLocale
-          // )
-          //
-          // const subscriptionTextsWithTranslation = SubscriptionShortLabel[locale ?? 'en'].find(
-          //   option => option.period === el.subscriptionType
-          // )
+        {items?.map(el => {
+          const formattedDateOfPayment = longLocalizedDate(new Date(el.dateOfPayment), dateLocale)
+          const formattedEndDate = longLocalizedDate(new Date(el.endDate), dateLocale)
+
+          const subscriptionTextsWithTranslation = SubscriptionShortLabel[locale ?? 'en'].find(
+            option => option.period === (el.type as unknown as BillingPeriod)
+          )
+
           return (
-            <TableRow key={`${el.subscriptionId}_${index}`}>
-              <TableCell textAlign={'left'}>{'formattedDateOfPayment'}</TableCell>
-              <TableCell textAlign={'left'}>{'formattedEndDateOfSubscription'}</TableCell>
-              <TableCell textAlign={'right'}>{'$${el.price}'}</TableCell>
-              <TableCell textAlign={'left'}>{'subscriptionTextsWithTranslation?.label'}</TableCell>
-              <TableCell textAlign={'left'}>{'PaymentSystemDisplay[el.paymentType]'}</TableCell>
+            <TableRow key={el.id}>
+              <TableCell textAlign={'left'}>{formattedDateOfPayment}</TableCell>
+              <TableCell textAlign={'left'}>{formattedEndDate}</TableCell>
+              <TableCell textAlign={'right'}>{el.price}</TableCell>
+              <TableCell textAlign={'left'}>{subscriptionTextsWithTranslation?.label}</TableCell>
+              <TableCell textAlign={'left'}>{PaymentSystemDisplay[el.paymentType ?? '']}</TableCell>
             </TableRow>
           )
         })}
