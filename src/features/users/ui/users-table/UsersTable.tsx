@@ -53,21 +53,21 @@ export const UsersTable = ({
 
   const [deleteUserMutation, { loading }] = useDeleteUserMutation({
     onError: error => {
-      // TODO: обработка ошибок
+      // TODO: GRAPHQL обработка ошибок
       console.log(error)
     },
   })
 
   const [banUserMutation, { loading: LoadingBan }] = useBanUserMutation({
     onError: error => {
-      // TODO: обработка ошибок
+      // TODO: GRAPHQL обработка ошибок
       console.log(error)
     },
   })
 
   const [unbanUserMutation, { loading: loadingUnBan }] = useUnbanUserMutation({
     onError: error => {
-      // TODO: обработка ошибок
+      // TODO: GRAPHQL обработка ошибок
       console.log(error)
     },
   })
