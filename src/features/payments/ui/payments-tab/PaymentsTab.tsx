@@ -52,7 +52,7 @@ export const PaymentsTab = ({ tableProps, ...props }: AccountManagementTabProps)
 
   return (
     <TabsContent className={s.container} {...props}>
-      {isDataToDisplay && (
+      {!!isDataToDisplay && (
         <>
           <div className={s.tableContainer}>
             {/*<PaymentsUserTableMobile dateLocale={dateLocale} paginatedData={paginatedData} />*/}
