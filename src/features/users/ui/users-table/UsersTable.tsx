@@ -187,7 +187,11 @@ export const UsersTable = ({
               </TableCell>
               <TableCell textAlign={'left'}>{userFullName}</TableCell>
               <TableCell textAlign={'left'}>
-                <Link href={`/users/${el.id}`}>
+                <Link
+                  href={process.env.NEXT_PUBLIC_PICOPICO_MAIN_URL + '/profile/' + el.id}
+                  rel={'noopener noreferrer'}
+                  target={'_blank'}
+                >
                   <Typography variant={'regular_link'}>{el.userName}</Typography>
                 </Link>
               </TableCell>
