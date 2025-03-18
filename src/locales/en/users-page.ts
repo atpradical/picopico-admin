@@ -36,10 +36,21 @@ export const usersPage = {
     statusSelect: 'Block status',
   },
 
+  unblockUserDialog: {
+    accessibilityDescription: 'Popup asking to confirm User to be unlocked',
+    accessibilityTitle: 'Popup asking to confirm User to be unlocked',
+    closeButton: 'close',
+    confirmButton: 'Yes',
+    rejectButton: 'No',
+    visibleBody: 'Are you sure you to unblock this user',
+    visibleTitle: 'Un-ban user',
+  },
+
   userActionsDropdown: {
     blockUser: 'Ban in the system',
     deleteUser: 'Delete User',
     more: 'More Information',
+    unblockUser: 'Un-ban',
   },
 
   userBanForm: {

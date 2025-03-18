@@ -36,10 +36,21 @@ export const usersPage = {
     statusSelect: 'Фильтр по статусу',
   },
 
+  unblockUserDialog: {
+    accessibilityDescription: 'Всплывающее окно для подтверждения разблокировки пользователя',
+    accessibilityTitle: 'Всплывающее окно для подтверждения разблокировки пользователя',
+    closeButton: 'Закрыть',
+    confirmButton: 'Да',
+    rejectButton: 'Нет',
+    visibleBody: 'Вы уверены, что хотите разблокировать этого пользователя',
+    visibleTitle: 'Разблокировать пользователя',
+  },
+
   userActionsDropdown: {
     blockUser: 'Заблокировать',
     deleteUser: 'Удалить',
     more: 'Подробнее',
+    unblockUser: 'Разблокировать',
   },
 
   userBanForm: {

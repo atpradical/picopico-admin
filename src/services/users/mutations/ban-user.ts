@@ -5,3 +5,9 @@ export const BAN_USER = gql`
     banUser(userId: $userId, banReason: $banReason)
   }
 `
+
+export const UNBAN_USER = gql`
+  mutation UnbanUser($userId: Int!) {
+    unbanUser(userId: $userId)
+  }
+`

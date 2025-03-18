@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { BanUserFormFields, banUserSchemeCreator } from '@/features/users/model'
 import { UserActionsDropdown } from '@/features/users/ui'
 import { SortDirection } from '@/services/schema.types'
-import { useBanUserMutation, useDeleteUserMutation } from '@/services/users'
+import { useBanUserMutation, useDeleteUserMutation, useUnbanUserMutation } from '@/services/users'
 import { GetUsersQuery } from '@/services/users/query'
 import { useTranslation } from '@/shared/hooks'
 import { longLocalizedDate } from '@/shared/utils/dates'
@@ -58,7 +58,19 @@ export const UsersTable = ({
     },
   })
 
-  const [banUserMutation, { loading: LoadingBan }] = useBanUserMutation({})
+  const [banUserMutation, { loading: LoadingBan }] = useBanUserMutation({
+    onError: error => {
+      // TODO: обработка ошибок
+      console.log(error)
+    },
+  })
+
+  const [unbanUserMutation, { loading: loadingUnBan }] = useUnbanUserMutation({
+    onError: error => {
+      // TODO: обработка ошибок
+      console.log(error)
+    },
+  })
 
   const changeSortHandler = (sortByValue: string) => {
     onTableSort?.(sortByValue, sortDirection === 'asc' ? 'desc' : 'asc')
@@ -145,6 +157,24 @@ export const UsersTable = ({
             })
           })
 
+          const handleUnbanUser = async () => {
+            await unbanUserMutation({
+              update: cache => {
+                // Обновляем кеш после успешной блокировки
+                cache.modify({
+                  fields: {
+                    userBan() {
+                      // Возвращаем обновленный объект userBan
+                      return null
+                    },
+                  },
+                  id: cache.identify({ __typename: 'User', id: el.id }),
+                })
+              },
+              variables: { userId: el.id },
+            })
+          }
+
           return (
             <TableRow key={el.id}>
               <TableCell textAlign={'left'}>
@@ -165,9 +195,11 @@ export const UsersTable = ({
               <TableCell textAlign={'right'}>
                 <FormProvider {...methods}>
                   <UserActionsDropdown
-                    isLoading={loading || LoadingBan}
+                    isBlock={isBlock}
+                    isLoading={loading || LoadingBan || loadingUnBan}
                     onBanConfirm={handleBanUser}
                     onDeleteConfirm={() => handleDeleteUser(el.id)}
+                    onUnblockConfirm={handleUnbanUser}
                     userFullName={userFullName}
                     userId={el.id}
                   />
