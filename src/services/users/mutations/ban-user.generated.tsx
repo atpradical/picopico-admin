@@ -2,7 +2,6 @@ import * as Types from '../../schema.types'
 
 import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
-
 const defaultOptions = {} as const
 export type BanUserMutationVariables = Types.Exact<{
   userId: Types.Scalars['Int']['input']
@@ -48,7 +47,6 @@ export function useBanUserMutation(
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useMutation<BanUserMutation, BanUserMutationVariables>(BanUserDocument, options)
 }
-
 export type BanUserMutationHookResult = ReturnType<typeof useBanUserMutation>
 export type BanUserMutationResult = Apollo.MutationResult<BanUserMutation>
 export type BanUserMutationOptions = Apollo.BaseMutationOptions<
@@ -91,7 +89,6 @@ export function useUnbanUserMutation(
     options
   )
 }
-
 export type UnbanUserMutationHookResult = ReturnType<typeof useUnbanUserMutation>
 export type UnbanUserMutationResult = Apollo.MutationResult<UnbanUserMutation>
 export type UnbanUserMutationOptions = Apollo.BaseMutationOptions<

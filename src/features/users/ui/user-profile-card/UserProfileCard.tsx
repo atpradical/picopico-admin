@@ -1,26 +1,65 @@
-import { Avatar, Card, Typography } from '@atpradical/picopico-ui-kit'
+import { useContext } from 'react'
+
+import { QueryGetUserArgs } from '@/services/schema.types'
+import { useGetUserQuery } from '@/services/users'
+import { AuthContext } from '@/shared/context'
+import { useTranslation } from '@/shared/hooks'
+import { longLocalizedDate } from '@/shared/utils/dates'
+import { Avatar, Card, Spinner, Typography } from '@atpradical/picopico-ui-kit'
+import { enUS, ru } from 'date-fns/locale'
+import { useRouter } from 'next/router'
 
 import s from './UserProfileCard.module.scss'
 
 type Props = {}
 export const UserProfileCard = (props: Props) => {
+  const { t } = useTranslation()
+  const { isAuth } = useContext(AuthContext)
+  const { locale, query } = useRouter()
+
+  const userId = query.id ? query.id : ''
+  const dateLocale = locale === 'ru' ? ru : enUS
+
+  const { data, loading } = useGetUserQuery({
+    fetchPolicy: 'network-only',
+    skip: !isAuth || !userId,
+    variables: {
+      userId: +userId as QueryGetUserArgs['userId'],
+    },
+  })
+
+  const userFullName = data?.getUser.profile?.firstName
+    ? data?.getUser.profile?.firstName + ' ' + data?.getUser.profile?.lastName
+    : t.userDetailsPage.profileCard.anonymous
+
+  const formattedCreatedAt = longLocalizedDate(
+    new Date(data?.getUser.createdAt ?? null),
+    dateLocale
+  )
+
   return (
     <Card className={s.profileContainer} variant={'transparent'}>
+      {loading && <Spinner label={t.loading} />}
       <div className={s.flexRowContainer}>
-        <Avatar size={'m'} src={''} userName={'User Name'} />
+        <Avatar
+          showFallback
+          size={'m'}
+          src={data?.getUser.profile.avatars?.[1]?.url ?? ''}
+          userName={data?.getUser.userName}
+        />
         <div>
-          <Typography variant={'h1'}>Ivan Yakimenko</Typography>
-          <Typography>Ivan Yakimenko</Typography>
+          <Typography variant={'h1'}>{userFullName}</Typography>
+          <Typography>{data?.getUser.userName}</Typography>
         </div>
       </div>
       <div className={s.flexRowContainer}>
         <div>
-          <Typography grey>User ID</Typography>
-          <Typography variant={'regular_16'}>21331QErQe21</Typography>
+          <Typography grey>{t.userDetailsPage.profileCard.userId}</Typography>
+          <Typography variant={'regular_16'}>{data?.getUser.id}</Typography>
         </div>
         <div>
-          <Typography grey>Profile Creation Date</Typography>
-          <Typography variant={'regular_16'}>12.12.2022</Typography>
+          <Typography grey>{t.userDetailsPage.profileCard.createdAt}</Typography>
+          <Typography variant={'regular_16'}>{formattedCreatedAt}</Typography>
         </div>
       </div>
     </Card>

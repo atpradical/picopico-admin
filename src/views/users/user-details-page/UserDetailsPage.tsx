@@ -25,6 +25,7 @@ import s from './UserDetailsPage.module.scss'
 
 function UserDetailsPage() {
   const { t } = useTranslation()
+
   const { isReady } = useRouter()
   const [activeTab, setActiveTab] = useState(TAB_PHOTOS)
 
