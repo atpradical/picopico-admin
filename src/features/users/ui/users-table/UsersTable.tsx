@@ -1,12 +1,12 @@
 import { ComponentPropsWithoutRef } from 'react'
 
 import { UserActionsDropdown } from '@/features/users/ui'
+import { useDeleteUserMutation } from '@/services/users'
 import { GetUsersQuery } from '@/services/users/query'
 import { useTranslation } from '@/shared/hooks'
 import { longLocalizedDate } from '@/shared/utils/dates'
 import {
   BlockIcon,
-  Spinner,
   Table,
   TableBody,
   TableCell,
@@ -24,11 +24,16 @@ import s from './UsersTable.module.scss'
 type Props = {
   dateLocale: Locale
   items: GetUsersQuery['getUsers']['users'][number][] | undefined
-  loading: boolean
 } & ComponentPropsWithoutRef<typeof Table>
 
-export const UsersTable = ({ dateLocale, items, loading, ...props }: Props) => {
+export const UsersTable = ({ dateLocale, items, ...props }: Props) => {
   const { t } = useTranslation()
+
+  const [deleteUserMutation, { loading }] = useDeleteUserMutation({
+    onError: error => {
+      console.log(error.graphQLErrors)
+    },
+  })
 
   return (
     <Table className={s.tableRoot} {...props}>
@@ -51,6 +56,21 @@ export const UsersTable = ({ dateLocale, items, loading, ...props }: Props) => {
 
           const isBlock = !!el.userBan?.createdAt
 
+          const handleDeleteUser = async (userId: number) => {
+            await deleteUserMutation({
+              update: cache => {
+                // Обновляем кеш после успешного удаления
+                const normalizedId = cache.identify({ __typename: 'User', id: userId })
+
+                cache.evict({ id: normalizedId })
+                cache.gc() // Очищаем кеш от "мусора"
+              },
+              variables: {
+                userId,
+              },
+            })
+          }
+
           return (
             <TableRow key={el.id}>
               <TableCell textAlign={'left'}>
@@ -70,21 +90,19 @@ export const UsersTable = ({ dateLocale, items, loading, ...props }: Props) => {
               <TableCell textAlign={'left'}>{formattedCreatedAt}</TableCell>
               <TableCell textAlign={'right'}>
                 <UserActionsDropdown
+                  isLoading={loading}
                   onBanConfirm={() => {
                     console.log('User banned')
                   }}
-                  onDeleteConfirm={() => {
-                    console.log('User deleted')
-                  }}
-                  userId={'user-id-1'}
+                  onDeleteConfirm={() => handleDeleteUser(el.id)}
+                  userFullName={userFullName}
+                  userId={el.id}
                 />
               </TableCell>
             </TableRow>
           )
         })}
       </TableBody>
-      {/*TODO: UI-KIT добавить пропс на стили спиннер контейнера*/}
-      {loading && <Spinner label={t.loading} />}
     </Table>
   )
 }

@@ -15,7 +15,7 @@ import {
 } from '@/shared/hooks'
 import { usePagesRouterQueryUpdate } from '@/shared/hooks/usePagesRouterQueryUpdate'
 import { Page, getNavigationLayout } from '@/shared/ui/layout'
-import { Pagination, Select, TextField } from '@atpradical/picopico-ui-kit'
+import { Pagination, Select, Spinner, TextField } from '@atpradical/picopico-ui-kit'
 import { enUS, ru } from 'date-fns/locale'
 import { useRouter } from 'next/router'
 import { useDebounceCallback } from 'usehooks-ts'
@@ -24,7 +24,7 @@ import s from './UsersPage.module.scss'
 
 function UsersPage() {
   const { t } = useTranslation()
-  const { locale, query } = useRouter()
+  const { isReady, locale, query } = useRouter()
   const { isAuth } = useContext(AuthContext)
   const { addRouterQueryParamShallow } = usePagesRouterQueryUpdate()
 
@@ -60,7 +60,7 @@ function UsersPage() {
 
   const { data, loading } = useGetUsersQuery({
     fetchPolicy: 'network-only',
-    skip: !isAuth,
+    skip: !isReady || !isAuth,
     variables: {
       pageNumber: +pageNumber as InputMaybe<QueryGetUsersArgs['pageNumber']>,
       pageSize: +pageSize as InputMaybe<QueryGetUsersArgs['pageSize']>,
@@ -92,7 +92,8 @@ function UsersPage() {
             options={usersStatusOptions}
           />
         </div>
-        <UsersTable dateLocale={dateLocale} items={data?.getUsers.users} loading={loading} />
+        <UsersTable dateLocale={dateLocale} items={data?.getUsers.users} />
+        {loading && <Spinner label={t.loading} />}
         <Pagination
           currentPage={data?.getUsers.pagination.page ?? DEFAULT_PAGE}
           onNextPage={nextPage}

@@ -10,6 +10,8 @@ import { usersPage } from './en/users-page'
 
 export type LocaleType = typeof en
 export type LocaleValidation = typeof en.validation
+export type LocaleDeleteUserDialog = typeof en.usersPage.deleteUserDialog
+export type LocaleBlockUserDialog = typeof en.usersPage.deleteUserDialog
 
 export const en = {
   appHeader: {

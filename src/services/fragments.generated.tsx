@@ -1,5 +1,6 @@
-import { gql } from '@apollo/client'
+import * as Types from './schema.types'
 
+import { gql } from '@apollo/client'
 export type PaginationFieldsFragmentFragment = {
   __typename?: 'PaginationModel'
   pagesCount: number

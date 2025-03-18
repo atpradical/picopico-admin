@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
-import { BlockUserOptions } from '@/features/users/config'
+import { AlertConfig, BlockUserOptions, initialAlertConfig } from '@/features/users/config'
 import { Paths } from '@/shared/enums'
 import { useTranslation } from '@/shared/hooks'
 import { ConfirmDialog } from '@/shared/ui/components'
@@ -22,48 +22,62 @@ import { useRouter } from 'next/router'
 
 import s from './UserActionsDropdown.module.scss'
 
-type EditPostDropdownProps = {
+type Props = {
+  isLoading?: boolean
   onBanConfirm: () => void
   onDeleteConfirm: () => void
-  userId: string
+  userFullName: string
+  userId: number
 }
 
 export const UserActionsDropdown = ({
+  isLoading,
   onBanConfirm,
   onDeleteConfirm,
+  userFullName,
   userId,
-}: EditPostDropdownProps) => {
+}: Props) => {
   const { t } = useTranslation()
   const { push } = useRouter()
-  const [isDeleteAlert, setDeleteAlert] = useState(false)
-  const [isBlockAlert, setBlockAlert] = useState(false)
-  // const [deletePost] = useDeletePostMutation()
 
-  const onUserDeleteHandler = () => {
-    setDeleteAlert(true)
+  const [alert, setAlert] = useState<AlertConfig>(initialAlertConfig)
+
+  const closeDialog = () => {
+    setAlert(initialAlertConfig)
   }
 
-  const onUserBlockHandler = () => {
-    setBlockAlert(true)
-  }
+  const onUserDeleteHandler = useCallback(() => {
+    setAlert({
+      bodyElement: null,
+      isOpen: true,
+      onConfirm: () => {
+        onDeleteConfirm()
+        closeDialog()
+      },
+      translations: {
+        ...t.usersPage.deleteUserDialog,
+        visibleBody: t.usersPage.deleteUserDialog.visibleBody + ' ' + userFullName + '?',
+      },
+    })
+  }, [t, onDeleteConfirm, userFullName])
 
-  const deleteUserHandler = async () => {
-    try {
-      // await some deleteUser function
-      onDeleteConfirm()
-    } finally {
-      setDeleteAlert(false)
-    }
-  }
-
-  const blockUserHandler = async () => {
-    try {
-      // await some blockUser() function
-      onBanConfirm()
-    } finally {
-      setBlockAlert(false)
-    }
-  }
+  const onUserBlockHandler = useCallback(() => {
+    setAlert({
+      bodyElement: (
+        <Select
+          defaultValue={'3'}
+          label={t.usersPage.blockUserReasonLabel}
+          options={BlockUserOptions}
+        />
+      ),
+      isOpen: true,
+      onConfirm: () => {
+        onBanConfirm()
+        closeDialog()
+      },
+      translations: t.usersPage.blockUserDialog,
+    })
+  }, [onBanConfirm, t])
 
   const moreUserInformationHandler = () => {
     void push(`${Paths.Users}/${userId}`)
@@ -99,24 +113,14 @@ export const UserActionsDropdown = ({
           </DropdownMenuContent>
         </DropdownMenuPortal>
       </DropdownMenu>
+
       <ConfirmDialog
-        isOpen={isDeleteAlert}
-        onConfirm={deleteUserHandler}
-        onOpenChange={setDeleteAlert}
-        t={t.usersPage.deleteUserDialog}
-      />
-      <ConfirmDialog
-        bodyElement={
-          <Select
-            defaultValue={'3'}
-            label={t.usersPage.blockUserReasonLabel}
-            options={BlockUserOptions}
-          />
-        }
-        isOpen={isBlockAlert}
-        onConfirm={blockUserHandler}
-        onOpenChange={setBlockAlert}
-        t={t.usersPage.blockUserDialog}
+        bodyElement={alert.bodyElement}
+        isLoading={isLoading}
+        isOpen={alert.isOpen}
+        onConfirm={alert.onConfirm}
+        onOpenChange={closeDialog}
+        t={alert.translations}
       />
     </>
   )

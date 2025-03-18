@@ -17,7 +17,7 @@ export const usersPage = {
     closeButton: 'close',
     confirmButton: 'Yes',
     rejectButton: 'No',
-    visibleBody: 'Are you sure you to delete user?',
+    visibleBody: 'Are you sure you to delete user',
     visibleTitle: 'Delete user',
   },
 

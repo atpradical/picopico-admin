@@ -17,7 +17,7 @@ export const usersPage = {
     closeButton: 'закрыть',
     confirmButton: 'Да',
     rejectButton: 'Нет',
-    visibleBody: 'Вы уверены, что хотите удалить пользователя?',
+    visibleBody: 'Вы уверены, что хотите удалить пользователя',
     visibleTitle: 'Удалить пользователя',
   },
 
