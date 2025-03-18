@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.13.4",
-    "@atpradical/picopico-ui-kit": "^0.43.3",
+    "@atpradical/picopico-ui-kit": "^0.44.1",
     "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-visually-hidden": "^1.1.0",

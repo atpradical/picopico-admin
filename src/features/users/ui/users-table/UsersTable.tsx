@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react'
 
 import { UserActionsDropdown } from '@/features/users/ui'
+import { SortDirection } from '@/services/schema.types'
 import { useDeleteUserMutation } from '@/services/users'
 import { GetUsersQuery } from '@/services/users/query'
 import { useTranslation } from '@/shared/hooks'
@@ -24,25 +25,61 @@ import s from './UsersTable.module.scss'
 type Props = {
   dateLocale: Locale
   items: GetUsersQuery['getUsers']['users'][number][] | undefined
+  onTableSort?: (sortBy: string, sortDirection: string) => void
+  sortBy?: string
+  sortDirection?: '' | SortDirection
 } & ComponentPropsWithoutRef<typeof Table>
 
-export const UsersTable = ({ dateLocale, items, ...props }: Props) => {
+export const UsersTable = ({
+  dateLocale,
+  items,
+  onTableSort,
+  sortBy,
+  sortDirection,
+  ...props
+}: Props) => {
   const { t } = useTranslation()
 
   const [deleteUserMutation, { loading }] = useDeleteUserMutation({
     onError: error => {
-      console.log(error.graphQLErrors)
+      // TODO: обработка ошибок
+      console.log(error)
     },
   })
+
+  const changeSortHandler = (sortByValue: string) => {
+    onTableSort?.(sortByValue, sortDirection === 'asc' ? 'desc' : 'asc')
+  }
 
   return (
     <Table className={s.tableRoot} {...props}>
       <TableHeader>
         <TableRow>
-          <TableHead textAlign={'left'}>{t.usersPage.usersTable.headers.userId}</TableHead>
+          <TableHead
+            onSort={() => changeSortHandler('id')}
+            sortOrder={sortDirection}
+            sortable={sortBy === 'id'}
+            textAlign={'left'}
+          >
+            {t.usersPage.usersTable.headers.userId}
+          </TableHead>
           <TableHead textAlign={'left'}>{t.usersPage.usersTable.headers.userName}</TableHead>
-          <TableHead textAlign={'left'}>{t.usersPage.usersTable.headers.profileLInk}</TableHead>
-          <TableHead textAlign={'left'}>{t.usersPage.usersTable.headers.createdAt}</TableHead>
+          <TableHead
+            onSort={() => changeSortHandler('userName')}
+            sortOrder={sortDirection}
+            sortable={sortBy === 'userName'}
+            textAlign={'left'}
+          >
+            {t.usersPage.usersTable.headers.profileLInk}
+          </TableHead>
+          <TableHead
+            onSort={() => changeSortHandler('createdAt')}
+            sortOrder={sortDirection}
+            sortable={sortBy === 'createdAt'}
+            textAlign={'left'}
+          >
+            {t.usersPage.usersTable.headers.createdAt}
+          </TableHead>
           <TableHead textAlign={'left'}>{''}</TableHead>
         </TableRow>
       </TableHeader>

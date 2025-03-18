@@ -2,7 +2,7 @@ import { ChangeEvent, useContext, useMemo } from 'react'
 
 import { paginationSelectOptions } from '@/features/payments/config'
 import { UsersTable } from '@/features/users/ui'
-import { InputMaybe, QueryGetUsersArgs } from '@/services/schema.types'
+import { InputMaybe, QueryGetUsersArgs, SortDirection } from '@/services/schema.types'
 import { useGetUsersQuery } from '@/services/users/query'
 import { AuthContext } from '@/shared/context'
 import { UserBlockStatus } from '@/shared/enums/user-block-status'
@@ -33,6 +33,8 @@ function UsersPage() {
   const statusFilter = query.statusFilter ? query.statusFilter : UserBlockStatus.ALL
   const pageSize = query.pageSize ? query.pageSize : DEFAULT_PAGE_SIZE
   const pageNumber = query.pageNumber ? query.pageNumber : DEFAULT_PAGE
+  const sortBy = query.sortBy ? query.sortBy : ''
+  const sortDirection = query.sortDirection ? query.sortDirection : ''
 
   const usersStatusOptions = useMemo(() => {
     return [
@@ -58,6 +60,10 @@ function UsersPage() {
     addRouterQueryParamShallow({ pageNumber: DEFAULT_PAGE.toString(), statusFilter: value })
   }
 
+  const changeSortTableHandler = (sortBy: string, sortDirection: string) => {
+    addRouterQueryParamShallow({ pageNumber: DEFAULT_PAGE.toString(), sortBy, sortDirection })
+  }
+
   const { data, loading } = useGetUsersQuery({
     fetchPolicy: 'network-only',
     skip: !isReady || !isAuth,
@@ -65,6 +71,12 @@ function UsersPage() {
       pageNumber: +pageNumber as InputMaybe<QueryGetUsersArgs['pageNumber']>,
       pageSize: +pageSize as InputMaybe<QueryGetUsersArgs['pageSize']>,
       searchTerm: searchTerm as InputMaybe<QueryGetUsersArgs['searchTerm']>,
+      ...(sortBy && { sortBy: sortBy as InputMaybe<QueryGetUsersArgs['sortBy']> }),
+
+      ...(sortDirection && {
+        sortDirection: sortDirection as InputMaybe<QueryGetUsersArgs['sortDirection']>,
+      }),
+
       statusFilter: statusFilter as InputMaybe<QueryGetUsersArgs['statusFilter']>,
     },
   })
@@ -92,7 +104,13 @@ function UsersPage() {
             options={usersStatusOptions}
           />
         </div>
-        <UsersTable dateLocale={dateLocale} items={data?.getUsers.users} />
+        <UsersTable
+          dateLocale={dateLocale}
+          items={data?.getUsers.users}
+          onTableSort={changeSortTableHandler}
+          sortBy={sortBy as SortDirection}
+          sortDirection={sortDirection as SortDirection}
+        />
         {loading && <Spinner label={t.loading} />}
         <Pagination
           currentPage={data?.getUsers.pagination.page ?? DEFAULT_PAGE}
