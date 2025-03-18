@@ -11,8 +11,7 @@ import { useRouter } from 'next/router'
 
 import s from './UserProfileCard.module.scss'
 
-type Props = {}
-export const UserProfileCard = (props: Props) => {
+export const UserProfileCard = () => {
   const { t } = useTranslation()
   const { isAuth } = useContext(AuthContext)
   const { locale, query } = useRouter()
