@@ -24,13 +24,7 @@ export const FollowersTab = ({ className, ...rest }: FollowersTabProps) => {
   const dateLocale = locale === 'ru' ? ru : enUS
 
   const { changePage, changePageSize, nextPage, prevPage } = usePagination({
-    pagination: {
-      __typename: 'PaginationModel',
-      page: 1,
-      pageSize: 100,
-      pagesCount: 1,
-      totalCount: 1,
-    },
+    page: DEFAULT_PAGE,
   })
 
   return (

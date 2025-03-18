@@ -29,13 +29,7 @@ export const PaymentsTab = ({ tableProps, ...props }: AccountManagementTabProps)
   const paymentHistory: any[] = [{}, {}, {}]
 
   const { changePage, changePageSize, nextPage, prevPage } = usePagination({
-    pagination: {
-      __typename: 'PaginationModel',
-      page: 1,
-      pageSize: 100,
-      pagesCount: 1,
-      totalCount: 1,
-    },
+    page: DEFAULT_PAGE,
   })
 
   return (
