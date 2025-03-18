@@ -13,24 +13,27 @@
 
 .postsContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 234px); /* Адаптивные колонки */
-  gap: 12px;
-  justify-content: center;
+
+  // Используем auto-fill вместо auto-fit чтобы оставалось пустое место
+  grid-template-columns: repeat(auto-fill, minmax(234px, 234px)); // фиксированный максимум
+  gap: clamp(2px, 1vw, 12px);
+  justify-content: center; // центрируем grid-элементы
 
   width: 100%;
 
-  @media (max-width: $mobile-width) {
-    grid-template-columns: repeat(auto-fill, 128px); /* Адаптивные колонки */
-    gap: 0;
+  @media (width <= $tablet-width) {
+    // Только на маленьких экранах делаем адаптивные колонки
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   }
 
-  @media (width <= 405px) {
-    grid-template-columns: repeat(auto-fill, 118px); /* Адаптивные колонки */
-    gap: 0;
+  @media (width <= $mobile-width) {
+    // Только на маленьких экранах делаем адаптивные колонки
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   }
+}
 
-  @media (width <= 375px) {
-    grid-template-columns: repeat(auto-fill, 108px); /* Адаптивные колонки */
-    gap: 0;
-  }
+.imageContainer {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
 }
