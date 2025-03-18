@@ -33,6 +33,7 @@ export const PaymentsTab = ({ tableProps, ...props }: AccountManagementTabProps)
   const pageNumber = query.pageNumber ? query.pageNumber : DEFAULT_PAGE
 
   const { data, loading } = useGetPaymentsByUserQuery({
+    // TODO: GRAPHQL обработка ошибок
     fetchPolicy: 'network-only',
     skip: !isAuth,
     variables: {

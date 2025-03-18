@@ -20,6 +20,7 @@ export const UserProfileCard = () => {
   const dateLocale = locale === 'ru' ? ru : enUS
 
   const { data, loading } = useGetUserQuery({
+    // TODO: GRAPHQL обработка ошибок
     fetchPolicy: 'network-only',
     skip: !isAuth || !userId,
     variables: {
