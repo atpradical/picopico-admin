@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, useContext } from 'react'
 import { paginationSelectOptions } from '@/features/payments/config'
 import { PaymentsUserTable } from '@/features/payments/ui'
 import { useGetPaymentsByUserQuery } from '@/services/payments'
-import { InputMaybe, QueryGetUserArgs, QueryGetUsersArgs } from '@/services/schema.types'
+import { InputMaybe, QueryGetPaymentsByUserArgs } from '@/services/schema.types'
 import { AuthContext } from '@/shared/context'
 import {
   DEFAULT_PAGE,
@@ -26,6 +26,7 @@ export const PaymentsTab = ({ tableProps, ...props }: AccountManagementTabProps)
   const { t } = useTranslation()
   const { isAuth } = useContext(AuthContext)
   const { locale, query } = useRouter()
+
   const dateLocale = locale === 'ru' ? ru : enUS
 
   const userId = query.id ? query.id : ''
@@ -37,9 +38,9 @@ export const PaymentsTab = ({ tableProps, ...props }: AccountManagementTabProps)
     fetchPolicy: 'network-only',
     skip: !isAuth,
     variables: {
-      pageNumber: +pageNumber as InputMaybe<QueryGetUsersArgs['pageNumber']>,
-      pageSize: +pageSize as InputMaybe<QueryGetUsersArgs['pageSize']>,
-      userId: +userId as QueryGetUserArgs['userId'],
+      pageNumber: +pageNumber as InputMaybe<QueryGetPaymentsByUserArgs['pageNumber']>,
+      pageSize: +pageSize as InputMaybe<QueryGetPaymentsByUserArgs['pageSize']>,
+      userId: +userId as QueryGetPaymentsByUserArgs['userId'],
     },
   })
 

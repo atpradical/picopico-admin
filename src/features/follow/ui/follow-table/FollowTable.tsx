@@ -1,6 +1,8 @@
 import { ComponentPropsWithoutRef } from 'react'
 
+import { GetFollowersQuery } from '@/services/follow'
 import { useTranslation } from '@/shared/hooks'
+import { longLocalizedDate } from '@/shared/utils/dates'
 import {
   Table,
   TableBody,
@@ -8,20 +10,20 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+  Typography,
 } from '@atpradical/picopico-ui-kit'
 import { Locale } from 'date-fns'
+import Link from 'next/link'
 
 import s from './FollowTable.module.scss'
 
 type Props = {
   dateLocale: Locale
-  // TODO: PAYMENTS fix any
-  paginatedData: any[]
+  items: GetFollowersQuery['getFollowers']['items'][number][] | undefined
 } & ComponentPropsWithoutRef<typeof Table>
 
-export const FollowTable = ({ dateLocale, paginatedData, ...props }: Props) => {
+export const FollowTable = ({ dateLocale, items, ...props }: Props) => {
   const { t } = useTranslation()
-  // const { locale } = useRouter()
 
   return (
     <Table className={s.tableRoot} {...props}>
@@ -29,28 +31,28 @@ export const FollowTable = ({ dateLocale, paginatedData, ...props }: Props) => {
         <TableRow>
           <TableHead textAlign={'left'}>{t.follow.tabNames.userId}</TableHead>
           <TableHead textAlign={'left'}>{t.follow.tabNames.username}</TableHead>
-          <TableHead textAlign={'right'}>{t.follow.tabNames.link}</TableHead>
+          <TableHead textAlign={'left'}>{t.follow.tabNames.link}</TableHead>
           <TableHead textAlign={'left'}>{t.follow.tabNames.subscribeDate}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {paginatedData.map((el, index) => {
-          // const formattedDateOfPayment = longLocalizedDate(new Date(el.dateOfPayment), dateLocale)
-          // const formattedEndDateOfSubscription = longLocalizedDate(
-          //   new Date(el.endDateOfSubscription),
-          //   dateLocale
-          // )
-          //
-          // const subscriptionTextsWithTranslation = SubscriptionShortLabel[locale ?? 'en'].find(
-          //   option => option.period === el.subscriptionType
-          // )
-          //TODO: FOLLOW mock data to fix
+        {items?.map(el => {
+          const formattedCreatedAt = longLocalizedDate(new Date(el.createdAt), dateLocale)
+
           return (
-            <TableRow key={`${el.subscriptionId}_${index}`}>
-              <TableCell textAlign={'left'}>{'formattedDateOfPayment'}</TableCell>
-              <TableCell textAlign={'left'}>{'formattedEndDateOfSubscription'}</TableCell>
-              <TableCell textAlign={'right'}>{'$${el.price}'}</TableCell>
-              <TableCell textAlign={'left'}>{'subscriptionTextsWithTranslation?.label'}</TableCell>
+            <TableRow key={el.id}>
+              <TableCell textAlign={'left'}>{el.userId}</TableCell>
+              <TableCell textAlign={'left'}>{el.userName}</TableCell>
+              <TableCell textAlign={'left'}>
+                <Link
+                  href={process.env.NEXT_PUBLIC_PICOPICO_MAIN_URL + '/profile/' + el.userId}
+                  rel={'noopener noreferrer'}
+                  target={'_blank'}
+                >
+                  <Typography variant={'regular_link'}>{el.userName}</Typography>
+                </Link>
+              </TableCell>
+              <TableCell textAlign={'left'}>{formattedCreatedAt}</TableCell>
             </TableRow>
           )
         })}
