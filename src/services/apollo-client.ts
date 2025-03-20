@@ -1,3 +1,4 @@
+import { GetPostsByUserQuery } from '@/services/posts'
 import { ApolloClient, InMemoryCache, createHttpLink, split } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
@@ -46,7 +47,32 @@ const splitLink = split(
 )
 
 const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        // Используем Query вместо GET_POSTS_BY_USER
+        fields: {
+          getPostsByUser: {
+            keyArgs: ['userId'], // Кешируем отдельно для каждого userId
+            merge(
+              existing: GetPostsByUserQuery['getPostsByUser'] = {
+                items: [],
+                pageSize: 0,
+                pagesCount: 0,
+                totalCount: 0,
+              },
+              incoming: GetPostsByUserQuery['getPostsByUser']
+            ) {
+              return {
+                ...incoming,
+                items: [...(existing.items || []), ...(incoming.items || [])],
+              }
+            },
+          },
+        },
+      },
+    },
+  }),
   link: splitLink,
 })
 

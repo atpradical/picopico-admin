@@ -1,12 +1,11 @@
-import { ComponentPropsWithoutRef, useContext, useRef, useState } from 'react'
+import { ComponentPropsWithoutRef, useContext, useEffect, useRef } from 'react'
 
 import { INITIAL_CURSOR } from '@/features/users/config'
 import { useGetPostsByUserQuery } from '@/services/posts'
 import { QueryGetPostsByUserArgs } from '@/services/schema.types'
 import { AuthContext } from '@/shared/context'
 import { useTranslation } from '@/shared/hooks'
-import { usePagesRouterQueryUpdate } from '@/shared/hooks/usePagesRouterQueryUpdate'
-import { Card, Spinner, TabsContent, Typography } from '@atpradical/picopico-ui-kit'
+import { Spinner, TabsContent, Typography } from '@atpradical/picopico-ui-kit'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -23,47 +22,52 @@ export const UploadedPhotosTab = ({ className, ...rest }: UploadedPhotosTabProps
 
   const userId = query.id ? query.id : ''
 
-  const [cursor, setCursor] = useState(INITIAL_CURSOR)
+  const prevEndCursorRef = useRef(INITIAL_CURSOR)
 
-  const sectionRef = useRef(null)
-  const [lastPostRef, entry] = useIntersectionObserver({ root: null, threshold: 1 })
+  const { isIntersecting, ref: lastPostRef } = useIntersectionObserver({ root: null, threshold: 1 })
 
-  const { data, loading } = useGetPostsByUserQuery({
+  const { data, fetchMore, loading } = useGetPostsByUserQuery({
     //TODO: GRPAHQL errors handling
     skip: !isAuth,
     variables: {
-      endCursorId: cursor as QueryGetPostsByUserArgs['endCursorId'],
+      endCursorId: INITIAL_CURSOR as QueryGetPostsByUserArgs['endCursorId'],
       userId: +userId as QueryGetPostsByUserArgs['userId'],
     },
   })
 
-  const { addRouterQueryParamShallow } = usePagesRouterQueryUpdate()
-
   const postsList = data?.getPostsByUser.items
 
-  // useEffect(() => {
-  //   if (postsList.length && entry?.isIntersecting && updateCursor) {
-  //     updateCursor(postsList[postsList.length - 1].id)
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [entry?.isIntersecting, postsList.length])
+  useEffect(() => {
+    const newEndCursor = postsList?.[postsList?.length - 1].id
 
-  const updateCursor = (postId: number) => {
-    setCursor(postId)
-  }
+    if (newEndCursor) {
+      if (prevEndCursorRef.current === newEndCursor) {
+        return
+      }
+
+      if (isIntersecting) {
+        prevEndCursorRef.current = newEndCursor
+        void fetchMore({
+          variables: {
+            endCursorId: newEndCursor,
+          },
+        })
+      }
+    }
+  }, [isIntersecting, fetchMore, postsList])
 
   return (
     <TabsContent className={clsx(s.content, className)} {...rest}>
       {postsList?.length ? (
         <section className={s.postsContainer}>
           {postsList.map((el, index) => {
-            const isLastPost = postsList?.length === 1
+            const isLastPost = postsList?.length - 1 === index
 
             return (
-              <Card
+              <div
                 className={s.imageContainer}
                 key={el.id}
-                ref={isLastPost ? sectionRef : undefined}
+                ref={isLastPost ? lastPostRef : undefined}
               >
                 <Image
                   alt={'post image'}
@@ -72,7 +76,7 @@ export const UploadedPhotosTab = ({ className, ...rest }: UploadedPhotosTabProps
                   src={el.url ?? '/apple-touch-icon-dark.png'}
                   style={{ objectFit: 'cover' }}
                 />
-              </Card>
+              </div>
             )
           })}
         </section>
