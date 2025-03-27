@@ -38,7 +38,7 @@ export const UploadedPhotosTab = ({ className, ...rest }: UploadedPhotosTabProps
   const postsList = data?.getPostsByUser.items
 
   useEffect(() => {
-    const newEndCursor = postsList?.[postsList?.length - 1].id
+    const newEndCursor = postsList?.[postsList?.length - 1]?.id
 
     if (newEndCursor) {
       if (prevEndCursorRef.current === newEndCursor) {

@@ -1,2 +1,1 @@
-export * from './post-description'
-export * from './post-dialog'
+export * from './post'

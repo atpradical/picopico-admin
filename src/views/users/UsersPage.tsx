@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useMemo } from 'react'
+import { useContext, useMemo } from 'react'
 
 import { paginationSelectOptions } from '@/features/payments/config'
 import { UsersTable } from '@/features/users/ui'
@@ -11,6 +11,7 @@ import {
   DEFAULT_PAGE_SIZE,
   DEFAULT_TOTAL_COUNT,
   usePagination,
+  useSearch,
   useTranslation,
 } from '@/shared/hooks'
 import { usePagesRouterQueryUpdate } from '@/shared/hooks/usePagesRouterQueryUpdate'
@@ -18,7 +19,6 @@ import { Page, getNavigationLayout } from '@/shared/ui/layout'
 import { Pagination, Select, Spinner, TextField } from '@atpradical/picopico-ui-kit'
 import { enUS, ru } from 'date-fns/locale'
 import { useRouter } from 'next/router'
-import { useDebounceCallback } from 'usehooks-ts'
 
 import s from './UsersPage.module.scss'
 
@@ -26,6 +26,7 @@ function UsersPage() {
   const { t } = useTranslation()
   const { isReady, locale, query } = useRouter()
   const { isAuth } = useContext(AuthContext)
+  const { clearSearchHandler, searchChangeHandler } = useSearch()
   const { addRouterQueryParamShallow } = usePagesRouterQueryUpdate()
 
   const dateLocale = locale === 'ru' ? ru : enUS
@@ -43,18 +44,6 @@ function UsersPage() {
       { label: t.usersPage.userBlockStatus.active, value: UserBlockStatus.UNBLOCKED },
     ]
   }, [t])
-
-  const debouncedSearch = useDebounceCallback((value: string) => {
-    addRouterQueryParamShallow({ pageNumber: DEFAULT_PAGE.toString(), searchTerm: value })
-  }, 500)
-
-  const usersSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    debouncedSearch(e.currentTarget.value)
-  }
-
-  const clearSearchHandler = () => {
-    addRouterQueryParamShallow({ searchTerm: '' })
-  }
 
   const userStatusFilterHandler = (value: string) => {
     addRouterQueryParamShallow({ pageNumber: DEFAULT_PAGE.toString(), statusFilter: value })
@@ -77,7 +66,7 @@ function UsersPage() {
         sortDirection: sortDirection as InputMaybe<QueryGetUsersArgs['sortDirection']>,
       }),
 
-      statusFilter: statusFilter as InputMaybe<QueryGetUsersArgs['statusFilter']>,
+      statusFilter: statusFilter as string as InputMaybe<QueryGetUsersArgs['statusFilter']>,
     },
   })
 
@@ -99,7 +88,7 @@ function UsersPage() {
         <div className={s.searchContainer}>
           <TextField
             label={t.usersPage.filtersLabels.searchTerm}
-            onChange={usersSearchHandler}
+            onChange={searchChangeHandler}
             onClear={clearSearchHandler}
             value={searchTerm}
             variant={'search'}

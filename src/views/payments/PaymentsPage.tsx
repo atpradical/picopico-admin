@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext } from 'react'
+import { useContext } from 'react'
 
 import { paginationSelectOptions } from '@/features/payments/config'
 import { PaymentsListTable } from '@/features/payments/ui'
@@ -10,6 +10,7 @@ import {
   DEFAULT_PAGE_SIZE,
   DEFAULT_TOTAL_COUNT,
   usePagination,
+  useSearch,
   useTranslation,
 } from '@/shared/hooks'
 import { usePagesRouterQueryUpdate } from '@/shared/hooks/usePagesRouterQueryUpdate'
@@ -17,7 +18,6 @@ import { Page, getNavigationLayout } from '@/shared/ui/layout'
 import { Checkbox, Pagination, Spinner, TextField } from '@atpradical/picopico-ui-kit'
 import { enUS, ru } from 'date-fns/locale'
 import { useRouter } from 'next/router'
-import { useDebounceCallback } from 'usehooks-ts'
 
 import s from './PaymentsPage.module.scss'
 
@@ -25,6 +25,7 @@ function PaymentsPage() {
   const { t } = useTranslation()
   const { isReady, locale, query } = useRouter()
   const { isAuth } = useContext(AuthContext)
+  const { clearSearchHandler, searchChangeHandler } = useSearch()
   const { addRouterQueryParamShallow } = usePagesRouterQueryUpdate()
 
   const dateLocale = locale === 'ru' ? ru : enUS
@@ -33,18 +34,6 @@ function PaymentsPage() {
   const pageNumber = query.pageNumber ? query.pageNumber : DEFAULT_PAGE
   const sortBy = query.sortBy ? query.sortBy : ''
   const sortDirection = query.sortDirection ? query.sortDirection : ''
-
-  const debouncedSearch = useDebounceCallback((value: string) => {
-    addRouterQueryParamShallow({ pageNumber: DEFAULT_PAGE.toString(), searchTerm: value })
-  }, 500)
-
-  const usersSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    debouncedSearch(e.currentTarget.value)
-  }
-
-  const clearSearchHandler = () => {
-    addRouterQueryParamShallow({ searchTerm: '' })
-  }
 
   const changeSortTableHandler = (sortBy: string, sortDirection: string) => {
     addRouterQueryParamShallow({ pageNumber: DEFAULT_PAGE.toString(), sortBy, sortDirection })
@@ -84,9 +73,10 @@ function PaymentsPage() {
           <Checkbox className={s.autoUpdateCheckbox} label={t.paymentsPage.autoupdate} />
           <TextField
             label={t.paymentsPage.searchLabel}
-            onChange={usersSearchHandler}
+            onChange={searchChangeHandler}
             onClear={clearSearchHandler}
             placeholder={t.paymentsPage.searchPlaceholder}
+            value={searchTerm}
             variant={'search'}
           />
         </div>

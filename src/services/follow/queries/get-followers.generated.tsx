@@ -1,48 +1,34 @@
-import * as Types from '../../schema.types'
+import * as Types from '../../schema.types';
 
-import { gql } from '@apollo/client'
-import * as Apollo from '@apollo/client'
-const defaultOptions = {} as const
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
+const defaultOptions = {} as const;
 export type GetFollowersQueryVariables = Types.Exact<{
-  userId: Types.Scalars['Int']['input']
-  pageSize?: Types.InputMaybe<Types.Scalars['Int']['input']>
-  pageNumber?: Types.InputMaybe<Types.Scalars['Int']['input']>
-}>
+  userId: Types.Scalars['Int']['input'];
+  pageSize?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+  pageNumber?: Types.InputMaybe<Types.Scalars['Int']['input']>;
+}>;
 
-export type GetFollowersQuery = {
-  __typename?: 'Query'
-  getFollowers: {
-    __typename?: 'FollowPaginationModel'
-    totalCount: number
-    pageSize: number
-    page: number
-    pagesCount: number
-    items: Array<{
-      __typename?: 'Follow'
-      userId: number
-      id: number
-      userName?: string | null
-      createdAt: any
-    }>
-  }
-}
+
+export type GetFollowersQuery = { __typename?: 'Query', getFollowers: { __typename?: 'FollowPaginationModel', totalCount: number, pageSize: number, page: number, pagesCount: number, items: Array<{ __typename?: 'Follow', userId: number, id: number, userName?: string | null, createdAt: any }> } };
+
 
 export const GetFollowersDocument = gql`
-  query getFollowers($userId: Int!, $pageSize: Int, $pageNumber: Int) {
-    getFollowers(pageSize: $pageSize, pageNumber: $pageNumber, userId: $userId) {
-      items {
-        userId
-        id
-        userName
-        createdAt
-      }
-      totalCount
-      pageSize
-      page
-      pagesCount
+    query getFollowers($userId: Int!, $pageSize: Int, $pageNumber: Int) {
+  getFollowers(pageSize: $pageSize, pageNumber: $pageNumber, userId: $userId) {
+    items {
+      userId
+      id
+      userName
+      createdAt
     }
+    totalCount
+    pageSize
+    page
+    pagesCount
   }
-`
+}
+    `;
 
 /**
  * __useGetFollowersQuery__
@@ -62,41 +48,19 @@ export const GetFollowersDocument = gql`
  *   },
  * });
  */
-export function useGetFollowersQuery(
-  baseOptions: Apollo.QueryHookOptions<GetFollowersQuery, GetFollowersQueryVariables> &
-    ({ variables: GetFollowersQueryVariables; skip?: boolean } | { skip: boolean })
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetFollowersQuery, GetFollowersQueryVariables>(
-    GetFollowersDocument,
-    options
-  )
-}
-export function useGetFollowersLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<GetFollowersQuery, GetFollowersQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetFollowersQuery, GetFollowersQueryVariables>(
-    GetFollowersDocument,
-    options
-  )
-}
-export function useGetFollowersSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<GetFollowersQuery, GetFollowersQueryVariables>
-) {
-  const options =
-    baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<GetFollowersQuery, GetFollowersQueryVariables>(
-    GetFollowersDocument,
-    options
-  )
-}
-export type GetFollowersQueryHookResult = ReturnType<typeof useGetFollowersQuery>
-export type GetFollowersLazyQueryHookResult = ReturnType<typeof useGetFollowersLazyQuery>
-export type GetFollowersSuspenseQueryHookResult = ReturnType<typeof useGetFollowersSuspenseQuery>
-export type GetFollowersQueryResult = Apollo.QueryResult<
-  GetFollowersQuery,
-  GetFollowersQueryVariables
->
+export function useGetFollowersQuery(baseOptions: Apollo.QueryHookOptions<GetFollowersQuery, GetFollowersQueryVariables> & ({ variables: GetFollowersQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetFollowersQuery, GetFollowersQueryVariables>(GetFollowersDocument, options);
+      }
+export function useGetFollowersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFollowersQuery, GetFollowersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetFollowersQuery, GetFollowersQueryVariables>(GetFollowersDocument, options);
+        }
+export function useGetFollowersSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetFollowersQuery, GetFollowersQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetFollowersQuery, GetFollowersQueryVariables>(GetFollowersDocument, options);
+        }
+export type GetFollowersQueryHookResult = ReturnType<typeof useGetFollowersQuery>;
+export type GetFollowersLazyQueryHookResult = ReturnType<typeof useGetFollowersLazyQuery>;
+export type GetFollowersSuspenseQueryHookResult = ReturnType<typeof useGetFollowersSuspenseQuery>;
+export type GetFollowersQueryResult = Apollo.QueryResult<GetFollowersQuery, GetFollowersQueryVariables>;

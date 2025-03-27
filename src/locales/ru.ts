@@ -38,9 +38,9 @@ export const ru: LocaleType = {
   },
 
   loading: 'Загрузка...',
+
   logoutDialog: logoutDialog,
   notifications: notifications,
-
   pagination: {
     textPerPage: 'на странице',
     textShow: 'показать',
@@ -81,6 +81,11 @@ export const ru: LocaleType = {
   },
 
   postDialog: postDialog,
+
+  postPage: {
+    searchLabel: 'Поиск',
+    searchPlaceholder: 'Поиск',
+  },
   profileSettings: profileSettings,
 
   signInPage: signInPage,

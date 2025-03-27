@@ -1,0 +1,63 @@
+@import '@/styles/constants';
+
+.publicationContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  transition: aspect-ratio 0.3s ease; // Добавляем плавный переход
+
+  &.collapsed {
+    aspect-ratio: 1; // Стандартное соотношение сторон (развернутое)
+  }
+
+  &.expanded {
+    aspect-ratio: 16/5; // Сжатое соотношение сторон при развернутом тексте
+  }
+
+}
+
+.noImage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  aspect-ratio: 1;
+
+  background-color: var(--color-dark-500);
+}
+
+.avatarContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.descriptionContainer {
+  display: flex;
+}
+
+.descriptionText {
+  word-break: break-word;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  transition: aspect-ratio 0.3s ease; // Добавляем плавный переход
+
+}
+
+.toggleButton {
+  display: inline-block;
+
+  margin-left: 4px;
+
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-accent-500);
+  text-decoration: underline;
+}

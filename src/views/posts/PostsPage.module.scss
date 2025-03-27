@@ -1,3 +1,5 @@
+@import '@/styles/constants';
+
 .container {
   display: flex;
   flex-direction: column;
@@ -8,4 +10,25 @@
   width: 100%;
   max-width: var(--max-screen-width);
   margin: 0 auto;
+}
+
+.postsContainer {
+  display: grid;
+
+  // Используем auto-fill вместо auto-fit чтобы оставалось пустое место
+  grid-template-columns: repeat(auto-fill, minmax(234px, 234px)); // фиксированный максимум
+  gap: clamp(2px, 1vw, 12px);
+  justify-content: center; // центрируем grid-элементы
+
+  width: 100%;
+
+  @media (width <= $tablet-width) {
+    // Только на маленьких экранах делаем адаптивные колонки
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  }
+
+  @media (width <= $mobile-width) {
+    // Только на маленьких экранах делаем адаптивные колонки
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
 }

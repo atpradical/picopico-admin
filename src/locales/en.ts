@@ -84,9 +84,14 @@ export const en = {
     collapsePostDescriptionButton: 'Hide',
     expandPostDescriptionButton: 'Show more',
   },
-  postDialog: postDialog, //delete
+  postDialog: postDialog, //TODO: delete
 
-  profileSettings: profileSettings, //delete
+  postPage: {
+    searchLabel: 'Search',
+    searchPlaceholder: 'Search',
+  },
+
+  profileSettings: profileSettings, //TODO: delete
 
   signInPage: signInPage,
 

@@ -1,4 +1,5 @@
 export * from './useLoader'
 export * from './useLogout'
 export * from './usePagination'
+export * from './useSearch'
 export * from './useTranslations'

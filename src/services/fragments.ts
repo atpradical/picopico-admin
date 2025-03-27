@@ -17,3 +17,11 @@ export const PAYMENTS_PAGINATION_FRAGMENT = gql`
     totalCount
   }
 `
+
+export const ALL_POSTS_PAGINATION_FRAGMENT = gql`
+  fragment AllPostsPaginationFieldsFragment on PostsPaginationModel {
+    pagesCount
+    pageSize
+    totalCount
+  }
+`
