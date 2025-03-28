@@ -35,6 +35,7 @@
     "recharts": "^2.15.1",
     "reselect": "^5.1.1",
     "socket.io-client": "^4.8.1",
+    "subscriptions-transport-ws": "^0.11.0",
     "usehooks-ts": "^3.1.1",
     "zod": "^3.23.8"
   },

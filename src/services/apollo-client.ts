@@ -1,9 +1,9 @@
 import { GetAllPostsQuery, GetPostsByUserQuery } from '@/services/posts'
 import { ApolloClient, InMemoryCache, createHttpLink, split } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
-import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
+import { WebSocketLink } from '@apollo/client/link/ws'
 import { getMainDefinition } from '@apollo/client/utilities'
-import { createClient } from 'graphql-ws'
+import { SubscriptionClient } from 'subscriptions-transport-ws'
 
 //https://www.apollographql.com/docs/react/networking/authentication#header
 //https://www.apollographql.com/docs/react/api/link/introduction#directional-composition
@@ -11,12 +11,42 @@ const httpLink = createHttpLink({
   uri: process.env.NEXT_PUBLIC_PICO_GRAPHQL_BASE_URL,
 })
 
-const wsLink = new GraphQLWsLink(
-  //   TODO: GRAPHQL to fix url for Subsriptions
-  createClient({
-    url: 'ws://localhost:4000/subscriptions',
+const wsLink = new WebSocketLink(
+  new SubscriptionClient(process.env.NEXT_PUBLIC_PICO_GRAPHQL_SUBSCRIPTIONS_BASE_URL ?? '', {
+    connectionParams: () => {
+      const authtoken = localStorage.getItem('token')
+
+      return {
+        authorization: authtoken ? `Basic ${authtoken}` : '',
+      }
+    },
+    reconnect: true,
   })
 )
+
+// import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
+// import { createClient } from 'graphql-ws'
+// new subscriptions format.
+// const wsLink = new GraphQLWsLink(
+//   createClient({
+//     url: 'ws://inctagram.work/api/v1/graphql',
+//     connectionParams: () => {
+//       let authtoken = localStorage.getItem('token')
+//
+//       // Удаляем кавычки, если они есть
+//       if (authtoken) {
+//         // Удаляем все кавычки из строки
+//         authtoken = authtoken.replace(/"/g, '')
+//       }
+//
+//       console.log('Cleaned token:', authtoken)
+//
+//       return {
+//         authorization: authtoken ? `Basic ${authtoken}` : '',
+//       }
+//     },
+//   })
+// )
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists

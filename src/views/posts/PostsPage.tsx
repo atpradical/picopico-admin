@@ -31,6 +31,8 @@ function PostsPage() {
     },
   })
 
+  // const { data: newPost, loading: loadingNewPost } = useOnPostAddedSubscription()
+
   const [fetching, setFetching] = useState(false)
   const postsList = data?.getPosts.items
 
