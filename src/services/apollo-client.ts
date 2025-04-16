@@ -1,4 +1,5 @@
-import { GetAllPostsQuery, GetPostsByUserQuery } from '@/services/posts'
+import { INITIAL_CURSOR } from '@/features/users/config'
+import { GetPostsByUserQuery } from '@/services/posts'
 import { ApolloClient, InMemoryCache, createHttpLink, split } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { WebSocketLink } from '@apollo/client/link/ws'
@@ -20,6 +21,7 @@ const wsLink = new WebSocketLink(
         authorization: authtoken ? `Basic ${authtoken}` : '',
       }
     },
+    lazy: true, // Соединение будет установлено только при первой подписке
     reconnect: true,
   })
 )
@@ -83,19 +85,31 @@ const client = new ApolloClient({
         fields: {
           getPosts: {
             keyArgs: ['searchTerm'],
-            merge(
-              existing: GetAllPostsQuery['getPosts'] = {
-                items: [],
-                pageSize: 0,
-                pagesCount: 0,
-                totalCount: 0,
-              },
-              incoming: GetAllPostsQuery['getPosts']
-            ) {
-              return {
-                ...incoming,
-                items: [...(existing.items || []), ...(incoming.items || [])],
+            // merge(
+            //   existing: GetAllPostsQuery['getPosts'] = {
+            //     items: [],
+            //     pageSize: 0,
+            //     pagesCount: 0,
+            //     totalCount: 0,
+            //   },
+            //   incoming: GetAllPostsQuery['getPosts']
+            // ) {
+            //   return {
+            //     ...incoming,
+            //     items: [...(existing.items || []), ...(incoming.items || [])],
+            //   }
+            // },
+            merge(existing, incoming, { args }) {
+              // Для пагинации (когда есть endCursorPostId не равный INITIAL_CURSOR)
+              if (args?.endCursorPostId && args.endCursorPostId !== INITIAL_CURSOR) {
+                return {
+                  ...incoming,
+                  items: [...(existing?.items || []), ...(incoming?.items || [])],
+                }
               }
+
+              // Для обновлений от подписок или первого запроса - просто заменяем данные
+              return incoming
             },
           },
           getPostsByUser: {

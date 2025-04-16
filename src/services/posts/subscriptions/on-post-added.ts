@@ -3,20 +3,29 @@ import { gql } from '@apollo/client'
 export const POST_ADDED_SUBSCRIPTION = gql`
   subscription OnPostAdded {
     postAdded {
-      id
-      description
       createdAt
-      ownerId
-      updatedAt
-      images {
-        url
-        createdAt
+      description
+      postOwner {
         id
-        width
+        userName
+        firstName
+        lastName
+        avatars {
+          url
+          width
+        }
       }
+      id
       userBan {
         createdAt
-        reason
+      }
+      images {
+        id
+        fileSize
+        createdAt
+        height
+        url
+        width
       }
     }
   }
