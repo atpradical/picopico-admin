@@ -85,20 +85,6 @@ const client = new ApolloClient({
         fields: {
           getPosts: {
             keyArgs: ['searchTerm'],
-            // merge(
-            //   existing: GetAllPostsQuery['getPosts'] = {
-            //     items: [],
-            //     pageSize: 0,
-            //     pagesCount: 0,
-            //     totalCount: 0,
-            //   },
-            //   incoming: GetAllPostsQuery['getPosts']
-            // ) {
-            //   return {
-            //     ...incoming,
-            //     items: [...(existing.items || []), ...(incoming.items || [])],
-            //   }
-            // },
             merge(existing, incoming, { args }) {
               // Для пагинации (когда есть endCursorPostId не равный INITIAL_CURSOR)
               if (args?.endCursorPostId && args.endCursorPostId !== INITIAL_CURSOR) {
